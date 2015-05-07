@@ -59,12 +59,12 @@ class HtmlPage
         return $_f;
     }
 
-    public function RenderHtml()
+    public function PrintHtml()
     {
         // we first precache whole content in buffer, because if there were some exceptions, we don't want to get only partial html text
         $_header = $this->getHeader();
-        $_body = $this->renderBody();
-        $_footer = $this->renderFooter();
+        $_body = $this->getBody();
+        $_footer = $this->getFooter();
         echo ($_header . $_body . $_footer);
         return true;
     }
