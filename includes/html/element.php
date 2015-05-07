@@ -14,16 +14,7 @@
 
 //Copyright Petr Bena 2015
 
-require(dirname(__FILE__) . "/definitions.php");
-
-function psf_version()
+class HtmlElement
 {
-    return PSF_VERSION;
-}
 
-function psf_path($file = '')
-{
-    global $psf_home;
-    return $psf_home . $file;
 }
-
