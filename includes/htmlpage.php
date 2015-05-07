@@ -1,6 +1,6 @@
 <?php
 
-require ("../default_config.php");
+require (__FILE__ . "../default_config.php");
 
 //! Represent a single Html page
 class HtmlPage
@@ -28,6 +28,16 @@ class HtmlPage
         return $_header;
     }
 
+    public function AppendHtmlLine($html, $indent = 0)
+    {
+        $value = "";
+        while ($indent-- > 0)
+        {
+            $value .= " ";
+        }
+        $this->Body .= $value . $html . "\n";
+    }
+
     public function InsertFileToBody($f)
     {
         $tx =  file_get_contents($f);
@@ -38,7 +48,7 @@ class HtmlPage
 
     private function getBody()
     {
-       $_b = "  <body>\n";
+       $_b = "  <body>\n" . $this->Body;
        $_b = "  </body>\n";
        return $_b;
     }
