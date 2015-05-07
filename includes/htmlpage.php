@@ -7,11 +7,15 @@ class HtmlPage
 {
     public $Title;
     public $Body;
-    public $Language = "en";
+    public $Language;
+    public $TextEncoding;
     public $CssFile = NULL;
 
     function __construct($_title)
     {
+        global $psf_language, $psf_encoding;
+        $this->TextEncoding = $psf_encoding;
+        $this->Language = $psf_language;
         $this->Title = $_title;
     }
 
@@ -24,7 +28,7 @@ class HtmlPage
         $_header .= "    <title>$this->Title</title>\n";
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
-        $_header .= "  </head>";
+        $_header .= "  </head>\n";
         return $_header;
     }
 
@@ -56,7 +60,7 @@ class HtmlPage
 
     private function getFooter()
     {
-        $_f = "</html>";
+        $_f = "</html>\n";
         return $_f;
     }
 
