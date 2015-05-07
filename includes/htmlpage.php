@@ -48,8 +48,9 @@ class HtmlPage
 
     private function getBody()
     {
-       $_b = "  <body>\n" . $this->Body;
-       $_b = "  </body>\n";
+       $_b = "  <body>\n";
+       $_b .= $this->Body;
+       $_b .= "  </body>\n";
        return $_b;
     }
 
