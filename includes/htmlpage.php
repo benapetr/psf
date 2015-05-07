@@ -1,6 +1,6 @@
 <?php
 
-require (__FILE__ . "../default_config.php");
+require (dirname(__FILE__) . "/../default_config.php");
 
 //! Represent a single Html page
 class HtmlPage
