@@ -24,6 +24,8 @@ class HtmlPage
     public $Language;
     public $TextEncoding;
     public $CssFile = NULL;
+    public $InternalCss = true;
+    public $InternalCss_Class = 'default';
 
     function __construct($_title)
     {
@@ -42,6 +44,8 @@ class HtmlPage
         $_header .= "    <title>$this->Title</title>\n";
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
+        if ($this->InternalCss === true)
+            $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"psf/style.php?class=$this->InternalCss_Class\">\n";
         $_header .= "  </head>\n";
         return $_header;
     }
