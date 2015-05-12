@@ -26,7 +26,7 @@ class HtmlPage
     public $TextEncoding;
     public $CssFile = NULL;
     public $InternalCss = true;
-    public $InternalCss_Class = 'default';
+    public $InternalCss_Class = new CssPage();
 
     function __construct($_title)
     {
@@ -47,9 +47,8 @@ class HtmlPage
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
         if ($this->InternalCss === true)
         {
-            $css = new CssPage();
             $_header .= "    <style>\n";
-            $_header .= $css->FetchCss(8);
+            $_header .= $this->InternalCss_Class->FetchCss(8);
             $_header .= "    </style>\n";
         }
         $_header .= "  </head>\n";
