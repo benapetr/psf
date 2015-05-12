@@ -15,6 +15,7 @@
 //Copyright Petr Bena 2015
 
 require (dirname(__FILE__) . "/../default_config.php");
+require (dirname(__FILE__) . "/csspage.php");
 
 //! Represent a single Html page
 class HtmlPage
@@ -45,7 +46,12 @@ class HtmlPage
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
         if ($this->InternalCss === true)
-            $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"psf/style.php?class=$this->InternalCss_Class\">\n";
+        {
+            $css = new CssPage();
+            $_header .= "    <style>\n";
+            $_header .= $css->FetchCss(8);
+            $_header .= "    </style>\n";
+        }
         $_header .= "  </head>\n";
         return $_header;
     }
