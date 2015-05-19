@@ -26,11 +26,12 @@ class HtmlPage
     public $TextEncoding;
     public $CssFile = NULL;
     public $InternalCss = true;
-    public $InternalCss_Class = new CssPage();
+    public $InternalCss_Class = null;
 
     function __construct($_title)
     {
         global $psf_language, $psf_encoding;
+        $this->InternalCss_Class = new CssPage();
         $this->TextEncoding = $psf_encoding;
         $this->Language = $psf_language;
         $this->Title = $_title;
