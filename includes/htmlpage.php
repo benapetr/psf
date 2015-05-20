@@ -27,6 +27,7 @@ class HtmlPage
     public $CssFile = NULL;
     public $InternalCss = true;
     public $InternalCss_Class = null;
+    private $cIndent = 4;
 
     function __construct($_title)
     {
@@ -56,9 +57,11 @@ class HtmlPage
         return $_header;
     }
 
-    public function AppendHtmlLine($html, $indent = 0)
+    public function AppendHtmlLine($html, $indent = -1)
     {
         $value = "";
+        if ($indent < 0)
+            $indent = $this->cIndent;
         while ($indent-- > 0)
         {
             $value .= " ";
