@@ -3,13 +3,22 @@
 class OAuth
 {
     public $ConsumerKey = null;
-    public $SecretKey = null;
+    public $UserAgent = "psf";
+    public $TokenSecret = null;
     public $URL = null;
     public $TokenKey = null;
+    public $ConsumerSecret = null;
 
     public function __construct($url)
     {
-        
+        $this->URL = $url;
+        session_start();
+        if (isset( $_SESSION['tokenKey']))
+        {
+            $o->TokenKey = $_SESSION['tokenKey'];
+            $o->TokenSecret = $_SESSION['tokenSecret'];
+        }
+        session_write_close();
     }
 
     private function SignRequest($method, $url, $params = array())
@@ -53,28 +62,30 @@ class OAuth
 	return base64_encode( hash_hmac( 'sha1', $toSign, $key, true ) );
     }
 
-    public function AuthorizationRedirect()
+    public function ProcessToken()
     {
-        $gTokenSecret = '';
-	$url = $this->URL . '/initiate';
+	$url = $this->URL . '/token';
 	$url .= strpos( $url, '?' ) ? '&' : '?';
 	$url .= http_build_query( array(
 		'format' => 'json',
+		'oauth_verifier' => $_GET['oauth_verifier'],
+
 		// OAuth information
-		'oauth_callback' => 'oob', // Must be "oob" for MWOAuth
-		'oauth_consumer_key' => $gConsumerKey,
+		'oauth_consumer_key' => $this->ConsumerKey,
+		'oauth_token' => $this->TokenKey,
 		'oauth_version' => '1.0',
 		'oauth_nonce' => md5( microtime() . mt_rand() ),
 		'oauth_timestamp' => time(),
+
 		// We're using secret key signatures here.
 		'oauth_signature_method' => 'HMAC-SHA1',
 	) );
-	$signature = $this->SignRequest( 'GET', $url );
+	$signature = sign_request( 'GET', $url );
 	$url .= "&oauth_signature=" . urlencode( $signature );
 	$ch = curl_init();
 	curl_setopt( $ch, CURLOPT_URL, $url );
 	//curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-	curl_setopt( $ch, CURLOPT_USERAGENT, $gUserAgent );
+	curl_setopt( $ch, CURLOPT_USERAGENT, $this->UserAgent );
 	curl_setopt( $ch, CURLOPT_HEADER, 0 );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$data = curl_exec( $ch );
@@ -96,6 +107,57 @@ class OAuth
 		exit(0);
 	}
 
+	// Save the access token
+	session_start();
+	$_SESSION['tokenKey'] = $this->TokenKey = $token->key;
+	$_SESSION['tokenSecret'] = $this->TokenSecret = $token->secret;
+	session_write_close();
+    }
+
+    public function AuthorizationRedirect()
+    {
+        $this->TokenSecret = '';
+	$url = $this->URL . '/initiate';
+	$url .= strpos( $url, '?' ) ? '&' : '?';
+	$url .= http_build_query( array(
+		'format' => 'json',
+		// OAuth information
+		'oauth_callback' => 'oob', // Must be "oob" for MWOAuth
+		'oauth_consumer_key' => $this->ConsumerKey,
+		'oauth_version' => '1.0',
+		'oauth_nonce' => md5( microtime() . mt_rand() ),
+		'oauth_timestamp' => time(),
+		// We're using secret key signatures here.
+		'oauth_signature_method' => 'HMAC-SHA1',
+	) );
+	$signature = $this->SignRequest( 'GET', $url );
+	$url .= "&oauth_signature=" . urlencode( $signature );
+	$ch = curl_init();
+	curl_setopt( $ch, CURLOPT_URL, $url );
+        SystemLog::Write($url);
+	curl_setopt( $ch, CURLOPT_USERAGENT, $this->UserAgent );
+	curl_setopt( $ch, CURLOPT_HEADER, 0 );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	$data = curl_exec( $ch );
+	if ( !$data ) {
+		header( "HTTP/1.1 $errorCode Internal Server Error" );
+		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
+		exit(0);
+	}
+	curl_close( $ch );
+        echo $data;
+	$token = json_decode( $data );
+	if ( is_object( $token ) && isset( $token->error ) ) {
+		header( "HTTP/1.1 $errorCode Internal Server Error" );
+		echo 'Error retrieving token: ' . htmlspecialchars( $token->error );
+		exit(0);
+	}
+	if ( !is_object( $token ) || !isset( $token->key ) || !isset( $token->secret ) ) {
+		header( "HTTP/1.1 $errorCode Internal Server Error" );
+		echo 'Invalid response from token request';
+		exit(0);
+	}
+
 	// Now we have the request token, we need to save it for later.
 	session_start();
 	$_SESSION['tokenKey'] = $token->key;
@@ -103,11 +165,11 @@ class OAuth
 	session_write_close();
 
 	// Then we send the user off to authorize
-	$url = $mwOAuthAuthorizeUrl;
+	$url = $this->URL;
 	$url .= strpos( $url, '?' ) ? '&' : '?';
 	$url .= http_build_query( array(
 		'oauth_token' => $token->key,
-		'oauth_consumer_key' => $gConsumerKey,
+		'oauth_consumer_key' => $this->ConsumerKey,
 	) );
 	header( "Location: $url" );
 	echo 'Please see <a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $url ) . '</a>';
@@ -253,13 +315,14 @@ class OAuth
     }
 }
 
-public function OAuthFromIniFile($file)
+function OAuthFromIniFile($file)
 {
     $r = parse_ini_file($file);
     if ($r === false)
         throw new Exception("Unable to read: " . $file);
 
     $o = new OAuth($r["url"]); 
+    $o->ConsumerSecret = $r["consumerSecret"];
     $o->ConsumerKey = $r["consumerKey"];
     return $o;
 }
