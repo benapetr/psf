@@ -311,8 +311,8 @@ class OAuth
 		throw new Exception('Invalid payload in identify response: ' . htmlspecialchars( $data ));
 	}
 	SystemLog::Write( 'JWT payload: <pre>' . htmlspecialchars( var_export( $payload, 1 ) ) . '</pre>');
+        return OAUTH_OK;
     }
-    return OAUTH_OK;
 }
 
 function OAuthFromIniFile($file)
