@@ -17,3 +17,4 @@
 require (dirname(__FILE__) . "/default_config.php");
 require (dirname(__FILE__) . "/includes/htmlpage.php");
 require (dirname(__FILE__) . "/includes/html/github.php");
+require (dirname(__FILE__) . "/includes/wmfoauth.php");
