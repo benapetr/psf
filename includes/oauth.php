@@ -7,6 +7,7 @@ class OAuth
 {
     public $ConsumerKey = null;
     public $UserAgent = "psf";
+    public $AuthURL = null;
     public $TokenSecret = null;
     public $URL = null;
     public $TokenKey = null;
@@ -168,7 +169,7 @@ class OAuth
 	session_write_close();
 
 	// Then we send the user off to authorize
-	$url = $this->URL;
+	$url = $this->AuthURL;
 	$url .= strpos( $url, '?' ) ? '&' : '?';
 	$url .= http_build_query( array(
 		'oauth_token' => $token->key,
