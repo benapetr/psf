@@ -1,5 +1,8 @@
 <?php
 
+define(OAUTH_OK, 0);
+define(OAUTH_NOT_AUTH, 2);
+
 class OAuth
 {
     public $ConsumerKey = null;
@@ -202,22 +205,21 @@ class OAuth
 	curl_setopt( $ch, CURLOPT_HEADER, 0 );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$data = curl_exec( $ch );
-	if ( !$data ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
+	if ( !$data )
+        {
+		header( "HTTP/1.1 500 Internal Server Error" );
 		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
-		exit(0);
 	}
 	curl_close( $ch );
 	$token = json_decode( $data );
-	if ( is_object( $token ) && isset( $token->error ) ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'Error retrieving token: ' . htmlspecialchars( $token->error );
-		exit(0);
+	if (is_object( $token ) && isset( $token->error ))
+        {
+		header( "HTTP/1.1 500 Internal Server Error" );
+		throw new Exception('Error retrieving token: ' . htmlspecialchars( $token->error ));
 	}
-	if ( !is_object( $token ) || !isset( $token->key ) || !isset( $token->secret ) ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'Invalid response from token request';
-		exit(0);
+	if ( !is_object( $token ) || !isset( $token->key ) || !isset( $token->secret)) {
+		header( "HTTP/1.1 500 Internal Server Error" );
+		throw new Exception('Invalid response from token request');
 	}
 
 	// Save the access token
@@ -245,7 +247,8 @@ class OAuth
 	$headerArr['oauth_signature'] = $signature;
 
 	$header = array();
-	foreach ( $headerArr as $k => $v ) {
+	foreach ( $headerArr as $k => $v )
+        {
 		$header[] = rawurlencode( $k ) . '="' . rawurlencode( $v ) . '"';
 	}
 	$header = 'Authorization: OAuth ' . join( ', ', $header );
@@ -253,66 +256,63 @@ class OAuth
 	$ch = curl_init();
 	curl_setopt( $ch, CURLOPT_URL, $url );
 	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( $header ) );
-	//curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
 	curl_setopt( $ch, CURLOPT_USERAGENT, $gUserAgent );
 	curl_setopt( $ch, CURLOPT_HEADER, 0 );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$data = curl_exec( $ch );
 	if ( !$data ) {
 		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
-		exit(0);
+		throw new Exception('Curl error: ' . htmlspecialchars( curl_error( $ch )));
 	}
 	$err = json_decode( $data );
 	if ( is_object( $err ) && isset( $err->error ) && $err->error === 'mwoauthdatastore-access-token-not-found' ) {
 		// We're not authorized!
-		echo 'You haven\'t authorized this application yet! Go <a href="' . htmlspecialchars( $_SERVER['SCRIPT_NAME'] ) . '?action=authorize">here</a> to do that.';
-		echo '<hr>';
-		return;
+		return OAUTH_NOT_AUTH;
 	}
 
 	// There are three fields in the response
 	$fields = explode( '.', $data );
-	if ( count( $fields ) !== 3 ) {
+	if ( count( $fields ) !== 3 )
+        {
 		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'Invalid identify response: ' . htmlspecialchars( $data );
-		exit(0);
+		throw new Exception('Invalid identify response: ' . htmlspecialchars( $data ));
 	}
 
 	// Validate the header. MWOAuth always returns alg "HS256".
 	$header = base64_decode( strtr( $fields[0], '-_', '+/' ), true );
-	if ( $header !== false ) {
-		$header = json_decode( $header );
+	if ( $header !== false )
+        {
+            $header = json_decode( $header );
 	}
-	if ( !is_object( $header ) || $header->typ !== 'JWT' || $header->alg !== 'HS256' ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'Invalid header in identify response: ' . htmlspecialchars( $data );
-		exit(0);
+	if ( !is_object( $header ) || $header->typ !== 'JWT' || $header->alg !== 'HS256' )
+        {
+            header( "HTTP/1.1 $errorCode Internal Server Error" );
+            throw new Exception('Invalid header in identify response: ' . htmlspecialchars( $data ));
 	}
 
 	// Verify the signature
 	$sig = base64_decode( strtr( $fields[2], '-_', '+/' ), true );
 	$check = hash_hmac( 'sha256', $fields[0] . '.' . $fields[1], $gConsumerSecret, true );
-	if ( $sig !== $check ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'JWT signature validation failed: ' . htmlspecialchars( $data );
-		echo '<pre>'; var_dump( base64_encode($sig), base64_encode($check) ); echo '</pre>';
-		exit(0);
+	if ( $sig !== $check )
+        {
+            header( "HTTP/1.1 $errorCode Internal Server Error" );
+            throw new Exception('JWT signature validation failed: ' . htmlspecialchars( $data ) . var_dump( base64_encode($sig), base64_encode($check) ));
 	}
 
 	// Decode the payload
 	$payload = base64_decode( strtr( $fields[1], '-_', '+/' ), true );
-	if ( $payload !== false ) {
+	if ( $payload !== false )
+        {
 		$payload = json_decode( $payload );
 	}
-	if ( !is_object( $payload ) ) {
+	if ( !is_object( $payload ) )
+        {
 		header( "HTTP/1.1 $errorCode Internal Server Error" );
-		echo 'Invalid payload in identify response: ' . htmlspecialchars( $data );
-		exit(0);
+		throw new Exception('Invalid payload in identify response: ' . htmlspecialchars( $data ));
 	}
-	print( 'JWT payload: <pre>' . htmlspecialchars( var_export( $payload, 1 ) ) . '</pre>');
-	echo '<hr>';
+	SystemLog::Write( 'JWT payload: <pre>' . htmlspecialchars( var_export( $payload, 1 ) ) . '</pre>');
     }
+    return OAUTH_OK;
 }
 
 function OAuthFromIniFile($file)
