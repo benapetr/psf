@@ -84,7 +84,7 @@ class OAuth
 		// We're using secret key signatures here.
 		'oauth_signature_method' => 'HMAC-SHA1',
 	) );
-	$signature = sign_request( 'GET', $url );
+	$signature = $this->SignRequest( 'GET', $url );
 	$url .= "&oauth_signature=" . urlencode( $signature );
 	$ch = curl_init();
 	curl_setopt( $ch, CURLOPT_URL, $url );
