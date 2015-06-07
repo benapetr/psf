@@ -46,7 +46,7 @@ class HtmlPage
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalJs as $js)
-            $_header .=    "<script type='text/javascript' src='$js'></script>\n";
+            $_header .= "    <script type='text/javascript' src='$js'></script>\n";
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
         if ($this->Style !== NULL)
