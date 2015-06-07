@@ -28,7 +28,7 @@ class CssPage
             $buff .= $indentation . $name . " {\n";
             foreach ($values as $vn => $xx)
             {
-                $buff .= $indentation . '    ' . $vn . ': ' . $xx . "\n";
+                $buff .= $indentation . '    ' . $vn . ': ' . $xx . ";\n";
             }
             $buff .= $indentation . "}\n";
         }
