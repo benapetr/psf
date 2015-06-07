@@ -1,5 +1,6 @@
 <?php
-require (dirname(__FILE__) . "/../default_config.php");
+
+require_once (dirname(__FILE__) . "/../default_config.php");
 
 class SystemLog
 {

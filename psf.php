@@ -14,8 +14,9 @@
 
 //Copyright Petr Bena 2015
 
-require (dirname(__FILE__) . "/default_config.php");
-require (dirname(__FILE__) . "/includes/htmlpage.php");
-require (dirname(__FILE__) . "/includes/html/github.php");
-require (dirname(__FILE__) . "/includes/wmfoauth.php");
-require (dirname(__FILE__) . "/includes/systemlog.php");
+require_once (dirname(__FILE__) . "/default_config.php");
+require_once (dirname(__FILE__) . "/includes/htmlpage.php");
+require_once (dirname(__FILE__) . "/includes/html/table.php");
+require_once (dirname(__FILE__) . "/includes/html/github.php");
+require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
+require_once (dirname(__FILE__) . "/includes/systemlog.php");

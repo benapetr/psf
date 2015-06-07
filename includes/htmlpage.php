@@ -14,8 +14,8 @@
 
 //Copyright Petr Bena 2015
 
-require (dirname(__FILE__) . "/../default_config.php");
-require (dirname(__FILE__) . "/csspage.php");
+require_once (dirname(__FILE__) . "/../default_config.php");
+require_once (dirname(__FILE__) . "/csspage.php");
 
 //! Represent a single Html page
 class HtmlPage
@@ -66,6 +66,13 @@ class HtmlPage
             $value .= " ";
         }
         $this->Body .= $value . $html . "\n";
+    }
+
+    public function AppendHtml($html, $indent = -1)
+    {
+        $lines = explode("\n", $html);
+        foreach ($lines as $l)
+            $this->AppendHtmlLine($l, $indent);
     }
 
     public function InsertFileToBody($f)

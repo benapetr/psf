@@ -1,6 +1,6 @@
 <?php
 
-require (dirname(__FILE__) . "/element.php");
+require_once (dirname(__FILE__) . "/element.php");
 
 class GitHub_Ribbon extends HtmlElement
 {
