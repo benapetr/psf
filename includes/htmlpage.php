@@ -25,14 +25,13 @@ class HtmlPage
     public $Language;
     public $TextEncoding;
     public $CssFile = NULL;
-    public $InternalCss = true;
-    public $InternalCss_Class = null;
+    public $Style = NULL;
     private $cIndent = 4;
 
     function __construct($_title)
     {
         global $psf_language, $psf_encoding;
-        $this->InternalCss_Class = new CssPage();
+        $this->Style = new CssPage();
         $this->TextEncoding = $psf_encoding;
         $this->Language = $psf_language;
         $this->Title = $_title;
@@ -47,10 +46,10 @@ class HtmlPage
         $_header .= "    <title>$this->Title</title>\n";
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
-        if ($this->InternalCss === true)
+        if ($this->Style !== NULL)
         {
             $_header .= "    <style>\n";
-            $_header .= $this->InternalCss_Class->FetchCss(8);
+            $_header .= $this->Style->FetchCss(8);
             $_header .= "    </style>\n";
         }
         $_header .= "  </head>\n";

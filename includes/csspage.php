@@ -3,16 +3,24 @@
 class CssPage
 {
     public $items = array();
+    public $BackgroundColor = NULL;
 
     function __construct()
     {
         $this->items['*']['font-family'] = 'Helvetica, Arial';
     }
 
+    private function Load()
+    {
+        if ($this->BackgroundColor !== NULL)
+            $this->items['body']['background-color'] = $this->BackgroundColor;
+    }
+
     public function FetchCss($n)
     {
         $buff = '';
         $indentation = '';
+        $this->Load();
         while ($n-- > 0)
             $indentation .= ' ';
         foreach ($this->items as $name => $values)
@@ -29,16 +37,6 @@ class CssPage
 
     public function PrintCss()
     {
-        $buff = '';
-        foreach ($this->items as $name => $values)
-        {
-            $buff .= $name . " {\n";
-            foreach ($values as $vn => $xx)
-            {
-                $buff .= '    ' . $vn . ': ' . $xx . "\n";
-            }
-            $buff .= "}\n";
-        }
-        echo $buff;
+        echo $this->FetchCss(2);
     }
 }

@@ -70,7 +70,7 @@ class OAuth
     {
 	$url = $this->URL . '/token';
 	$url .= strpos( $url, '?' ) ? '&' : '?';
-	$url .= http_build_query( array(
+	$url .= http_build_query(array(
 		'format' => 'json',
 		'oauth_verifier' => $_GET['oauth_verifier'],
 
@@ -83,7 +83,7 @@ class OAuth
 
 		// We're using secret key signatures here.
 		'oauth_signature_method' => 'HMAC-SHA1',
-	) );
+	));
 	$signature = $this->SignRequest( 'GET', $url );
 	$url .= "&oauth_signature=" . urlencode( $signature );
 	$ch = curl_init();
@@ -94,14 +94,14 @@ class OAuth
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$data = curl_exec( $ch );
 	if ( !$data ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
+		header( "HTTP/1.1 500 Internal Server Error" );
 		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
 		exit(0);
 	}
 	curl_close( $ch );
 	$token = json_decode( $data );
 	if ( is_object( $token ) && isset( $token->error ) ) {
-		header( "HTTP/1.1 $errorCode Internal Server Error" );
+		header( "HTTP/1.1 500 Internal Server Error" );
 		echo 'Error retrieving token: ' . htmlspecialchars( $token->error );
 		exit(0);
 	}
