@@ -42,7 +42,7 @@ class HtmlPage
         $this->Title = $_title;
     }
 
-    private function indentText($text, $in)
+    public static function IndentText($text, $in)
     {
         $prefix = '';
         while ($in-- > 0)
@@ -70,7 +70,7 @@ class HtmlPage
         foreach ($this->InternalJs as $script)
         {
             $_header .= "    <script type=\"text/javascript\">\n";
-            $_header .= $this->indentText($script, 6);
+            $_header .= self::IndentText($script, 6);
             $_header .= "    </script>\n";
         }
         if ($this->CssFile !== NULL)
