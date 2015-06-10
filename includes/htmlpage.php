@@ -67,7 +67,7 @@ class HtmlPage
         foreach ($this->InternalJs as $script)
         {
             $_header .= "    <script type=\"text/javascript\">\n";
-            $_header .= $this->indentText($script, 4);
+            $_header .= $this->indentText($script, 6);
             $_header .= "    </script>\n";
         }
         if ($this->CssFile !== NULL)
