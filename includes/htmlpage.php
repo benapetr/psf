@@ -27,6 +27,9 @@ class HtmlPage
     public $CssFile = NULL;
     public $Style = NULL;
     public $ExternalJs = array();
+    public $Prefix_Head = '';
+    public $Suffix_Head = '';
+    public $InternalJs = array();
     private $cIndent = 4;
 
     function __construct($_title)
@@ -38,15 +41,35 @@ class HtmlPage
         $this->Title = $_title;
     }
 
+    private function indentText($text, $in)
+    {
+        $prefix = '';
+        while ($in-- > 0)
+            $prefix .= ' ';
+        
+        $result = '';
+        $lines = explode("\n", $text);
+        foreach ($lines as $line)
+            $result .= $prefix . $line . "\n";
+        return $result; 
+    }
+
     private function getHeader()
     {
         $_header = "<!DOCTYPE html>\n";
         $_header .= "<html>\n";
         $_header .= "  <head>\n";
+        $_header .= $this->Prefix_Head;
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalJs as $js)
             $_header .= "    <script type='text/javascript' src='$js'></script>\n";
+        foreach ($this->InternalJs as $script)
+        {
+            $_header .= "    <script type=\"text/javascript\">\n";
+            $_header .= $this->indentText($script, 4);
+            $_header .= "    </script>\n";
+        }
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
         if ($this->Style !== NULL)
@@ -55,6 +78,7 @@ class HtmlPage
             $_header .= $this->Style->FetchCss(8);
             $_header .= "    </style>\n";
         }
+        $_header .= $this->Suffix_Head;
         $_header .= "  </head>\n";
         return $_header;
     }
