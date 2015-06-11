@@ -39,6 +39,7 @@ class HtmlTable extends HtmlElement
 {
     private $mRows = 0;
     private $mColumns = 0;
+    public $Format = null;
     public $Headers = array();
     public $BorderSize = 1;
     //! This is array of cell arrays, or at least that is expected
@@ -46,7 +47,12 @@ class HtmlTable extends HtmlElement
 
     public function GetFormat()
     {
-        return "border=" . $this->BorderSize;
+        $f = "border=" . $this->BorderSize;
+        if ($this->Format !== NULL)
+        {
+            $f .= " $this->Format";
+        }
+        return $f;
     }
 
     //! Insert a new row by array that consist of html blocks only
