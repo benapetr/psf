@@ -67,6 +67,8 @@ class HtmlPage
             $_header .= "    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=$this->Encoding\">\n";
         else if ($this->HtmlVersion > 4)
             $_header .= "    <meta charset=\"$this->Encoding\">\n";
+        else
+            $_header .= "    <!-- Unsupported html version: $this->HtmlVersion -->\n";
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalCss as $style)
