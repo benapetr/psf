@@ -31,6 +31,8 @@ class HtmlPage
     public $Prefix_Head = '';
     public $Suffix_Head = '';
     public $InternalJs = array();
+    public $HtmlVersion = 5;
+    public $Encoding = "UTF-8";
     private $cIndent = 4;
 
     function __construct($_title)
@@ -61,6 +63,10 @@ class HtmlPage
         $_header .= "<html>\n";
         $_header .= "  <head>\n";
         $_header .= $this->Prefix_Head;
+        if ($this->HtmlVersion == 4)
+            $_header .= "    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=$this->Encoding\">\n";
+        else if ($this->HtmlVersion > 4)
+            $_header .= "    <meta charset=\"$this->Encoding\">\n";
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalCss as $style)
