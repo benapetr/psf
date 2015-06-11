@@ -19,6 +19,7 @@ require_once (dirname(__FILE__) . "/element.php");
 class HtmlTable_Cell extends HtmlElement
 {
     public $Style;
+    public $Format = NULL;
     public $Html;
 
     public function __construct($_html_)
@@ -28,7 +29,11 @@ class HtmlTable_Cell extends HtmlElement
 
     public function ToHtml()
     {
-        $html = "<td>";
+        $html = "";
+        if ($this->Format !== NULL)
+            $html = "<td $this->Format>";
+        else
+            $html = "<td>";
         $html .= $this->Html;
         $html .= "</td>";
         return $html;

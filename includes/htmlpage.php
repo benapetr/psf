@@ -25,6 +25,7 @@ class HtmlPage
     public $Language;
     public $TextEncoding;
     public $CssFile = NULL;
+    public $ExternalCss = array();
     public $Style = NULL;
     public $ExternalJs = array();
     public $Prefix_Head = '';
@@ -41,7 +42,7 @@ class HtmlPage
         $this->Title = $_title;
     }
 
-    private function indentText($text, $in)
+    public static function IndentText($text, $in)
     {
         $prefix = '';
         while ($in-- > 0)
@@ -62,16 +63,18 @@ class HtmlPage
         $_header .= $this->Prefix_Head;
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         $_header .= "    <title>$this->Title</title>\n";
+        foreach ($this->ExternalCss as $style)
+            $_header .= "    <link rel='stylesheet' type='text/css' href='$style'>\n";
         foreach ($this->ExternalJs as $js)
             $_header .= "    <script type='text/javascript' src='$js'></script>\n";
         foreach ($this->InternalJs as $script)
         {
             $_header .= "    <script type=\"text/javascript\">\n";
-            $_header .= $this->indentText($script, 6);
+            $_header .= self::IndentText($script, 6);
             $_header .= "    </script>\n";
         }
         if ($this->CssFile !== NULL)
-            $_header .= "    <link rel=\"stylesheet\" type=\"text/css\" href=\"$this->CssFile\">\n";
+            $_header .= "    <link rel='stylesheet' type='text/css' href='$this->CssFile'>\n";
         if ($this->Style !== NULL)
         {
             $_header .= "    <style>\n";
