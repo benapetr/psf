@@ -1,7 +1,7 @@
 <?php
 
-define(OAUTH_OK, 0);
-define(OAUTH_NOT_AUTH, 2);
+define("OAUTH_OK", 0);
+define("OAUTH_NOT_AUTH", 2);
 
 class OAuth
 {
