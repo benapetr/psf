@@ -137,7 +137,7 @@ class HtmlPage
 
     public function PrintHtml()
     {
-        echo this->ToHtml();
+        echo $this->ToHtml();
         return true;
     }
 
