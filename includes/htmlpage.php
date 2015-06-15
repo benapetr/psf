@@ -22,6 +22,7 @@ class HtmlPage
 {
     public $Title;
     public $Body;
+    public $UseTidy = false;
     public $Language;
     public $TextEncoding;
     public $CssFile = NULL;
@@ -147,7 +148,16 @@ class HtmlPage
         $_header = $this->getHeader();
         $_body = $this->getBody();
         $_footer = $this->getFooter();
-        return ($_header . $_body . $_footer);
+        if ($this->UseTidy)
+        {
+            $tidy = new tidy;
+            $config = array( 'indent' => true, 'wrap' => 800 );
+            $tidy->parseString($_header . $_body . $_footer, $config, 'utf8');
+            return tidy_get_output($tidy);
+        } else
+        {
+            return ($_header . $_body . $_footer);
+        }
     }
 }
 
