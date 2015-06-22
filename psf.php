@@ -19,4 +19,5 @@ require_once (dirname(__FILE__) . "/includes/htmlpage.php");
 require_once (dirname(__FILE__) . "/includes/html/table.php");
 require_once (dirname(__FILE__) . "/includes/html/github.php");
 require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
+require_once (dirname(__FILE__) . "/includes/googlefonts.php");
 require_once (dirname(__FILE__) . "/includes/systemlog.php");
