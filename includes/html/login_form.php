@@ -33,9 +33,9 @@ class LoginForm extends HtmlElement
 
     public function ToHtml()
     {
-        $html = "<div class=\"loginform\"><form action=\"$this->Callback\" method=\"post\">\n";
-        $html .= "  <p><input type=\"text\" name="\loginUsername\" value=\"$this->User\" placeholder=\"Username\"></p>\n";
-        $html .= "  <p><input type=\"password\" name=\"loginPassword\" value=\"\" placeholder=\"Password\"></p>\n"
+        $html = "<div class=\"loginform\"><form action=\"" . $this->Callback . "\" method=\"post\">\n";
+        $html .= "  <p><input type=\"text\" name=\"loginUsername\" value=\"" .$this->User. "\" placeholder=\"Username\"></p>\n";
+        $html .= "  <p><input type=\"password\" name=\"loginPassword\" value=\"\" placeholder=\"Password\"></p>\n";
         $html .= "  <p class=\"loginform_submit\"><input type=\"submit\" name=\"commit\" value=\"Login\"></p>\n";
         $html .= "</form></div>";
         return $html;
