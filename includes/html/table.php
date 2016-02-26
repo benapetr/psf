@@ -75,6 +75,15 @@ class HtmlTable extends HtmlElement
     public function ToHtml()
     {
         $html = "<table " . $this->GetFormat() .">\n";
+        if (count($this->Headers) > 0)
+        {
+            $html .= "  <tr>\n";
+            foreach ($this->Headers as $x)
+            {
+                $html .= "    <th>" . $x . "</th>\n";
+            }
+            $html .= "  </tr>\n";
+        }
         foreach ($this->Rows as $row)
         {
             $html .= "  <tr>\n";
