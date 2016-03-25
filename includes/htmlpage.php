@@ -15,6 +15,7 @@
 //Copyright Petr Bena 2015
 
 require_once (dirname(__FILE__) . "/../default_config.php");
+require_once (dirname(__FILE__) . "/html/primitive_object.php");
 require_once (dirname(__FILE__) . "/csspage.php");
 
 //! Represent a single Html page
@@ -34,6 +35,7 @@ class HtmlPage
     public $InternalJs = array();
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
+    private $Items = array();
     private $cIndent = 4;
 
     function __construct($_title)
@@ -98,13 +100,11 @@ class HtmlPage
     public function AppendHtmlLine($html, $indent = -1)
     {
         $value = "";
-        if ($indent < 0)
-            $indent = $this->cIndent;
         while ($indent-- > 0)
         {
             $value .= " ";
         }
-        $this->Body .= $value . $html . "\n";
+        $this->AppendObject(new HtmlPrimitiveObject($value . $html));
     }
 
     public function AppendHtml($html, $indent = -1)
@@ -114,18 +114,34 @@ class HtmlPage
             $this->AppendHtmlLine($l, $indent);
     }
 
+    public function AppendParagraph($text)
+    {
+        $this->AppendHtmlLine("<p>" . htmlspecialchars($text) . "</p>");
+    }
+
+    public function AppendObject($object, $indent = -1)
+    {
+        array_push($this->Items, $object);
+    }
+
     public function InsertFileToBody($f)
     {
         $tx =  file_get_contents($f);
         if ($tx === FALSE)
             throw new Exception("File couldn't be read: " . $f);
-        $this->Body .= $tx;
+        $this->AppendObject(new HtmlPrimitiveObject($tx));
     }
 
     private function getBody()
     {
+       $indent = 4;
        $_b = "  <body>\n";
        $_b .= $this->Body;
+       foreach ($this->Items as $html)
+       {
+           // Convert the object to html
+           $_b .= HtmlPage::IndentText($html->ToHtml(), $indent);
+       }
        $_b .= "  </body>\n";
        return $_b;
     }

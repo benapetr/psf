@@ -14,12 +14,19 @@
 
 //Copyright Petr Bena 2015
 
-class HtmlElement
+require_once (dirname(__FILE__) . "/element.php");
+
+class HtmlPrimitiveObject extends HtmlElement
 {
-    public $Indentation = 0;
+    public $Html = "";
 
     public function ToHtml()
     {
-        return "";
+        return $this->Html;
+    }
+
+    public function __construct($_html_)
+    {
+        $this->Html = $_html_;
     }
 }

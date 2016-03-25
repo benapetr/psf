@@ -1,5 +1,6 @@
 <?php
 
+require_once (dirname(__FILE__) . "/../../functions.php");
 require_once (dirname(__FILE__) . "/element.php");
 
 //Part of simple php framework (spf)
@@ -18,7 +19,7 @@ require_once (dirname(__FILE__) . "/element.php");
 
 class HtmlTable_Cell extends HtmlElement
 {
-    public $Style;
+    public $Style = NULL;
     public $Format = NULL;
     public $Html;
 
@@ -30,10 +31,15 @@ class HtmlTable_Cell extends HtmlElement
     public function ToHtml()
     {
         $html = "";
+        $prefix = "";
+
         if ($this->Format !== NULL)
-            $html = "<td $this->Format>";
-        else
-            $html = "<td>";
+            $prefix .= " " . $this->Format;
+
+        if ($this->Style !== NULL)
+            $prefix .= " style=\"" . $this->Style . "\"";
+
+        $html = "<td" . $prefix . ">";
         $html .= $this->Html;
         $html .= "</td>";
         return $html;
@@ -44,37 +50,59 @@ class HtmlTable extends HtmlElement
 {
     private $mRows = 0;
     private $mColumns = 0;
-    public $Format = null;
+    public $Format = NULL;
+    public $Style = NULL;
     public $Headers = array();
     public $BorderSize = 1;
+    public $Width = NULL;
     //! This is array of cell arrays, or at least that is expected
     public $Rows = array();
 
     public function GetFormat()
     {
-        $f = "border=" . $this->BorderSize;
+        $f = "border=\"" . $this->BorderSize . "\"";
+        if ($this->Width !== NULL)
+            $f .= " width=\"" . $this->Width . "\"";
         if ($this->Format !== NULL)
         {
             $f .= " $this->Format";
         }
+        while (psf_string_startsWith($f, " "))
+            $f = substr($f, 1);
         return $f;
+    }
+
+    public function AppendRow(array $cells, $default_style = NULL)
+    {
+        $this->InsertRow($cells, $default_style);
     }
 
     //! Insert a new row by array that consist of html blocks only
     //! if you want to directly append array of html cells, just append directly to $this->Rows instead
-    public function InsertRow(array $cells)
+    public function InsertRow(array $cells, $default_style = NULL)
     {
+        if (count($cells) > $this->mColumns)
+            $this->mColumns = count($cells);
         $mc = array();
         foreach ($cells as $cell)
         {
-            array_push($mc, new HtmlTable_Cell($cell));
+            if ($default_style === NULL)
+            {
+                array_push($mc, new HtmlTable_Cell($cell));
+            } else
+            {
+                $temp = clone $default_style;
+                $temp->Html = $cell;
+                array_push($mc, $temp);
+            }
         }
         array_push($this->Rows, $mc);
     }
 
     public function ToHtml()
     {
-        $html = "<table " . $this->GetFormat() .">\n";
+        $prefix = "";
+        $html = "<table $prefix" . $this->GetFormat() .">\n";
         if (count($this->Headers) > 0)
         {
             $html .= "  <tr>\n";

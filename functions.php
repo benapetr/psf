@@ -16,6 +16,13 @@
 
 require(dirname(__FILE__) . "/definitions.php");
 
+// String tools
+
+function psf_string_startsWith($string, $text)
+{
+    return (strpos($string, $text) === 0);
+}
+
 function psf_version()
 {
     return PSF_VERSION;
