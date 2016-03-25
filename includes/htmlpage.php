@@ -14,6 +14,9 @@
 
 //Copyright Petr Bena 2015
 
+if (!defined("PSF_ENTRY_POINT"))
+        die("Not a valid psf entry point");
+
 require_once (dirname(__FILE__) . "/../default_config.php");
 require_once (dirname(__FILE__) . "/html/primitive_object.php");
 require_once (dirname(__FILE__) . "/csspage.php");

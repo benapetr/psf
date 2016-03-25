@@ -14,6 +14,9 @@
 
 //Copyright Petr Bena 2015
 
+if (!defined("PSF_ENTRY_POINT"))
+        die("Not a valid psf entry point");
+
 require(dirname(__FILE__) . "/definitions.php");
 
 // String tools

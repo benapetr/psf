@@ -14,6 +14,9 @@
 
 //Copyright Petr Bena 2015
 
+define ("PSF_ENTRY_POINT", "psf.php");
+
+require_once (dirname(__FILE__) . "/definitions.php");
 require_once (dirname(__FILE__) . "/default_config.php");
 require_once (dirname(__FILE__) . "/includes/htmlpage.php");
 require_once (dirname(__FILE__) . "/includes/html/table.php");
@@ -22,3 +25,4 @@ require_once (dirname(__FILE__) . "/includes/html/github.php");
 require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
 require_once (dirname(__FILE__) . "/includes/googlefonts.php");
 require_once (dirname(__FILE__) . "/includes/systemlog.php");
+

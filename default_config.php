@@ -1,6 +1,6 @@
 <?php
 
-//Part of simple php framework (spf)
+//Part of php simple framework (psf)
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -13,6 +13,9 @@
 //GNU General Public License for more details.
 
 //Copyright Petr Bena 2015
+
+if (!defined("PSF_ENTRY_POINT"))
+    die("Not a valid psf entry point");
 
 $psf_language = "en";
 $psf_encoding = "UTF-8";
