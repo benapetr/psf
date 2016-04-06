@@ -17,7 +17,7 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require(dirname(__FILE__) . "/definitions.php");
+require_once(dirname(__FILE__) . "/definitions.php");
 
 // String tools
 
