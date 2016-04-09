@@ -6,7 +6,7 @@ require("psf/psf.php");
 $wp = new HtmlPage("Example web page");
 
 $r = new GitHub_Ribbon();
-$r->Repository = "benapetr/psf/examples/website";
+$r->Repository = "benapetr/psf/blob/master/examples/website";
 $wp->AppendObject($r);
 
 # Create a line of text
