@@ -1,0 +1,26 @@
+<?php
+
+# Example webpage created with psf
+require("psf/psf.php");
+
+$wp = new HtmlPage("Example web page");
+
+$r = new GitHub_Ribbon();
+$r->Repository = "benapetr/psf/examples/website";
+$wp->AppendObject($r);
+
+# Create a line of text
+$wp->AppendParagraph("This is an example web page");
+
+# Create a html table
+
+$table = new HtmlTable();
+$table->Headers = [ "Sample", "header" ];
+$table->AppendRow([ "1", "2" ]);
+# Insert it to web page
+$wp->AppendObject($table);
+
+#print it
+$wp->PrintHtml();
+
+
