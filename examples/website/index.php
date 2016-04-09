@@ -4,10 +4,7 @@
 require("psf/psf.php");
 
 $wp = new HtmlPage("Example web page");
-
-$r = new GitHub_Ribbon();
-$r->Repository = "benapetr/psf/blob/master/examples/website";
-$wp->AppendObject($r);
+$wp->AppendObject(new GitHub_Ribbon("benapetr/psf/blob/master/examples/website"));
 
 # Create a line of text
 $wp->AppendParagraph("This is an example web page");
