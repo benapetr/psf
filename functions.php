@@ -37,3 +37,14 @@ function psf_path($file = '')
     return $psf_home . $file;
 }
 
+function psf_curl($link, $timeout=5)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $link);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
+
