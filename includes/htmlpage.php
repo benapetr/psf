@@ -38,6 +38,7 @@ class HtmlPage
     public $InternalJs = array();
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
+    public $AutoRefresh = 0;
     private $Items = array();
     private $cIndent = 4;
 
@@ -76,6 +77,8 @@ class HtmlPage
         else
             $_header .= "    <!-- Unsupported html version: $this->HtmlVersion -->\n";
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
+        if ($this->AutoRefresh > 0)
+            $_header .= "    <meta http-equiv=\"refresh\" content=\"" . $this->AutoRefresh . "\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalCss as $style)
             $_header .= "    <link rel='stylesheet' type='text/css' href='$style'>\n";
