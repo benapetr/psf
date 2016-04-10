@@ -37,6 +37,18 @@ function psf_path($file = '')
     return $psf_home . $file;
 }
 
+function psf_indent_text($text, $in)
+{
+    $prefix = '';
+    while ($in-- > 0)
+        $prefix .= ' ';
+    $result = '';
+    $lines = explode("\n", $text);
+    foreach ($lines as $line)
+        $result .= $prefix . $line . "\n";
+    return $result;
+}
+
 function psf_curl($link, $timeout=5)
 {
     $ch = curl_init();

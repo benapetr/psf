@@ -18,11 +18,12 @@ if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/../default_config.php");
+require_once (dirname(__FILE__) . "/htmlcontainer.php");
 require_once (dirname(__FILE__) . "/html/primitive_object.php");
 require_once (dirname(__FILE__) . "/csspage.php");
 
 //! Represent a single Html page
-class HtmlPage
+class HtmlPage extends HtmlContainer
 {
     public $Title;
     public $Body;
@@ -39,8 +40,6 @@ class HtmlPage
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
     public $AutoRefresh = 0;
-    private $Items = array();
-    private $cIndent = 4;
 
     function __construct($_title)
     {
@@ -49,19 +48,6 @@ class HtmlPage
         $this->TextEncoding = $psf_encoding;
         $this->Language = $psf_language;
         $this->Title = $_title;
-    }
-
-    public static function IndentText($text, $in)
-    {
-        $prefix = '';
-        while ($in-- > 0)
-            $prefix .= ' ';
-        
-        $result = '';
-        $lines = explode("\n", $text);
-        foreach ($lines as $line)
-            $result .= $prefix . $line . "\n";
-        return $result; 
     }
 
     private function getHeader()
@@ -87,7 +73,7 @@ class HtmlPage
         foreach ($this->InternalJs as $script)
         {
             $_header .= "    <script type=\"text/javascript\">\n";
-            $_header .= self::IndentText($script, 6);
+            $_header .= psf_indent_text($script, 6);
             $_header .= "    </script>\n";
         }
         if ($this->CssFile !== NULL)
@@ -103,41 +89,6 @@ class HtmlPage
         return $_header;
     }
 
-    public function AppendHtmlLine($html, $indent = -1)
-    {
-        $value = "";
-        while ($indent-- > 0)
-        {
-            $value .= " ";
-        }
-        $this->AppendObject(new HtmlPrimitiveObject($value . $html));
-    }
-
-    public function AppendHtml($html, $indent = -1)
-    {
-        $lines = explode("\n", $html);
-        foreach ($lines as $l)
-            $this->AppendHtmlLine($l, $indent);
-    }
-
-    public function AppendParagraph($text)
-    {
-        $this->AppendHtmlLine("<p>" . htmlspecialchars($text) . "</p>");
-    }
-
-    public function AppendObject($object, $indent = -1)
-    {
-        array_push($this->Items, $object);
-    }
-
-    public function InsertFileToBody($f)
-    {
-        $tx =  file_get_contents($f);
-        if ($tx === FALSE)
-            throw new Exception("File couldn't be read: " . $f);
-        $this->AppendObject(new HtmlPrimitiveObject($tx));
-    }
-
     private function getBody()
     {
        $indent = 4;
@@ -146,7 +97,7 @@ class HtmlPage
        foreach ($this->Items as $html)
        {
            // Convert the object to html
-           $_b .= HtmlPage::IndentText($html->ToHtml(), $indent);
+           $_b .= psf_indent_text($html->ToHtml(), $indent);
        }
        $_b .= "  </body>\n";
        return $_b;
