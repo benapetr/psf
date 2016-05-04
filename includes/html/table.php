@@ -99,6 +99,11 @@ class HtmlTable extends HtmlElement
         array_push($this->Rows, $mc);
     }
 
+    public function RowCount()
+    {
+        return count($this->Rows);
+    }
+
     public function ToHtml()
     {
         $prefix = "";
