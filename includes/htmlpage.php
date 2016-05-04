@@ -99,6 +99,11 @@ class HtmlPage
         $_header .= "  </head>\n";
         return $_header;
     }
+    
+    public function AppendHeader($text, $level = 1)
+    {
+        $this->AppendHtmlLine("<h$level>" . htmlspecialchars($text) . "</h$level>");
+    }
 
     public function AppendHtmlLine($html, $indent = -1)
     {
