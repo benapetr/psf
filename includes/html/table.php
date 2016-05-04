@@ -23,7 +23,7 @@ class HtmlTable_Cell extends HtmlElement
     public $Format = NULL;
     public $Html;
 
-    public function __construct($_html_)
+    public function __construct($_html_ = "")
     {
         $this->Html = $_html_;
     }
