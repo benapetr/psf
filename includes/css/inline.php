@@ -45,7 +45,7 @@ class InlineCSS extends CSS
     public function ToCss($n = 0)
     {
         $this->Load();
-        if (!in_array("_inline_", $this->items))
+        if (!array_key_exists("_inline_", $this->items))
            return;
         $buff = '';
         foreach ($this->items['_inline_'] as $name => $values)
