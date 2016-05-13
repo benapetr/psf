@@ -24,6 +24,11 @@ class HtmlElement
     public $Indentation = 0;
     public $Style = NULL;
 
+    function __clone()
+    {
+        $this->Style = clone $this->Style;
+    }
+
     public function ToHtml()
     {
         return "";
