@@ -44,10 +44,10 @@ class InlineCSS extends CSS
 
     public function ToCss($n = 0)
     {
+        $this->Load();
         if (!in_array("_inline_", $this->items))
            return;
         $buff = '';
-        $this->Load();
         foreach ($this->items['_inline_'] as $name => $values)
         {
             $buff .= $name . ': ' . $values . ";";
