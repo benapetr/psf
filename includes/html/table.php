@@ -19,7 +19,6 @@ require_once (dirname(__FILE__) . "/element.php");
 
 class HtmlTable_Cell extends HtmlElement
 {
-    public $Style = NULL;
     public $Format = NULL;
     public $Html;
 
@@ -37,7 +36,7 @@ class HtmlTable_Cell extends HtmlElement
             $prefix .= " " . $this->Format;
 
         if ($this->Style !== NULL)
-            $prefix .= " style=\"" . $this->Style . "\"";
+            $prefix .= " style=\"" . $this->Style->ToCss() . "\"";
 
         $html = "<td" . $prefix . ">";
         $html .= $this->Html;
@@ -51,7 +50,6 @@ class HtmlTable extends HtmlElement
     private $mRows = 0;
     private $mColumns = 0;
     public $Format = NULL;
-    public $Style = NULL;
     public $Headers = array();
     public $BorderSize = 1;
     public $Width = NULL;
@@ -63,6 +61,8 @@ class HtmlTable extends HtmlElement
         $f = "border=\"" . $this->BorderSize . "\"";
         if ($this->Width !== NULL)
             $f .= " width=\"" . $this->Width . "\"";
+        if ($this->Style !== NULL)
+            $f .= " style=\"" . $this->Style->ToCss() . "\"";
         if ($this->Format !== NULL)
         {
             $f .= " $this->Format";

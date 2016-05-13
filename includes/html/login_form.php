@@ -19,7 +19,6 @@ require_once (dirname(__FILE__) . "/element.php");
 
 class LoginForm extends HtmlElement
 {
-    public $Style;
     public $Format = NULL;
     public $Callback = "index.php?login";
     public $User = "";
