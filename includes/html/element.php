@@ -26,7 +26,8 @@ class HtmlElement
 
     function __clone()
     {
-        $this->Style = clone $this->Style;
+        if ($this->Style !== NULL)
+            $this->Style = clone $this->Style;
     }
 
     public function ToHtml()
