@@ -14,47 +14,16 @@
 //
 ////Copyright Petr Bena 2015
 
+require_once (dirname(__FILE__) . "/css/css.php");
+
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-class CssPage
+class CssPage extends CSS
 {
-    public $items = array();
-    public $BackgroundColor = NULL;
-
     function __construct()
     {
         $this->items['*']['font-family'] = 'Helvetica, Arial';
-    }
-
-    private function Load()
-    {
-        if ($this->BackgroundColor !== NULL)
-            $this->items['body']['background-color'] = $this->BackgroundColor;
-    }
-
-    public function FetchCss($n)
-    {
-        return $this->ToCss($n);
-    }
-
-    public function ToCss($n)
-    {
-        $buff = '';
-        $indentation = '';
-        $this->Load();
-        while ($n-- > 0)
-            $indentation .= ' ';
-        foreach ($this->items as $name => $values)
-        {
-            $buff .= $indentation . $name . " {\n";
-            foreach ($values as $vn => $xx)
-            {
-                $buff .= $indentation . '    ' . $vn . ': ' . $xx . ";\n";
-            }
-            $buff .= $indentation . "}\n";
-        }
-        return $buff;
     }
 
     public function PrintCss()
