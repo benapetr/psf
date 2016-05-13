@@ -22,11 +22,20 @@ require_once (dirname(__FILE__) . "/htmlcontainer.php");
 require_once (dirname(__FILE__) . "/html/primitive_object.php");
 require_once (dirname(__FILE__) . "/csspage.php");
 
-//! Represent a single Html page
+
+//! \brief Represent a single Html page.
+//! In order to create and print htmlpage with title Hello world you just do:
+//! \code{.php}
+//!     $html_page = new HtmlPage('Hello world');
+//!     $html_page->PrintHtml();
+//! \endcode
 class HtmlPage extends HtmlContainer
 {
+    //! Title of the page
     public $Title;
+    //! Body of a page (not a full html source code, but user defined body), in most cases you never need to directly use this
     public $Body;
+    //! If enabled php module "tidy" will be used to format the output source code, it needs to be installed on server
     public $UseTidy = false;
     public $Language;
     public $TextEncoding;
@@ -88,7 +97,8 @@ class HtmlPage extends HtmlContainer
         $_header .= "  </head>\n";
         return $_header;
     }
-    
+
+    //! \brief Insert a header on bottom of current body of the page
     public function AppendHeader($text, $level = 1)
     {
         $this->AppendHtmlLine("<h$level>" . htmlspecialchars($text) . "</h$level>");
@@ -114,12 +124,14 @@ class HtmlPage extends HtmlContainer
         return $_f;
     }
 
+    //! Prints a html source code of a page into stdout
     public function PrintHtml()
     {
         echo $this->ToHtml();
         return true;
     }
 
+    //! Return whole html page as a string
     public function ToHtml()
     {
         // we first precache whole content in buffer, because if there were some exceptions, we don't want to get only partial html text

@@ -21,7 +21,7 @@ require_once (dirname(__FILE__) . "/../default_config.php");
 require_once (dirname(__FILE__) . "/../functions.php");
 require_once (dirname(__FILE__) . "/html/primitive_object.php");
 
-//! Represent a single Html page
+//! Represent a single Html container, usually used by htmlpage or htmltable or any other element that is able to hold child html elements
 class HtmlContainer
 {
     protected $Items = array();
@@ -31,6 +31,7 @@ class HtmlContainer
     {
     }
 
+    //! Insert a line of html into body of a page (to bottom of the body). If $indent contains anything else than -1 it's indented by that value, if it's -1 the indentation is automatic.
     public function AppendHtmlLine($html, $indent = -1)
     {
         $value = "";
