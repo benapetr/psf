@@ -42,7 +42,7 @@ class InlineCSS extends CSS
         return $this->items['_inline_'][$name];
     }
 
-    public function ToCss()
+    public function ToCss($n = 0)
     {
         $buff = '';
         $this->Load();

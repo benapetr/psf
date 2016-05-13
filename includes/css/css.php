@@ -38,7 +38,7 @@ class CSS
         return $this->ToCss($n);
     }
 
-    public function ToCss($n)
+    public function ToCss($n = 0)
     {
         $buff = '';
         $indentation = '';
