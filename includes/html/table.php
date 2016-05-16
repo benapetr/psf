@@ -55,6 +55,8 @@ class HtmlTable extends HtmlElement
     public $Width = NULL;
     //! This is array of cell arrays, or at least that is expected
     public $Rows = array();
+    //! Put number bigger than zero in order to repeat headers after N rows
+    public $RepeatHeader = 0;
 
     public function GetFormat()
     {
@@ -104,10 +106,9 @@ class HtmlTable extends HtmlElement
         return count($this->Rows);
     }
 
-    public function ToHtml()
+    private function getHeader()
     {
-        $prefix = "";
-        $html = "<table $prefix" . $this->GetFormat() .">\n";
+        $html = "";
         if (count($this->Headers) > 0)
         {
             $html .= "  <tr>\n";
@@ -117,8 +118,29 @@ class HtmlTable extends HtmlElement
             }
             $html .= "  </tr>\n";
         }
+        return $html;
+    }
+
+    public function ToHtml()
+    {
+        $prefix = "";
+        $html = "<table $prefix" . $this->GetFormat() .">\n";
+        $header = $this->getHeader();
+        $html .= $header;
+        $current_header = 0;
         foreach ($this->Rows as $row)
         {
+            if ($this->RepeatHeader)
+            {
+                if ($current_header >= $this->RepeatHeader)
+                {
+                    $html .= $header;
+                    $current_header = 0;
+                } else
+                {
+                    $current_header++;
+                }
+            }
             $html .= "  <tr>\n";
             foreach ($row as $cell)
             {
