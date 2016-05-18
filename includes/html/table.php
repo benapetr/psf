@@ -121,6 +121,29 @@ class HtmlTable extends HtmlElement
         return $html;
     }
 
+    //! Converts the table to CSV format and return as a string
+    public function ToCSV()
+    {
+        $txt = "";
+        if (count($this->Headers) > 0)
+        {
+            foreach ($this->Headers as $x)
+            {
+                $txt .= "$x;";
+            }
+            $txt .= "\n";
+        }
+	foreach ($this->Rows as $row)
+	{
+            foreach ($row as $cell)
+            {
+                $txt .= "$cell->Html;";
+            }
+            $txt .= "\n";
+        }
+        return $txt;
+    }
+
     public function ToHtml()
     {
         $prefix = "";
