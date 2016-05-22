@@ -17,9 +17,10 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
+require_once (dirname(__FILE__) . "/../object.php");
 require_once (dirname(__FILE__) . "/../css/inline.php");
 
-class HtmlElement
+class HtmlElement extends PsfObject
 {
     public $Indentation = 0;
     public $Style = NULL;

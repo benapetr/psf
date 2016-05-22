@@ -25,8 +25,9 @@ class HtmlPrimitiveObject extends HtmlElement
         return $this->Html;
     }
 
-    public function __construct($_html_)
+    public function __construct($_html_, $_parent = NULL)
     {
+        parent::__construct($_parent);
         $this->Html = $_html_;
     }
 }

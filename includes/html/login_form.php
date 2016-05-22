@@ -25,9 +25,9 @@ class LoginForm extends HtmlElement
     public $Pass = "";
     public $Html;
 
-    public function __construct()
+    public function __construct($_parent = NULL)
     {
-
+        parent::__construct($_parent = NULL);
     }
 
     public function ToHtml()

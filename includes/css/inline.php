@@ -22,8 +22,9 @@ require_once (dirname(__FILE__) . "/css.php");
 //! Represent a single Html page
 class InlineCSS extends CSS
 {
-    function __construct()
+    function __construct($_parent = NULL)
     {
+        parent::__construct($_parent);
     }
 
     protected function Load()

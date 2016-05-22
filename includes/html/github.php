@@ -23,8 +23,9 @@ class GitHub_Ribbon extends HtmlElement
 {
     public $Repository = "benapetr/psf";
 
-    public function __construct($repo = "")
+    public function __construct($repo = "", $_parent = NULL)
     {
+        parent::__construct($_parent);
         if (strlen($repo) > 0)
             $this->Repository = $repo;
     }

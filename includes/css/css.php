@@ -17,7 +17,9 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-class CSS
+require_once (dirname(__FILE__) . "/../object.php");
+
+class CSS extends PsfObject
 {
     public $items = array();
     public $BackgroundColor = NULL;

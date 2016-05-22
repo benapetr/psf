@@ -23,8 +23,9 @@ class BulletList extends HtmlElement
 {
     public $Items = array();
 
-    public function __construct($list = NULL)
+    public function __construct($list = NULL, $_parent = NULL)
     {
+        parent::__construct($_parent);
         if ($list !== NULL)
             $this->Items = $list;
     }
