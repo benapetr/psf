@@ -52,7 +52,7 @@ class HtmlPage extends HtmlContainer
 
     function __construct($_title, $_parent = NULL)
     {
-        parent::_construct($_parent);
+        parent::__construct($_parent);
         global $psf_language, $psf_encoding;
         $this->Style = new CssPage();
         $this->TextEncoding = $psf_encoding;

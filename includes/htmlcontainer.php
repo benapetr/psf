@@ -30,7 +30,7 @@ class HtmlContainer extends PsfObject
 
     function __construct($_parent = NULL)
     {
-        parent::_construct($_parent);
+        parent::__construct($_parent);
     }
 
     //! Insert a line of html into body of a page (to bottom of the body). If $indent contains anything else than -1 it's indented by that value, if it's -1 the indentation is automatic.
