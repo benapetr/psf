@@ -50,8 +50,9 @@ class HtmlPage extends HtmlContainer
     public $Encoding = "UTF-8";
     public $AutoRefresh = 0;
 
-    function __construct($_title)
+    function __construct($_title, $_parent = NULL)
     {
+        parent::_construct($_parent);
         global $psf_language, $psf_encoding;
         $this->Style = new CssPage();
         $this->TextEncoding = $psf_encoding;
