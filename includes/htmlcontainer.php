@@ -56,6 +56,11 @@ class HtmlContainer extends PsfObject
         $this->AppendHtmlLine($this->html_p(htmlspecialchars($text)));
     }
 
+    public function AppendLine()
+    {
+        $this->AppendHtmlLine("<hr>");
+    }
+
     public function AppendObject($object, $indent = -1)
     {
         array_push($this->Items, $object);
