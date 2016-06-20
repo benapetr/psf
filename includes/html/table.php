@@ -123,14 +123,20 @@ class HtmlTable extends HtmlElement
     }
 
     //! Converts the table to CSV format and return as a string
-    public function ToCSV($separator = ";")
+    public function ToCSV($separator = ";", $replace_quotas = false)
     {
         $txt = "";
         if (count($this->Headers) > 0)
         {
             foreach ($this->Headers as $x)
             {
-                $txt .= str_replace($separator, "", $x) . $separator;
+                $str = str_replace($separator, "", $x);
+                if ($replace_quotas)
+                {
+                    $str = str_replace('"', "", $str);
+                    $str = str_replace("'", "", $str);
+                }
+                $txt .= $str . $separator;
             }
             $txt .= "\n";
         }
@@ -138,7 +144,13 @@ class HtmlTable extends HtmlElement
 	{
             foreach ($row as $cell)
             {
-                $txt .= str_replace($separator, "", $cell->Html) . $separator;
+                $str = $cell->Html;
+                if ($replace_quotas)
+                {
+                    $str = str_replace('"', "", $str);
+                    $str = str_replace("'", "", $str);
+                }
+                $txt .= $str . $separator;
             }
             $txt .= "\n";
         }
