@@ -33,6 +33,11 @@ class HtmlContainer extends PsfObject
         parent::__construct($_parent);
     }
 
+    protected function ReplaceControl($text)
+    {
+        return str_replace("\n", "<br>", $text);
+    }
+
     //! Insert a line of html into body of a page (to bottom of the body). If $indent contains anything else than -1 it's indented by that value, if it's -1 the indentation is automatic.
     public function AppendHtmlLine($html, $indent = -1)
     {
@@ -53,7 +58,7 @@ class HtmlContainer extends PsfObject
 
     public function AppendParagraph($text)
     {
-        $this->AppendHtmlLine($this->html_p(htmlspecialchars($text)));
+        $this->AppendHtmlLine($this->html_p($this->ReplaceControl(htmlspecialchars($text))));
     }
 
     public function AppendLine()
