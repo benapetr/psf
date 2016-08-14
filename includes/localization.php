@@ -36,6 +36,7 @@ class Language
             throw new Exception('Unable to load ' . $datafile);
         while (($line = fgets($handle)) !== false)
         {
+            $line = str_replace("\n", "", $line);
             // process the line read.
             if (psf_string_startsWith($line, "//"))
                 continue;
