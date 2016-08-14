@@ -21,9 +21,20 @@ require_once(dirname(__FILE__) . "/definitions.php");
 
 // String tools
 
+//! Check if string starts with text
 function psf_string_startsWith($string, $text)
 {
     return (strpos($string, $text) === 0);
+}
+
+//! Check string ends with the text
+function psf_string_endsWith($string, $text)
+{
+    $length = strlen($text);
+    if ($length == 0)
+        return true;
+
+    return (substr($string, -$length) === $text);
 }
 
 function psf_version()

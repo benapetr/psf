@@ -22,3 +22,5 @@ $psf_encoding = "UTF-8";
 $psf_indent = 4;
 $psf_home = "psf/";
 $psf_log = "/tmp/psf.log";
+$psf_localization = "lang";
+$psf_localization_default_language = "en";
