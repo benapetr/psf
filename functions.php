@@ -62,7 +62,7 @@ function psf_indent_text($text, $in)
 
 function _l($key)
 {
-    Localization::Get($key);
+    return Localization::Get($key);
 }
 
 function psf_curl($link, $timeout=5)
