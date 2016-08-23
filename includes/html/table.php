@@ -20,6 +20,7 @@ require_once (dirname(__FILE__) . "/element.php");
 class HtmlTable_Cell extends HtmlElement
 {
     public $Format = NULL;
+    public $Class = NULL;
     public $Html;
 
     public function __construct($_html_ = "", $_parent = NULL)
@@ -39,6 +40,9 @@ class HtmlTable_Cell extends HtmlElement
         if ($this->Style !== NULL)
             $prefix .= " style=\"" . $this->Style->ToCss() . "\"";
 
+        if ($this->Class !== NULL)
+            $prefix .= " class=\"" . $this->Class . "\"";
+
         $html = "<td" . $prefix . ">";
         $html .= $this->Html;
         $html .= "</td>";
@@ -53,6 +57,9 @@ class HtmlTable extends HtmlElement
     public $Format = NULL;
     public $Headers = array();
     public $BorderSize = 1;
+    //! If you set this every column will have a same class as its name as long as it contains valid symbols
+    //! this is useful in combination with javascript
+    public $NameAsClass = false;
     public $Width = NULL;
     //! This is array of cell arrays, or at least that is expected
     public $Rows = array();
@@ -115,7 +122,10 @@ class HtmlTable extends HtmlElement
             $html .= "  <tr>\n";
             foreach ($this->Headers as $x)
             {
-                $html .= "    <th>" . $x . "</th>\n";
+                if ($this->NameAsClass)
+                    $html .= "    <th class=\"" . psf_generate_friendly_name($x) . "\">" . $x . "</th>\n";
+                else
+                    $html .= "    <th>" . $x . "</th>\n";
             }
             $html .= "  </tr>\n";
         }
@@ -178,9 +188,13 @@ class HtmlTable extends HtmlElement
                 }
             }
             $html .= "  <tr>\n";
+            $header_n = 0;
             foreach ($row as $cell)
             {
+                if ($this->NameAsClass)
+                  $cell->Class = psf_generate_friendly_name($this->Headers[$header_n]);
                 $html .= "    " . $cell->ToHtml() . "\n";
+                $header_n++;
             }
             $html .= "  </tr>\n";
         }

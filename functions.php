@@ -48,6 +48,23 @@ function psf_path($file = '')
     return $psf_home . $file;
 }
 
+//! This function takes any text and turn it into function / variable friendly name
+//! useful for proceduraly generated JS / CSS
+function psf_generate_friendly_name($text)
+{
+    $text = str_replace(";", "", $text);
+    $text = str_replace("&", "", $text);
+    $text = str_replace("\"", "", $text);
+    $text = str_replace(">", "", $text);
+    $text = str_replace("<", "", $text);
+    $text = str_replace(" ", "_", $text);
+    $text = str_replace("(", "", $text);
+    $text = str_replace(")", "", $text);
+    $text = str_replace("/", "", $text);
+    $text = strtolower($text);
+    return $text;
+}
+
 function psf_indent_text($text, $in)
 {
     $prefix = '';
