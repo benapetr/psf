@@ -40,6 +40,7 @@ class HtmlPage extends HtmlContainer
     public $Language;
     public $TextEncoding;
     public $CssFile = NULL;
+    public $InternalCss = array();
     public $ExternalCss = array();
     public $Style = NULL;
     public $ExternalJs = array();
@@ -88,6 +89,12 @@ class HtmlPage extends HtmlContainer
         }
         if ($this->CssFile !== NULL)
             $_header .= "    <link rel='stylesheet' type='text/css' href='$this->CssFile'>\n";
+        foreach ($this->InternalCss as $style)
+        {
+            $_header .= "    <style>\n";
+            $_header .= psf_indent_text($style, 6);
+            $_header .= "    </style>\n";
+        }
         if ($this->Style !== NULL)
         {
             $_header .= "    <style>\n";
