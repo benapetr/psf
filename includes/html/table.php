@@ -38,7 +38,11 @@ class HtmlTable_Cell extends HtmlElement
             $prefix .= " " . $this->Format;
 
         if ($this->Style !== NULL)
-            $prefix .= " style=\"" . $this->Style->ToCss() . "\"";
+        {
+            $style = $this->Style->ToCss();
+            if (strlen($style) > 0)
+                $prefix .= " style=\"" . $style . "\"";
+        }
 
         if ($this->Class !== NULL)
             $prefix .= " class=\"" . $this->Class . "\"";
