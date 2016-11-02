@@ -95,6 +95,7 @@ class HtmlContainer extends PsfObject
     public function ToHtml()
     {
        $indent = 4;
+       $_b = "";
        foreach ($this->Items as $html)
        {
            // Convert the object to html

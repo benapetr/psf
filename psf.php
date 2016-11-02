@@ -16,17 +16,28 @@
 
 define ("PSF_ENTRY_POINT", "psf.php");
 
+// System stuff
 require_once (dirname(__FILE__) . "/definitions.php");
 require_once (dirname(__FILE__) . "/default_config.php");
 require_once (dirname(__FILE__) . "/includes/systemlog.php");
 require_once (dirname(__FILE__) . "/includes/htmlpage.php");
+require_once (dirname(__FILE__) . "/includes/systemlog.php");
+require_once (dirname(__FILE__) . "/includes/localization.php");
+
+// Form related
+require_once (dirname(__FILE__) . "/includes/html/checkbox.php");
+require_once (dirname(__FILE__) . "/includes/html/hidden.php");
+require_once (dirname(__FILE__) . "/includes/html/button.php");
+require_once (dirname(__FILE__) . "/includes/html/form.php");
+require_once (dirname(__FILE__) . "/includes/html/login_form.php");
+
+// Html basics
 require_once (dirname(__FILE__) . "/includes/html/table.php");
 require_once (dirname(__FILE__) . "/includes/html/image.php");
 require_once (dirname(__FILE__) . "/includes/html/list.php");
-require_once (dirname(__FILE__) . "/includes/html/login_form.php");
+
+// Advanced
 require_once (dirname(__FILE__) . "/includes/html/github.php");
 require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
 require_once (dirname(__FILE__) . "/includes/googlefonts.php");
-require_once (dirname(__FILE__) . "/includes/localization.php");
-require_once (dirname(__FILE__) . "/includes/systemlog.php");
 
