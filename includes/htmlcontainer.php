@@ -68,6 +68,7 @@ class HtmlContainer extends PsfObject
 
     public function AppendObject($object, $indent = -1)
     {
+        $object->Parent = $this;
         array_push($this->Items, $object);
     }
 
