@@ -20,9 +20,16 @@ if (!defined("PSF_ENTRY_POINT"))
 require_once (dirname(__FILE__) . "/../css/inline.php");
 require_once (dirname(__FILE__) . "/../htmlcontainer.php");
 
+abstract class FormMethod
+{
+    const Get = "get";
+    const Post = "post";
+}
+
 class Form extends HtmlContainer
 {
     public $Action = NULL;
+    public $Method = FormMethod::Get;
 
     public function __construct($_action = NULL, $_parent = NULL)
     {
@@ -37,7 +44,7 @@ class Form extends HtmlContainer
             $bx = "<form>\n";
         } else
         {
-            $bx = '<form action="' . $this->Action . '">' . "\n";
+            $bx = '<form action="' . $this->Action . '" method="' . $this->Method . '">' . "\n";
         }
         $bx .= parent::ToHtml();
         $bx .= "</form>";
