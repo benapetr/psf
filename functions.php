@@ -37,6 +37,12 @@ function psf_string_endsWith($string, $text)
     return (substr($string, -$length) === $text);
 }
 
+//! Returns true if $string contains $text
+function psf_string_contains($string, $text)
+{
+   return strpos($string, $text) !== false;
+}
+
 function psf_version()
 {
     return PSF_VERSION;
