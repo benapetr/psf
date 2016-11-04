@@ -112,5 +112,5 @@ function psf_print_debug_as_html()
     $html = "";
     foreach ($psf_global_debug_ring as $log)
         $html .= "<!-- PSF Debug: " . htmlspecialchars($log) . " -->\n";
-    return $html;
+    echo($html);
 }
