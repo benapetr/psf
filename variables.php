@@ -19,3 +19,4 @@ if (!defined("PSF_ENTRY_POINT"))
 
 //! Used to store debug logs
 $psf_global_debug_ring = [];
+$psf_global_startup_time = microtime(true);

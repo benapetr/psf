@@ -114,3 +114,12 @@ function psf_print_debug_as_html()
         $html .= "<!-- PSF Debug: " . htmlspecialchars($log) . " -->\n";
     echo($html);
 }
+
+//! Give you a time in secods since the psf was launched
+function psf_get_execution_time()
+{
+    global $psf_global_startup_time;
+    return (microtime(true) - $psf_global_startup_time);
+}
+
+
