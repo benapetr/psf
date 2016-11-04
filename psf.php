@@ -30,6 +30,7 @@ require_once (dirname(__FILE__) . "/includes/html/hidden.php");
 require_once (dirname(__FILE__) . "/includes/html/button.php");
 require_once (dirname(__FILE__) . "/includes/html/form.php");
 require_once (dirname(__FILE__) . "/includes/html/login_form.php");
+require_once (dirname(__FILE__) . "/includes/html/textbox.php");
 
 // Html basics
 require_once (dirname(__FILE__) . "/includes/html/table.php");

@@ -19,7 +19,7 @@ if (!defined("PSF_ENTRY_POINT"))
 
 require_once (dirname(__FILE__) . "/element.php");
 
-class Button extends HtmlElement
+class TextBox extends HtmlElement
 {
     public $Name;
     public $Value;
@@ -33,13 +33,11 @@ class Button extends HtmlElement
 
     public function ToHtml()
     {
-        $_e = "<input type=\"submit\"";
+        $_e = "<input type=\"text\" ";
         if ($this->Name !== NULL)
-            $_e .= " name=\"$this->Name\"";
+            $_e .= "name=\"$this->Name\" ";
         if ($this->Value !== NULL)
-            $_e .= " value=\"$this->Value\"";
-        if ($this->Style !== NULL)
-            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+            $_e .= "value=\"$this->Value\" ";
         $_e .= ">";
         return $_e;
     }
