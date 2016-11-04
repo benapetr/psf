@@ -23,6 +23,7 @@ class CheckBox extends HtmlElement
 {
     public $Name;
     public $Value;
+    public $Text = NULL;
     public $Checked;
 
     public function __construct($_name = NULL, $_value = NULL, $_checked = false, $_parent = NULL)
@@ -43,6 +44,8 @@ class CheckBox extends HtmlElement
         if ($this->Checked)
             $_e .= "checked";
         $_e .= ">";
+        if ($this->Text !== NULL)
+            $_e = "<label>$_e" . $this->Text . "</label>";
         return $_e;
     }
 }
