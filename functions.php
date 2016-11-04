@@ -18,6 +18,7 @@ if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
 require_once(dirname(__FILE__) . "/definitions.php");
+require_once(dirname(__FILE__) . "/variables.php");
 
 // String tools
 
@@ -99,3 +100,17 @@ function psf_curl($link, $timeout=5)
     return $data;
 }
 
+function psf_debug_log($text)
+{
+    global $psf_global_debug_ring;
+    $psf_global_debug_ring[] = $text;
+}
+
+function psf_print_debug_as_html()
+{
+    global $psf_global_debug_ring;
+    $html = "";
+    foreach ($psf_global_debug_ring as $log)
+        $html .= "<!-- PSF Debug: " . htmlspecialchars($log) . " -->\n";
+    return $html;
+}
