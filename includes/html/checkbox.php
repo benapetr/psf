@@ -21,6 +21,7 @@ require_once (dirname(__FILE__) . "/element.php");
 
 class CheckBox extends HtmlElement
 {
+    public $Enabled = true;
     public $Name;
     public $Value;
     public $Text = NULL;
