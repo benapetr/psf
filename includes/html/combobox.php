@@ -72,7 +72,7 @@ class ComboBox extends HtmlElement
         $_e .= ">\n";
         foreach ($this->Items as $item)
             $_e .= "  " . $item->ToHtml() . "\n";
-        $_e .= "<select/n>";
+        $_e .= "</select>";
         return $_e;
     }
 }
