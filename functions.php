@@ -17,6 +17,7 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
+require_once(dirname(__FILE__) . "/default_config.php");
 require_once(dirname(__FILE__) . "/definitions.php");
 require_once(dirname(__FILE__) . "/variables.php");
 
@@ -74,9 +75,12 @@ function psf_generate_friendly_name($text)
 
 function psf_indent_text($text, $in)
 {
+    global $psf_indent_system_enabled;
+    if (!$psf_indent_system_enabled)
+        return $text;
     $prefix = '';
     while ($in-- > 0)
-        $prefix .= ' ';
+        $prefix .= " ";
     $result = '';
     $lines = explode("\n", $text);
     foreach ($lines as $line)

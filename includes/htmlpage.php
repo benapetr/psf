@@ -120,7 +120,7 @@ class HtmlPage extends HtmlContainer
        foreach ($this->Items as $html)
        {
            // Convert the object to html
-           if ($html->Indent)
+           if ($this->Indent && $html->Indent)
                $_b .= psf_indent_text($html->ToHtml(), $indent);
            else
                $_b .= $html->ToHtml() . "\n";

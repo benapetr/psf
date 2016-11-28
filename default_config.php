@@ -20,6 +20,8 @@ if (!defined("PSF_ENTRY_POINT"))
 $psf_language = "en";
 $psf_encoding = "UTF-8";
 $psf_indent = 4;
+// Set to false to improve performance on huge pages
+$psf_indent_system_enabled = True;
 $psf_home = "psf/";
 $psf_log = "/tmp/psf.log";
 $psf_localization = "lang";

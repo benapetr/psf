@@ -41,7 +41,7 @@ class HtmlElement extends PsfObject
     public function DisableIndenting()
     {
         if ($this->Parent !== NULL && $this->Parent instanceof HtmlElement)
-            $this->Parent->DisableIdenting();
+            $this->Parent->DisableIndenting();
         $this->Indent = false;
     }
 }
