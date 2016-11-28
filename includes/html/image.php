@@ -24,6 +24,7 @@ class Image extends HtmlElement
     public $Width = NULL;
     public $URL = NULL;
     public $AlternateText = "";
+    public $Title = NULL;
 
     public function __construct($image, $alt = "", $w = NULL, $h = NULL, $_parent = NULL)
     {
@@ -52,7 +53,18 @@ class Image extends HtmlElement
 
     public function ToHtml()
     {
-        $html = "<img src=\"" . $this->URL . "\"" . $this->GetFormat() .">";
+        $html = "<img src=\"" . $this->URL . "\"" . $this->GetFormat();
+        if ($this->Title !== NULL)
+            $html .= " title=\"" . $this->Title . "\"";
+        if ($this->ClassName !== NULL)
+            $html .= " class=\"" . $this->ClassName . "\"";
+        $html .= ">";
+        if ($this->Style !== NULL)
+        {
+            $style = $this->Style->ToCss();
+            if (strlen($style) > 0)
+                $html .= " style=\"" . $style . "\"";
+        }
         return $html;
     }
 }

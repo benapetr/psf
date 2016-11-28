@@ -18,7 +18,7 @@ if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/../default_config.php");
-require_once (dirname(__FILE__) . "/htmlcontainer.php");
+require_once (dirname(__FILE__) . "/html/container.php");
 require_once (dirname(__FILE__) . "/html/primitive_object.php");
 require_once (dirname(__FILE__) . "/csspage.php");
 
@@ -120,7 +120,10 @@ class HtmlPage extends HtmlContainer
        foreach ($this->Items as $html)
        {
            // Convert the object to html
-           $_b .= psf_indent_text($html->ToHtml(), $indent);
+           if ($html->Indent)
+               $_b .= psf_indent_text($html->ToHtml(), $indent);
+           else
+               $_b .= $html->ToHtml() . "\n";
        }
        $_b .= "  </body>\n";
        return $_b;

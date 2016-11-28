@@ -38,6 +38,10 @@ require_once (dirname(__FILE__) . "/includes/html/table.php");
 require_once (dirname(__FILE__) . "/includes/html/image.php");
 require_once (dirname(__FILE__) . "/includes/html/list.php");
 
+// JS stuff
+//require_once (dirname(__FILE__) . "/includes/js/jshandler.php");
+//require_once (dirname(__FILE__) . "/includes/js/tooltip.php");
+
 // Advanced
 require_once (dirname(__FILE__) . "/includes/html/github.php");
 require_once (dirname(__FILE__) . "/includes/wmfoauth.php");

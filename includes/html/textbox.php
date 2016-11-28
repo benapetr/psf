@@ -24,6 +24,7 @@ class TextBox extends HtmlElement
     public $Enabled = true;
     public $Name;
     public $Value;
+    private $Multiline = false;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -32,14 +33,31 @@ class TextBox extends HtmlElement
         parent::__construct($_parent);
     }
 
+    public function SetMultiline()
+    {
+        $this->DisableIndenting();
+        $this->Multiline = true;
+    }
+
     public function ToHtml()
     {
-        $_e = "<input type=\"text\" ";
+        if (!$this->Multiline)
+            $_e = "<input type=\"text\"";
+        else
+            $_e = "<textarea";
         if ($this->Name !== NULL)
-            $_e .= "name=\"$this->Name\" ";
-        if ($this->Value !== NULL)
-            $_e .= "value=\"$this->Value\" ";
+            $_e .= " name=\"$this->Name\"";
+        if (!$this->Multiline && $this->Value !== NULL)
+            $_e .= " value=\"$this->Value\"";
         $_e .= ">";
+        if ($this->Multiline)
+        {
+            if ($this->Value !== NULL)
+            {
+                $_e .= htmlspecialchars($this->Value);
+            }
+            $_e .= "</textarea>";
+        }
         return $_e;
     }
 }

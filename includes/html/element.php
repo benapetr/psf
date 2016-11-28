@@ -23,7 +23,9 @@ require_once (dirname(__FILE__) . "/../css/inline.php");
 class HtmlElement extends PsfObject
 {
     public $Indentation = 0;
+    public $Indent = True;
     public $Style = NULL;
+    public $ClassName = NULL;
 
     function __clone()
     {
@@ -34,5 +36,12 @@ class HtmlElement extends PsfObject
     public function ToHtml()
     {
         return "";
+    }
+
+    public function DisableIndenting()
+    {
+        if ($this->Parent !== NULL && $this->Parent instanceof HtmlElement)
+            $this->Parent->DisableIdenting();
+        $this->Indent = false;
     }
 }

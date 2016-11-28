@@ -17,13 +17,13 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/object.php");
-require_once (dirname(__FILE__) . "/../default_config.php");
-require_once (dirname(__FILE__) . "/../functions.php");
-require_once (dirname(__FILE__) . "/html/primitive_object.php");
+require_once (dirname(__FILE__) . "/../object.php");
+require_once (dirname(__FILE__) . "/../../default_config.php");
+require_once (dirname(__FILE__) . "/../../functions.php");
+require_once (dirname(__FILE__) . "/primitive_object.php");
 
 //! Represent a single Html container, usually used by htmlpage or htmltable or any other element that is able to hold child html elements
-class HtmlContainer extends PsfObject
+class HtmlContainer extends HtmlElement
 {
     protected $Items = array();
     protected $cIndent = 4;
@@ -100,7 +100,10 @@ class HtmlContainer extends PsfObject
        foreach ($this->Items as $html)
        {
            // Convert the object to html
-           $_b .= psf_indent_text($html->ToHtml(), $indent);
+           if ($this->Indent && $html->Indent)
+               $_b .= psf_indent_text($html->ToHtml(), $indent);
+           else
+               $_b .= $html->ToHtml() . "\n";
        }
        return $_b;
     }

@@ -18,7 +18,7 @@ if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/../css/inline.php");
-require_once (dirname(__FILE__) . "/../htmlcontainer.php");
+require_once (dirname(__FILE__) . "/container.php");
 
 abstract class FormMethod
 {
