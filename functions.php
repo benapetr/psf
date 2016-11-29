@@ -93,6 +93,16 @@ function _l($key)
     return Localization::Get($key);
 }
 
+function psf_string2bool($str)
+{
+    $str = strtolower($str);
+    if ($str == "true")
+        return true;
+    if ($str == "t")
+        return true;
+    return false;
+}
+
 function psf_curl($link, $timeout=5)
 {
     $ch = curl_init();
