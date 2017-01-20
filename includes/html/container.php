@@ -61,6 +61,19 @@ class HtmlContainer extends HtmlElement
         $this->AppendHtmlLine($this->html_p($this->ReplaceControl(htmlspecialchars($text))));
     }
 
+    public function AppendPreformatted($text)
+    {
+        $pre = new HtmlPrimitiveObject("<pre>\n" . $text . "\n</pre>");
+        // we have to disable indenting here, because it simply is not desired
+        $pre->Indent = false;
+        $this->AppendObject($pre);
+    }
+
+    public function AppendPre($text)
+    {
+        $this->AppendPreformatted($text);
+    }
+
     public function AppendLine()
     {
         $this->AppendHtmlLine("<hr>");
