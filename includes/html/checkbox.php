@@ -44,6 +44,8 @@ class CheckBox extends HtmlElement
             $_e .= "value=\"$this->Value\" ";
         if ($this->Checked)
             $_e .= "checked";
+        if (!$this->Enabled)
+            $_e .= "disabled readonly";
         $_e .= ">";
         if ($this->Text !== NULL)
             $_e = "<label>$_e" . $this->Text . "</label>";
