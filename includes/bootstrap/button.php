@@ -21,9 +21,11 @@ require_once (dirname(__FILE__) . "/../html/button.php");
 
 class BS_Button extends Button
 {
-    public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
+    public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
     {
         $this->ClassName = "btn";
+        if ($bs_class !== NULL)
+            $this->ClassName .= " " . $bs_class;
         parent::__construct($_name, $_value, $_parent);
     }
 }

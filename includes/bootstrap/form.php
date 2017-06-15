@@ -17,15 +17,12 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/bootstrap/button.php");
-require_once (dirname(__FILE__) . "/bootstrap/form.php");
+require_once (dirname(__FILE__) . "/../html/form.php");
 
-function bootstrap_init($page)
+class BS_Form extends Form
 {
-    $bs = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-    if (!in_array($bs, $page->ExternalCss))
-        $page->ExternalCss[] = $bs;
-    $bs_j = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
-    if (!in_array($bs_j, $page->ExternalJs))
-        $page->ExternalJs[] = $bs_j;
+    public function __construct($_action = NULL, $_parent = NULL)
+    {
+        parent::__construct($_action, $_parent);
+    }
 }
