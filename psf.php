@@ -42,6 +42,12 @@ require_once (dirname(__FILE__) . "/includes/html/list.php");
 //require_once (dirname(__FILE__) . "/includes/js/jshandler.php");
 //require_once (dirname(__FILE__) . "/includes/js/tooltip.php");
 
+if ($psf_bootstrap_enabled)
+{
+    // Bootstrap
+    require_once (dirname(__FILE__) . "/includes/bootstrap.php");
+}
+
 // Advanced
 require_once (dirname(__FILE__) . "/includes/html/github.php");
 require_once (dirname(__FILE__) . "/includes/wmfoauth.php");

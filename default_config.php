@@ -18,6 +18,7 @@ if (!defined("PSF_ENTRY_POINT"))
     die("Not a valid psf entry point");
 
 $psf_language = "en";
+$psf_bootstrap_enabled = True;
 $psf_encoding = "UTF-8";
 $psf_indent = 4;
 // Set to false to improve performance on huge pages
