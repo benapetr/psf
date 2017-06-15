@@ -17,32 +17,13 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/element.php");
+require_once (dirname(__FILE__) . "/../html/button.php");
 
-class Button extends HtmlElement
+class BS_Button extends Button
 {
-    public $Name;
-    public $Value;
-
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
-        $this->Name = $_name;
-        $this->Value = $_value;
-        parent::__construct($_parent);
-    }
-
-    public function ToHtml()
-    {
-        $_e = "<input type=\"submit\"";
-        if ($this->Name !== NULL)
-            $_e .= " name=\"$this->Name\"";
-        if ($this->Value !== NULL)
-            $_e .= " value=\"$this->Value\"";
-        if ($this->Style !== NULL)
-            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
-        if ($this->ClassName !== NULL)
-            $_e .= " class=\"" . $this->ClassName . "\"";
-        $_e .= ">";
-        return $_e;
+        $this->ClassName = "btn";
+        parent::__construct($_name, $_value, $_parent);
     }
 }
