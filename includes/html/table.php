@@ -77,6 +77,8 @@ class HtmlTable extends HtmlElement
             $f .= " width=\"" . $this->Width . "\"";
         if ($this->Style !== NULL)
             $f .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->ClassName !== NULL)
+            $f .= " class=\"" . $this->ClassName . "\"";
         if ($this->Format !== NULL)
         {
             $f .= " $this->Format";
