@@ -28,4 +28,5 @@ function bootstrap_init($page)
     $bs_j = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
     if (!in_array($bs_j, $page->ExternalJs))
         $page->ExternalJs[] = $bs_j;
+    $page->Header_Meta["viewport"] = "width=device-width, initial-scale=1";
 }

@@ -50,6 +50,7 @@ class HtmlPage extends HtmlContainer
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
     public $AutoRefresh = 0;
+    public $Header_Meta = array();
 
     function __construct($_title, $_parent = NULL)
     {
@@ -76,6 +77,8 @@ class HtmlPage extends HtmlContainer
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         if ($this->AutoRefresh > 0)
             $_header .= "    <meta http-equiv=\"refresh\" content=\"" . $this->AutoRefresh . "\">\n";
+        foreach ($this->Header_Meta as $key => $value)
+            $_header .= "    <meta name=\"" . $key . "\" content=\"" . $value . "\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalCss as $style)
             $_header .= "    <link rel='stylesheet' type='text/css' href='$style'>\n";
