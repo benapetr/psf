@@ -37,15 +37,17 @@ class CheckBox extends HtmlElement
 
     public function ToHtml()
     {
-        $_e = "<input type=\"checkbox\" ";
+        $_e = "<input type=\"checkbox\"";
         if ($this->Name !== NULL)
-            $_e .= "name=\"$this->Name\" ";
+            $_e .= " name=\"$this->Name\"";
         if ($this->Value !== NULL)
-            $_e .= "value=\"$this->Value\" ";
+            $_e .= " value=\"$this->Value\"";
+        if ($this->ClassName !== NULL)
+            $_e .= " class=\"" . $this->ClassName . "\"";
         if ($this->Checked)
-            $_e .= "checked";
+            $_e .= " checked";
         if (!$this->Enabled)
-            $_e .= "disabled readonly";
+            $_e .= " disabled readonly";
         $_e .= ">";
         if ($this->Text !== NULL)
             $_e = "<label>$_e" . $this->Text . "</label>";

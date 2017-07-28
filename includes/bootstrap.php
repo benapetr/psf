@@ -18,6 +18,7 @@ if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/bootstrap/button.php");
+require_once (dirname(__FILE__) . "/bootstrap/checkbox.php");
 require_once (dirname(__FILE__) . "/bootstrap/form.php");
 
 function bootstrap_init($page)
