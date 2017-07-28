@@ -25,6 +25,7 @@ class HtmlElement extends PsfObject
     public $Indentation = 0;
     public $Indent = True;
     public $Style = NULL;
+    //! The class of html element, if HTML5, this will be added as <element class="text"> if not NULL
     public $ClassName = NULL;
 
     function __clone()
