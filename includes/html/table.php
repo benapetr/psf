@@ -56,6 +56,7 @@ class HtmlTable_Cell extends HtmlElement
 
 class HtmlTable extends HtmlElement
 {
+    public $Class = NULL;
     private $mRows = 0;
     private $mColumns = 0;
     public $Format = NULL;
@@ -81,6 +82,8 @@ class HtmlTable extends HtmlElement
         {
             $f .= " $this->Format";
         }
+        if ($this->Class !== NULL)
+            $f .= " class=\"" . $this->Class . "\"";
         while (psf_string_startsWith($f, " "))
             $f = substr($f, 1);
         return $f;
