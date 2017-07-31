@@ -17,18 +17,15 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/bootstrap/button.php");
-require_once (dirname(__FILE__) . "/bootstrap/checkbox.php");
-require_once (dirname(__FILE__) . "/bootstrap/form.php");
-require_once (dirname(__FILE__) . "/bootstrap/textbox.php");
+require_once (dirname(__FILE__) . "/../html/textbox.php");
 
-function bootstrap_init($page)
+class BS_TextBox extends TextBox
 {
-    $bs = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-    if (!in_array($bs, $page->ExternalCss))
-        $page->ExternalCss[] = $bs;
-    $bs_j = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
-    if (!in_array($bs_j, $page->ExternalJs))
-        $page->ExternalJs[] = $bs_j;
-    $page->Header_Meta["viewport"] = "width=device-width, initial-scale=1";
+    public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
+    {
+        $this->ClassName = "form-control";
+        if ($bs_class !== NULL)
+            $this->ClassName .= " " . $bs_class;
+        parent::__construct($_name, $_value, $_parent);
+    }
 }

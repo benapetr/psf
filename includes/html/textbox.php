@@ -25,6 +25,7 @@ class TextBox extends HtmlElement
     public $Name;
     public $Value;
     private $Multiline = false;
+    public $Rows = NULL;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -37,6 +38,7 @@ class TextBox extends HtmlElement
     {
         $this->DisableIndenting();
         $this->Multiline = true;
+        $this->Rows = 6;
     }
 
     public function ToHtml()
@@ -47,8 +49,14 @@ class TextBox extends HtmlElement
             $_e = "<textarea";
         if ($this->Name !== NULL)
             $_e .= " name=\"$this->Name\"";
+        if ($this->Rows !== NULL)
+            $_e .= " rows=\"$this->Rows\"";
         if (!$this->Multiline && $this->Value !== NULL)
             $_e .= " value=\"$this->Value\"";
+        if ($this->Style !== NULL)
+            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->ClassName !== NULL)
+            $_e .= " class=\"" . $this->ClassName . "\"";
         $_e .= ">";
         if ($this->Multiline)
         {
