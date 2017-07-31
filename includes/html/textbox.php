@@ -26,6 +26,7 @@ class TextBox extends HtmlElement
     public $Value;
     private $Multiline = false;
     public $Rows = NULL;
+    public $ReadOnly = false;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -57,6 +58,8 @@ class TextBox extends HtmlElement
             $_e .= " style=\"" . $this->Style->ToCss() . "\"";
         if ($this->ClassName !== NULL)
             $_e .= " class=\"" . $this->ClassName . "\"";
+        if ($this->ReadOnly === true)
+            $_e .= " readonly";
         $_e .= ">";
         if ($this->Multiline)
         {
