@@ -17,23 +17,15 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/../default_config.php");
+require_once (dirname(__FILE__) . "/../html/button.php");
 
-class SystemLog
+class BS_Button extends Button
 {
-    public static function Write($text)
+    public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
     {
-        global $psf_log;
-        file_put_contents($psf_log, $text.PHP_EOL , FILE_APPEND);
-    }
-
-    public static function Warning($text)
-    {
-        SystemLog::Write("WARNING: " . $text);
-    }
-
-    public static function Error($text)
-    {
-        SystemLog::Write("ERROR: " . $text);
+        $this->ClassName = "btn";
+        if ($bs_class !== NULL)
+            $this->ClassName .= " " . $bs_class;
+        parent::__construct($_name, $_value, $_parent);
     }
 }

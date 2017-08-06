@@ -35,6 +35,14 @@ class CSS extends PsfObject
             $this->items['body']['background-color'] = $this->BackgroundColor;
     }
 
+    //! This is just a skeleton function that can be overriden in order to auto-initialize style for certain elements
+    //! some PSF classes will call this function when the element is used, so that you can generate style only when
+    //! this element is present somewhere in body of page, this saves web browser some parsing and few bytes of CSS
+    public function AutoInit($element)
+    {
+
+    }
+
     public function FetchCss($n)
     {
         return $this->ToCss($n);

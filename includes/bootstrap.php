@@ -17,23 +17,18 @@
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/../default_config.php");
+require_once (dirname(__FILE__) . "/bootstrap/button.php");
+require_once (dirname(__FILE__) . "/bootstrap/checkbox.php");
+require_once (dirname(__FILE__) . "/bootstrap/form.php");
+require_once (dirname(__FILE__) . "/bootstrap/textbox.php");
 
-class SystemLog
+function bootstrap_init($page)
 {
-    public static function Write($text)
-    {
-        global $psf_log;
-        file_put_contents($psf_log, $text.PHP_EOL , FILE_APPEND);
-    }
-
-    public static function Warning($text)
-    {
-        SystemLog::Write("WARNING: " . $text);
-    }
-
-    public static function Error($text)
-    {
-        SystemLog::Write("ERROR: " . $text);
-    }
+    $bs = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+    if (!in_array($bs, $page->ExternalCss))
+        $page->ExternalCss[] = $bs;
+    $bs_j = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
+    if (!in_array($bs_j, $page->ExternalJs))
+        $page->ExternalJs[] = $bs_j;
+    $page->Header_Meta["viewport"] = "width=device-width, initial-scale=1";
 }

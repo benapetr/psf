@@ -1,18 +1,18 @@
 <?php
 
-//Part of simple php framework (spf)
+// Part of simple php framework (spf)
 
-//This program is free software: you can redistribute it and/or modify
-//it under the terms of the GNU General Public License as published by
-//the Free Software Foundation, either version 3 of the License, or
-//(at your option) any later version.
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 
-//Copyright Petr Bena 2015
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2017
 
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
@@ -50,6 +50,7 @@ class HtmlPage extends HtmlContainer
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
     public $AutoRefresh = 0;
+    public $Header_Meta = array();
 
     function __construct($_title, $_parent = NULL)
     {
@@ -76,6 +77,8 @@ class HtmlPage extends HtmlContainer
         $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         if ($this->AutoRefresh > 0)
             $_header .= "    <meta http-equiv=\"refresh\" content=\"" . $this->AutoRefresh . "\">\n";
+        foreach ($this->Header_Meta as $key => $value)
+            $_header .= "    <meta name=\"" . $key . "\" content=\"" . $value . "\">\n";
         $_header .= "    <title>$this->Title</title>\n";
         foreach ($this->ExternalCss as $style)
             $_header .= "    <link rel='stylesheet' type='text/css' href='$style'>\n";
