@@ -84,6 +84,12 @@ class Localization
         self::$dl = self::$keys[$id];
     }
 
+    public static function IsKnown($id)
+    {
+        self::Initialize();
+        return array_key_exists($id, self::$keys);
+    }
+
     public static function Initialize($folder = NULL)
     {
         global $psf_localization, $psf_localization_default_language;
