@@ -65,7 +65,7 @@ class HtmlPage extends HtmlContainer
     private function getHeader()
     {
         $_header = "<!DOCTYPE html>\n";
-        $_header .= "<html>\n";
+        $_header .= "<html lang=\"$this->Language\">\n";
         $_header .= "  <head>\n";
         $_header .= $this->Prefix_Head;
         if ($this->HtmlVersion == 4)
@@ -74,7 +74,6 @@ class HtmlPage extends HtmlContainer
             $_header .= "    <meta charset=\"$this->Encoding\">\n";
         else
             $_header .= "    <!-- Unsupported html version: $this->HtmlVersion -->\n";
-        $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         if ($this->AutoRefresh > 0)
             $_header .= "    <meta http-equiv=\"refresh\" content=\"" . $this->AutoRefresh . "\">\n";
         foreach ($this->Header_Meta as $key => $value)
@@ -83,7 +82,7 @@ class HtmlPage extends HtmlContainer
         foreach ($this->ExternalCss as $style)
             $_header .= "    <link rel='stylesheet' type='text/css' href='$style'>\n";
         foreach ($this->ExternalJs as $js)
-            $_header .= "    <script type='text/javascript' src='$js'></script>\n";
+            $_header .= "    <script src='$js'></script>\n";
         foreach ($this->InternalJs as $script)
         {
             $_header .= "    <script type=\"text/javascript\">\n";
