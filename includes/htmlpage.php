@@ -109,12 +109,6 @@ class HtmlPage extends HtmlContainer
         return $_header;
     }
 
-    //! \brief Insert a header on bottom of current body of the page
-    public function AppendHeader($text, $level = 1)
-    {
-        $this->AppendHtmlLine("<h$level>" . htmlspecialchars($text) . "</h$level>");
-    }
-
     private function getBody()
     {
        $indent = 4;

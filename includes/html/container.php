@@ -49,6 +49,12 @@ class HtmlContainer extends HtmlElement
         $this->AppendObject(new HtmlPrimitiveObject($value . $html));
     }
 
+    //! \brief Insert a header on bottom of current body of the page
+    public function AppendHeader($text, $level = 1)
+    {
+        $this->AppendHtmlLine("<h$level>" . htmlspecialchars($text) . "</h$level>");
+    }
+
     public function AppendHtml($html, $indent = -1)
     {
         $lines = explode("\n", $html);

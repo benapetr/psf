@@ -37,6 +37,7 @@ require_once (dirname(__FILE__) . "/includes/html/textbox.php");
 require_once (dirname(__FILE__) . "/includes/html/table.php");
 require_once (dirname(__FILE__) . "/includes/html/image.php");
 require_once (dirname(__FILE__) . "/includes/html/list.php");
+require_once (dirname(__FILE__) . "/includes/html/divcontainer.php");
 
 // JS stuff
 //require_once (dirname(__FILE__) . "/includes/js/jshandler.php");
