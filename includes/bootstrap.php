@@ -1,6 +1,6 @@
 <?php
 
-// Part of simple php framework (spf)
+// Part of php simple framework (psf)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 if (!defined("PSF_ENTRY_POINT"))
-        die("Not a valid psf entry point");
+    die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/bootstrap/button.php");
 require_once (dirname(__FILE__) . "/bootstrap/containerfluid.php");
