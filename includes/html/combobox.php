@@ -35,6 +35,8 @@ class ComboBoxItem extends HtmlElement
     public function ToHtml()
     {
         $_e = "<option";
+        if ($this->Selected)
+          $_e .= ' selected="selected"';
         if ($this->Value !== NULL)
           $_e .= ' value="' . $this->Value . '"';
         $_e .= ">";
@@ -55,6 +57,13 @@ class ComboBox extends HtmlElement
     {
         $this->Name = $_name;
         parent::__construct($_parent);
+    }
+
+    public function AddDefaultValue($value, $text)
+    {
+		$item = new ComboBoxItem($value, $text, $this);
+		$item->Selected = true;
+        $this->Items[] = $item;
     }
 
     public function AddValue($value, $text)
