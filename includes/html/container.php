@@ -88,8 +88,14 @@ class HtmlContainer extends HtmlElement
     public function AppendObject($object, $indent = -1)
     {
         $object->Parent = $this;
-        array_push($this->Items, $object);
+        if (!in_array($object, $this->Items))
+			array_push($this->Items, $object);
     }
+    
+    public function AddChild($_child)
+    {
+		$this->AppendObject($_child);
+	}
 
     public function _gen_html_tag($name, $value, $param = "")
     {

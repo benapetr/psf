@@ -25,6 +25,8 @@ class PsfObject
     function __construct($_parent = NULL)
     {
         $this->Parent = $_parent;
+        if ($_parent !== NULL)
+            $_parent->AddChild($this);
     }
 
     function SetParent($_parent)
@@ -36,5 +38,7 @@ class PsfObject
     {
         return $this->Parent;
     }
+
+    function AddChild($_child) { }
 }
 
