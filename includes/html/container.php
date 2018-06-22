@@ -25,6 +25,7 @@ require_once (dirname(__FILE__) . "/primitive_object.php");
 //! Represent a single Html container, usually used by htmlpage or htmltable or any other element that is able to hold child html elements
 class HtmlContainer extends HtmlElement
 {
+    public $AutoInsertChilds = false;
     protected $Items = array();
     protected $cIndent = 4;
 
@@ -94,8 +95,11 @@ class HtmlContainer extends HtmlElement
     
     public function AddChild($_child)
     {
-		$this->AppendObject($_child);
-	}
+        if ($this->AutoInsertChilds)
+        {
+ 	    $this->AppendObject($_child);
+        }
+    }
 
     public function _gen_html_tag($name, $value, $param = "")
     {
