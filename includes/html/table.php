@@ -76,7 +76,9 @@ class HtmlTable extends HtmlElement
 
     public function GetFormat()
     {
-        $f = "border=\"" . $this->BorderSize . "\"";
+        $f = "";
+        if ($this->BorderSize !== NULL)
+            $f .= " border=\"" . $this->BorderSize . "\"";
         if ($this->Width !== NULL)
             $f .= " width=\"" . $this->Width . "\"";
         if ($this->Style !== NULL)
@@ -84,9 +86,7 @@ class HtmlTable extends HtmlElement
         if ($this->ClassName !== NULL)
             $f .= " class=\"" . $this->ClassName . "\"";
         if ($this->Format !== NULL)
-        {
             $f .= " $this->Format";
-        }
         if ($this->Class !== NULL)
             $f .= " class=\"" . $this->Class . "\"";
         while (psf_string_startsWith($f, " "))
