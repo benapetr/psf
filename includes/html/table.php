@@ -25,11 +25,15 @@ class HtmlTable_Cell extends HtmlElement
     public $Format = NULL;
     public $Class = NULL;
     public $Html;
+    public $PsfObj = NULL;
 
     public function __construct($_html_ = "", $_parent = NULL)
     {
         parent::__construct($_parent);
-        $this->Html = $_html_;
+        if ($_html_ instanceof HtmlElement)
+            $this->PsfObj = $_html_;
+        else
+            $this->Html = $_html_;
     }
 
     public function ToHtml()
@@ -51,7 +55,10 @@ class HtmlTable_Cell extends HtmlElement
             $prefix .= " class=\"" . $this->Class . "\"";
 
         $html = "<td" . $prefix . ">";
-        $html .= $this->Html;
+        if ($this->PsfObj === NULL)
+            $html .= $this->Html;
+        else
+            $html .= $this->PsfObj->ToHtml();
         $html .= "</td>";
         return $html;
     }
