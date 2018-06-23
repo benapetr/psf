@@ -18,6 +18,8 @@ if (!defined("PSF_ENTRY_POINT"))
     die("Not a valid psf entry point");
 
 $psf_language = "en";
+//! If set to true, all containers will automatically insert child objects
+$psf_containers_auto_insert_child = false;
 $psf_bootstrap_enabled = True;
 $psf_encoding = "UTF-8";
 $psf_indent = 4;

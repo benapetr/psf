@@ -31,6 +31,8 @@ class HtmlContainer extends HtmlElement
 
     function __construct($_parent = NULL)
     {
+        global $psf_containers_auto_insert_child;
+        $this->AutoInsertChilds = $psf_containers_auto_insert_child;
         parent::__construct($_parent);
     }
 
