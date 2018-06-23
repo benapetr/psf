@@ -25,7 +25,6 @@ class ComboBoxItem extends HtmlElement
     public $Value = NULL;
     public $Selected = false;
     public $Text = NULL;
-    public $OnChange = NULL;
 
     public function __construct($_value = NULL, $_text = NULL, $_parent = NULL)
     {
@@ -38,8 +37,6 @@ class ComboBoxItem extends HtmlElement
         $_e = "<option";
         if ($this->Selected)
           $_e .= ' selected="selected"';
-        if ($this->OnChange !== NULL)
-          $_e .= ' onchange="' . $this->OnChange . '"';
         if ($this->Value !== NULL)
           $_e .= ' value="' . $this->Value . '"';
         $_e .= ">";
@@ -68,7 +65,6 @@ class ComboBox extends HtmlElement
         if ($text === NULL)
             $text = $value;
         $item = new ComboBoxItem($value, $text, $this);
-        $item->OnChange = $this->OnChangeCallback;
 		$item->Selected = true;
         $this->Items[] = $item;
     }
@@ -78,7 +74,6 @@ class ComboBox extends HtmlElement
         if ($text === NULL)
             $text = $value;
         $item = new ComboBoxItem($value, $text, $this);
-        $item->OnChange = $this->OnChangeCallback;
         $this->Items[] = $item;
     }
 
@@ -89,6 +84,8 @@ class ComboBox extends HtmlElement
             $_e .= " name=\"$this->Name\"";
         if ($this->Style !== NULL)
             $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->OnChangeCallback !== NULL)
+            $_e .= ' onchange="' . $this->OnChangeCallback . '"';
         $_e .= ">\n";
         foreach ($this->Items as $item)
             $_e .= "  " . $item->ToHtml() . "\n";
