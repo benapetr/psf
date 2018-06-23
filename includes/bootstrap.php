@@ -23,6 +23,7 @@ require_once (dirname(__FILE__) . "/bootstrap/containerfluid.php");
 require_once (dirname(__FILE__) . "/bootstrap/checkbox.php");
 require_once (dirname(__FILE__) . "/bootstrap/form.php");
 require_once (dirname(__FILE__) . "/bootstrap/table.php");
+require_once (dirname(__FILE__) . "/bootstrap/tabs.php");
 require_once (dirname(__FILE__) . "/bootstrap/textbox.php");
 require_once (dirname(__FILE__) . "/bootstrap/well.php");
 
