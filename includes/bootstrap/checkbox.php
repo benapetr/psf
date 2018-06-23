@@ -22,12 +22,12 @@ require_once (dirname(__FILE__) . "/../html/checkbox.php");
 class BS_CheckBox extends CheckBox
 {
     public $Inline = false;
-    public function __construct($_name = NULL, $_value = NULL, $_checked = false, $bs_class = NULL, $_parent = NULL)
+    public function __construct($_name = NULL, $_value = NULL, $_checked = false, $bs_class = NULL, $_parent = NULL, $_text = NULL)
     {
         $this->ClassName = "checkbox";
         if ($bs_class !== NULL)
             $this->ClassName .= " " . $bs_class;
-        parent::__construct($_name, $_value, $_checked, $_parent);
+        parent::__construct($_name, $_value, $_checked, $_parent, $_text);
     }
 
     public function ToHtml()

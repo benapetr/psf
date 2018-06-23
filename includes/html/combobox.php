@@ -59,15 +59,19 @@ class ComboBox extends HtmlElement
         parent::__construct($_parent);
     }
 
-    public function AddDefaultValue($value, $text)
+    public function AddDefaultValue($value, $text = NULL)
     {
+        if ($text === NULL)
+            $text = $value;
 		$item = new ComboBoxItem($value, $text, $this);
 		$item->Selected = true;
         $this->Items[] = $item;
     }
 
-    public function AddValue($value, $text)
+    public function AddValue($value, $text = NULL)
     {
+        if ($text === NULL)
+            $text = $value;
         $this->Items[] = new ComboBoxItem($value, $text, $this);
     }
 

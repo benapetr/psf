@@ -27,11 +27,12 @@ class CheckBox extends HtmlElement
     public $Text = NULL;
     public $Checked;
 
-    public function __construct($_name = NULL, $_value = NULL, $_checked = false, $_parent = NULL)
+    public function __construct($_name = NULL, $_value = NULL, $_checked = false, $_parent = NULL, $_text = NULL)
     {
         $this->Checked = $_checked;
         $this->Name = $_name;
         $this->Value = $_value;
+        $this->Text = $_text;
         parent::__construct($_parent);
     }
 
