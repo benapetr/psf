@@ -39,6 +39,9 @@ require_once (dirname(__FILE__) . "/includes/html/image.php");
 require_once (dirname(__FILE__) . "/includes/html/list.php");
 require_once (dirname(__FILE__) . "/includes/html/divcontainer.php");
 
+// Inline misc
+require_once (dirname(__FILE__) . "/includes/html/script.php");
+
 // JS stuff
 //require_once (dirname(__FILE__) . "/includes/js/jshandler.php");
 //require_once (dirname(__FILE__) . "/includes/js/tooltip.php");
