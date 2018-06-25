@@ -22,6 +22,7 @@ require_once (dirname(__FILE__) . "/../html/table.php");
 class BS_Table extends HtmlTable
 {
     public $Condensed = true;
+    public $Hover = true;
 
     public function __construct($_parent = NULL)
     {
@@ -35,6 +36,8 @@ class BS_Table extends HtmlTable
             $this->ClassName .= " table-condensed";
         if ($this->BorderSize !== NULL)
             $this->ClassName .= " table-bordered";
+        if ($this->Hover)
+            $this->ClassName .= " table-hover";
         return parent::ToHtml();
     }
 }
