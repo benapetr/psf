@@ -17,32 +17,32 @@
 if (!defined("PSF_ENTRY_POINT"))
     die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/element.php");
+require_once (dirname(__FILE__) . "/../html/list.php");
 
-class Button extends HtmlElement
+class BS_Tabs extends BulletList
 {
-    public $Name;
-    public $Value;
+    public $SelectedTab = 0;
 
-    public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
+    public function __construct($list = NULL, $_parent = NULL)
     {
-        $this->Name = $_name;
-        $this->Value = $_value;
         parent::__construct($_parent);
+        if ($list !== NULL)
+            $this->Items = $list;
     }
 
     public function ToHtml()
     {
-        $_e = "<input type=\"submit\"";
-        if ($this->Name !== NULL)
-            $_e .= " name=\"$this->Name\"";
-        if ($this->Value !== NULL)
-            $_e .= " value=\"$this->Value\"";
-        if ($this->Style !== NULL)
-            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
-        if ($this->ClassName !== NULL)
-            $_e .= " class=\"" . $this->ClassName . "\"";
-        $_e .= ">";
-        return $_e;
+        $bx = "<ul class='nav nav-tabs'>\n";
+        $i = 0;
+        foreach ($this->Items as $item)
+        {
+            if ($i == $this->SelectedTab)
+                $bx .= "    <li class='active'>" . $item . "</li>\n";
+            else
+                $bx .= "    <li>" . $item . "</li>\n";
+            $i++;
+        }
+        $bx .= "</ul>";
+        return $bx;
     }
 }

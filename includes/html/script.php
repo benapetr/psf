@@ -14,5 +14,27 @@
 
 // Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
-echo ("Did you get lost?\n");
-exit(0);
+if (!defined("PSF_ENTRY_POINT"))
+    die("Not a valid psf entry point");
+
+require_once (dirname(__FILE__) . "/element.php");
+
+class Script extends HtmlElement
+{
+    public $Source;
+
+    function __construct($_src = "", $_parent = NULL)
+    {
+        $this->Source = $_src;
+        parent::__construct($_parent);
+    }
+
+    public function ToHtml()
+    {
+       $_b = "<script>\n";
+       $_b .= $this->Source;
+       $_b .= "</script>";
+       return $_b;
+    }
+}
+

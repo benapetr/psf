@@ -15,11 +15,29 @@
 // Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 if (!defined("PSF_ENTRY_POINT"))
-        die("Not a valid psf entry point");
+    die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/../object.php");
+require_once (dirname(__FILE__) . "/../html/table.php");
 
-class JSHandler extends PsfObject
+class BS_Table extends HtmlTable
 {
+    public $Condensed = true;
+    public $Hover = true;
 
+    public function __construct($_parent = NULL)
+    {
+        $this->ClassName = "table";
+        parent::__construct($_parent);
+    }
+
+    public function ToHtml()
+    {
+        if ($this->Condensed)
+            $this->ClassName .= " table-condensed";
+        if ($this->BorderSize !== NULL)
+            $this->ClassName .= " table-bordered";
+        if ($this->Hover)
+            $this->ClassName .= " table-hover";
+        return parent::ToHtml();
+    }
 }

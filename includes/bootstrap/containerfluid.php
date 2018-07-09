@@ -14,5 +14,27 @@
 
 // Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
-echo ("Did you get lost?\n");
-exit(0);
+if (!defined("PSF_ENTRY_POINT"))
+    die("Not a valid psf entry point");
+
+require_once (dirname(__FILE__) . "/../html/divcontainer.php");
+
+class BS_FluidContainer extends DivContainer
+{
+    public function __construct($_parent = NULL)
+    {
+        parent::__construct($_parent);
+    }
+
+    public function ToHtml()
+    {
+        if ($this->ClassName === NULL)
+        {
+            $this->ClassName = "container-fluid";
+        } else
+        {
+            $this->ClassName = "container-fluid " . $this->ClassName;
+        }
+        return parent::ToHtml();
+    }
+}

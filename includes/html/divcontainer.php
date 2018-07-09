@@ -17,32 +17,27 @@
 if (!defined("PSF_ENTRY_POINT"))
     die("Not a valid psf entry point");
 
-require_once (dirname(__FILE__) . "/element.php");
+require_once (dirname(__FILE__) . "/container.php");
 
-class Button extends HtmlElement
+//! Represents a simple div container that can contain html elements
+class DivContainer extends HtmlContainer
 {
-    public $Name;
-    public $Value;
-
-    public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
+    function __construct($_parent = NULL)
     {
-        $this->Name = $_name;
-        $this->Value = $_value;
         parent::__construct($_parent);
     }
 
     public function ToHtml()
     {
-        $_e = "<input type=\"submit\"";
-        if ($this->Name !== NULL)
-            $_e .= " name=\"$this->Name\"";
-        if ($this->Value !== NULL)
-            $_e .= " value=\"$this->Value\"";
-        if ($this->Style !== NULL)
-            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
-        if ($this->ClassName !== NULL)
-            $_e .= " class=\"" . $this->ClassName . "\"";
-        $_e .= ">";
-        return $_e;
+       $_b = "<div";
+       if ($this->Style !== NULL)
+           $_b .= " style=\"" . $this->Style->ToCss() . "\"";
+       if ($this->ClassName !== NULL)
+           $_b .= " class=\"" . $this->ClassName . "\"";
+       $_b .= ">\n";
+       $_b .= parent::ToHtml();
+       $_b .= "</div>";
+       return $_b;
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-// Part of simple php framework (spf)
+// Part of php simple framework (psf)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2017
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 require (dirname(__FILE__) . "/includes/csspage.php");
 // Somebody wants a css from us

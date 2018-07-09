@@ -12,7 +12,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2017
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 define ("PSF_ENTRY_POINT", "psf.php");
 
@@ -38,6 +38,10 @@ require_once (dirname(__FILE__) . "/includes/html/label.php");
 require_once (dirname(__FILE__) . "/includes/html/table.php");
 require_once (dirname(__FILE__) . "/includes/html/image.php");
 require_once (dirname(__FILE__) . "/includes/html/list.php");
+require_once (dirname(__FILE__) . "/includes/html/divcontainer.php");
+
+// Inline misc
+require_once (dirname(__FILE__) . "/includes/html/script.php");
 
 // JS stuff
 //require_once (dirname(__FILE__) . "/includes/js/jshandler.php");

@@ -1,6 +1,6 @@
 <?php
 
-// Part of simple php framework (spf)
+// Part of php simple framework (psf)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,10 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2017
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
+
+if (!defined("PSF_ENTRY_POINT"))
+    die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/../../functions.php");
 require_once (dirname(__FILE__) . "/element.php");
@@ -22,11 +25,15 @@ class HtmlTable_Cell extends HtmlElement
     public $Format = NULL;
     public $Class = NULL;
     public $Html;
+    public $PsfObj = NULL;
 
     public function __construct($_html_ = "", $_parent = NULL)
     {
         parent::__construct($_parent);
-        $this->Html = $_html_;
+        if ($_html_ instanceof HtmlElement)
+            $this->PsfObj = $_html_;
+        else
+            $this->Html = $_html_;
     }
 
     public function ToHtml()
@@ -48,7 +55,10 @@ class HtmlTable_Cell extends HtmlElement
             $prefix .= " class=\"" . $this->Class . "\"";
 
         $html = "<td" . $prefix . ">";
-        $html .= $this->Html;
+        if ($this->PsfObj === NULL)
+            $html .= $this->Html;
+        else
+            $html .= $this->PsfObj->ToHtml();
         $html .= "</td>";
         return $html;
     }
@@ -73,7 +83,9 @@ class HtmlTable extends HtmlElement
 
     public function GetFormat()
     {
-        $f = "border=\"" . $this->BorderSize . "\"";
+        $f = "";
+        if ($this->BorderSize !== NULL)
+            $f .= " border=\"" . $this->BorderSize . "\"";
         if ($this->Width !== NULL)
             $f .= " width=\"" . $this->Width . "\"";
         if ($this->Style !== NULL)
@@ -81,9 +93,7 @@ class HtmlTable extends HtmlElement
         if ($this->ClassName !== NULL)
             $f .= " class=\"" . $this->ClassName . "\"";
         if ($this->Format !== NULL)
-        {
             $f .= " $this->Format";
-        }
         if ($this->Class !== NULL)
             $f .= " class=\"" . $this->Class . "\"";
         while (psf_string_startsWith($f, " "))

@@ -1,21 +1,21 @@
 <?php
 
-//Part of simple php framework (spf)
-//
-////This program is free software: you can redistribute it and/or modify
-////it under the terms of the GNU General Public License as published by
-////the Free Software Foundation, either version 3 of the License, or
-////(at your option) any later version.
-//
-////This program is distributed in the hope that it will be useful,
-////but WITHOUT ANY WARRANTY; without even the implied warranty of
-////MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-////GNU General Public License for more details.
-//
-////Copyright Petr Bena 2015
+// Part of php simple framework (psf)
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 if (!defined("PSF_ENTRY_POINT"))
-        die("Not a valid psf entry point");
+    die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/element.php");
 
@@ -35,6 +35,8 @@ class ComboBoxItem extends HtmlElement
     public function ToHtml()
     {
         $_e = "<option";
+        if ($this->Selected)
+          $_e .= ' selected="selected"';
         if ($this->Value !== NULL)
           $_e .= ' value="' . $this->Value . '"';
         $_e .= ">";
@@ -49,6 +51,7 @@ class ComboBox extends HtmlElement
     public $Enabled = true;
     public $Name;
     public $Autofocus = false;
+    public $OnChangeCallback = NULL;
     public $Items = [];
 
     public function __construct($_name = NULL, $_parent = NULL)
@@ -57,9 +60,21 @@ class ComboBox extends HtmlElement
         parent::__construct($_parent);
     }
 
-    public function AddValue($value, $text)
+    public function AddDefaultValue($value, $text = NULL)
     {
-        $this->Items[] = new ComboBoxItem($value, $text, $this);
+        if ($text === NULL)
+            $text = $value;
+        $item = new ComboBoxItem($value, $text, $this);
+		$item->Selected = true;
+        $this->Items[] = $item;
+    }
+
+    public function AddValue($value, $text = NULL)
+    {
+        if ($text === NULL)
+            $text = $value;
+        $item = new ComboBoxItem($value, $text, $this);
+        $this->Items[] = $item;
     }
 
     public function ToHtml()
@@ -69,6 +84,8 @@ class ComboBox extends HtmlElement
             $_e .= " name=\"$this->Name\"";
         if ($this->Style !== NULL)
             $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->OnChangeCallback !== NULL)
+            $_e .= ' onchange="' . $this->OnChangeCallback . '"';
         $_e .= ">\n";
         foreach ($this->Items as $item)
             $_e .= "  " . $item->ToHtml() . "\n";

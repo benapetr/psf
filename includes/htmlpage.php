@@ -1,6 +1,6 @@
 <?php
 
-// Part of simple php framework (spf)
+// Part of php simple framework (psf)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,10 +12,10 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2017
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 if (!defined("PSF_ENTRY_POINT"))
-        die("Not a valid psf entry point");
+    die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/../default_config.php");
 require_once (dirname(__FILE__) . "/html/container.php");
@@ -65,7 +65,7 @@ class HtmlPage extends HtmlContainer
     private function getHeader()
     {
         $_header = "<!DOCTYPE html>\n";
-        $_header .= "<html>\n";
+        $_header .= "<html lang=\"$this->Language\">\n";
         $_header .= "  <head>\n";
         $_header .= $this->Prefix_Head;
         if ($this->HtmlVersion == 4)
@@ -74,7 +74,6 @@ class HtmlPage extends HtmlContainer
             $_header .= "    <meta charset=\"$this->Encoding\">\n";
         else
             $_header .= "    <!-- Unsupported html version: $this->HtmlVersion -->\n";
-        $_header .= "    <meta http-equiv=\"Content-Language\" content=\"$this->Language\">\n";
         if ($this->AutoRefresh > 0)
             $_header .= "    <meta http-equiv=\"refresh\" content=\"" . $this->AutoRefresh . "\">\n";
         foreach ($this->Header_Meta as $key => $value)
@@ -83,7 +82,7 @@ class HtmlPage extends HtmlContainer
         foreach ($this->ExternalCss as $style)
             $_header .= "    <link rel='stylesheet' type='text/css' href='$style'>\n";
         foreach ($this->ExternalJs as $js)
-            $_header .= "    <script type='text/javascript' src='$js'></script>\n";
+            $_header .= "    <script src='$js'></script>\n";
         foreach ($this->InternalJs as $script)
         {
             $_header .= "    <script type=\"text/javascript\">\n";
@@ -107,12 +106,6 @@ class HtmlPage extends HtmlContainer
         $_header .= $this->Suffix_Head;
         $_header .= "  </head>\n";
         return $_header;
-    }
-
-    //! \brief Insert a header on bottom of current body of the page
-    public function AppendHeader($text, $level = 1)
-    {
-        $this->AppendHtmlLine("<h$level>" . htmlspecialchars($text) . "</h$level>");
     }
 
     private function getBody()

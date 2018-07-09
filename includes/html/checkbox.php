@@ -1,6 +1,6 @@
 <?php
 
-// Part of simple php framework (spf)
+// Part of php simple framework (psf)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,10 +12,10 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2017
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 if (!defined("PSF_ENTRY_POINT"))
-        die("Not a valid psf entry point");
+    die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/element.php");
 
@@ -27,11 +27,12 @@ class CheckBox extends HtmlElement
     public $Text = NULL;
     public $Checked;
 
-    public function __construct($_name = NULL, $_value = NULL, $_checked = false, $_parent = NULL)
+    public function __construct($_name = NULL, $_value = NULL, $_checked = false, $_parent = NULL, $_text = NULL)
     {
         $this->Checked = $_checked;
         $this->Name = $_name;
         $this->Value = $_value;
+        $this->Text = $_text;
         parent::__construct($_parent);
     }
 

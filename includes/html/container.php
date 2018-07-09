@@ -1,21 +1,21 @@
 <?php
 
-//Part of simple php framework (spf)
+// Part of php simple framework (psf)
 
-//This program is free software: you can redistribute it and/or modify
-//it under the terms of the GNU General Public License as published by
-//the Free Software Foundation, either version 3 of the License, or
-//(at your option) any later version.
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 
-//Copyright Petr Bena 2015
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
 
 if (!defined("PSF_ENTRY_POINT"))
-        die("Not a valid psf entry point");
+    die("Not a valid psf entry point");
 
 require_once (dirname(__FILE__) . "/../object.php");
 require_once (dirname(__FILE__) . "/../../default_config.php");
@@ -25,11 +25,14 @@ require_once (dirname(__FILE__) . "/primitive_object.php");
 //! Represent a single Html container, usually used by htmlpage or htmltable or any other element that is able to hold child html elements
 class HtmlContainer extends HtmlElement
 {
+    public $AutoInsertChilds = false;
     protected $Items = array();
     protected $cIndent = 4;
 
     function __construct($_parent = NULL)
     {
+        global $psf_containers_auto_insert_child;
+        $this->AutoInsertChilds = $psf_containers_auto_insert_child;
         parent::__construct($_parent);
     }
 
@@ -47,6 +50,12 @@ class HtmlContainer extends HtmlElement
             $value .= " ";
         }
         $this->AppendObject(new HtmlPrimitiveObject($value . $html));
+    }
+
+    //! \brief Insert a header on bottom of current body of the page
+    public function AppendHeader($text, $level = 1)
+    {
+        $this->AppendHtmlLine("<h$level>" . htmlspecialchars($text) . "</h$level>");
     }
 
     public function AppendHtml($html, $indent = -1)
@@ -82,7 +91,16 @@ class HtmlContainer extends HtmlElement
     public function AppendObject($object, $indent = -1)
     {
         $object->Parent = $this;
-        array_push($this->Items, $object);
+        if (!in_array($object, $this->Items))
+			array_push($this->Items, $object);
+    }
+    
+    public function AddChild($_child)
+    {
+        if ($this->AutoInsertChilds)
+        {
+ 	    $this->AppendObject($_child);
+        }
     }
 
     public function _gen_html_tag($name, $value, $param = "")
