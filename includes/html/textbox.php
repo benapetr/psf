@@ -27,6 +27,9 @@ class TextBox extends HtmlElement
     private $Multiline = false;
     public $Rows = NULL;
     public $ReadOnly = false;
+    //! If true, this text box will be acting as password input
+    public $Password = false;
+    public $Placeholder = NULL;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -44,7 +47,9 @@ class TextBox extends HtmlElement
 
     public function ToHtml()
     {
-        if (!$this->Multiline)
+        if ($this->Password)
+            $_e = "<input type=\"password\"";
+        else if (!$this->Multiline)
             $_e = "<input type=\"text\"";
         else
             $_e = "<textarea";
@@ -60,6 +65,8 @@ class TextBox extends HtmlElement
             $_e .= " class=\"" . $this->ClassName . "\"";
         if ($this->ReadOnly === true)
             $_e .= " readonly";
+        if ($this->Placeholder !== NULL)
+            $_e .= " placeholder=\"" . $this->Placeholder . "\"";
         $_e .= ">";
         if ($this->Multiline)
         {

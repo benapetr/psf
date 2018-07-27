@@ -49,7 +49,7 @@ class HtmlContainer extends HtmlElement
         {
             $value .= " ";
         }
-        $this->AppendObject(new HtmlPrimitiveObject($value . $html));
+        $this->AppendObject(new HtmlPrimitiveObject($value . $html), -1, true);
     }
 
     //! \brief Insert a header on bottom of current body of the page
@@ -75,7 +75,7 @@ class HtmlContainer extends HtmlElement
         $pre = new HtmlPrimitiveObject("<pre>\n" . $text . "\n</pre>");
         // we have to disable indenting here, because it simply is not desired
         $pre->Indent = false;
-        $this->AppendObject($pre);
+        $this->AppendObject($pre, -1, true);
     }
 
     public function AppendPre($text)
@@ -87,19 +87,24 @@ class HtmlContainer extends HtmlElement
     {
         $this->AppendHtmlLine("<hr>");
     }
+    
+    public function AppendLineBreak()
+    {
+        $this->AppendHtmlLine("<br>");
+    }
 
-    public function AppendObject($object, $indent = -1)
+    public function AppendObject($object, $indent = -1, $force = false)
     {
         $object->Parent = $this;
-        if (!in_array($object, $this->Items))
-			array_push($this->Items, $object);
+        if ($force || !in_array($object, $this->Items))
+            array_push($this->Items, $object);
     }
     
     public function AddChild($_child)
     {
         if ($this->AutoInsertChilds)
         {
- 	    $this->AppendObject($_child);
+            $this->AppendObject($_child);
         }
     }
 
