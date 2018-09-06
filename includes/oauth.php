@@ -20,7 +20,7 @@ if (!defined("PSF_ENTRY_POINT"))
 define("OAUTH_OK", 0);
 define("OAUTH_NOT_AUTH", 2);
 
-class OAuth
+class PsfOAuth
 {
     public $ConsumerKey = null;
     public $UserAgent = "psf";
