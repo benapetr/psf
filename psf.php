@@ -55,6 +55,7 @@ if ($psf_bootstrap_enabled)
 
 // Advanced
 require_once (dirname(__FILE__) . "/includes/html/github.php");
-require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
+// This is not working
+//require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
 require_once (dirname(__FILE__) . "/includes/googlefonts.php");
 
