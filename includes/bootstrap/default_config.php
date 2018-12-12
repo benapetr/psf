@@ -17,17 +17,5 @@
 if (!defined("PSF_ENTRY_POINT"))
     die("Not a valid psf entry point");
 
-$psf_language = "en";
-//! If set to true, all containers will automatically insert child objects
-$psf_containers_auto_insert_child = false;
-$psf_bootstrap_enabled = True;
-$psf_encoding = "UTF-8";
-$psf_indent = 4;
-// Set to false to improve performance on huge pages
-$psf_indent_system_enabled = True;
-$psf_home = "psf/";
-$psf_log = "/tmp/psf.log";
-$psf_localization = "lang";
-$psf_localization_default_language = "en";
-
-require_once (dirname(__FILE__) . "/includes/bootstrap/default_config.php");
+$psf_bootstrap_css_url = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+$psf_bootstrap_js_url = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";

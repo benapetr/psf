@@ -29,10 +29,11 @@ require_once (dirname(__FILE__) . "/bootstrap/well.php");
 
 function bootstrap_init($page)
 {
-    $bs = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+    global $psf_bootstrap_css_url, $psf_bootstrap_js_url;
+    $bs = $psf_bootstrap_css_url;
     if (!in_array($bs, $page->ExternalCss))
         $page->ExternalCss[] = $bs;
-    $bs_j = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
+    $bs_j = $psf_bootstrap_js_url;
     if (!in_array($bs_j, $page->ExternalJs))
         $page->ExternalJs[] = $bs_j;
     $page->Header_Meta["viewport"] = "width=device-width, initial-scale=1";
