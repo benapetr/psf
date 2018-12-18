@@ -95,6 +95,8 @@ class HtmlContainer extends HtmlElement
 
     public function AppendObject($object, $indent = -1, $force = false)
     {
+        if ($object === NULL)
+            return;
         $object->Parent = $this;
         if ($force || !in_array($object, $this->Items))
             array_push($this->Items, $object);
@@ -102,6 +104,8 @@ class HtmlContainer extends HtmlElement
     
     public function AddChild($_child)
     {
+        if ($_child === NULL)
+            return;
         if ($this->AutoInsertChilds)
         {
             $this->AppendObject($_child);
