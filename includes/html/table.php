@@ -80,6 +80,8 @@ class HtmlTable extends HtmlElement
     public $Rows = array();
     //! Put number bigger than zero in order to repeat headers after N rows
     public $RepeatHeader = 0;
+    //! Array of column widths, for example 0 => '10px', 1 => '20px', columns start from zero, if ommited, no width is specified
+    public $ColWidth = array();
 
     public function GetFormat()
     {
@@ -104,6 +106,11 @@ class HtmlTable extends HtmlElement
     public function AppendRow(array $cells, $default_style = NULL)
     {
         $this->InsertRow($cells, $default_style);
+    }
+
+    public function SetColumnWidth($column_id, $width)
+    {
+        $this->ColWidth[$column_id] = $width;
     }
 
     //! Insert a new row by array that consist of html blocks only
@@ -139,12 +146,18 @@ class HtmlTable extends HtmlElement
         if (count($this->Headers) > 0)
         {
             $html .= "  <tr>\n";
+            $header_id = 0;
             foreach ($this->Headers as $x)
             {
+                $custom_style = '';
+                if (array_key_exists($header_id, $this->ColWidth))
+                    $custom_style = ' style="width:' . $this->ColWidth[$header_id] . '"';
                 if ($this->NameAsClass)
-                    $html .= "    <th class=\"" . psf_generate_friendly_name($x) . "\">" . $x . "</th>\n";
+                    $html .= '    <th' . $custom_style . ' class="' . psf_generate_friendly_name($x) . '">' . $x . "</th>\n";
                 else
-                    $html .= "    <th>" . $x . "</th>\n";
+                    $html .= '    <th' . $custom_style . '>' . $x . "</th>\n";
+
+                $header_id += 1;
             }
             $html .= "  </tr>\n";
         }
