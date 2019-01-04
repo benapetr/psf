@@ -152,6 +152,10 @@ class PsfApiBase extends PsfObject
             foreach ($this->ApiList_Action as $key => $value)
             {
                 $c->AppendHeader($key, 3);
+                if ($value->ShortDescription !== NULL)
+                {
+                    $c->AppendParagraph($value->ShortDescription);
+                }
             }
         }
 
