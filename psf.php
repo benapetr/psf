@@ -12,7 +12,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2019
 
 define ("PSF_ENTRY_POINT", "psf.php");
 
@@ -20,42 +20,15 @@ define ("PSF_ENTRY_POINT", "psf.php");
 require_once (dirname(__FILE__) . "/definitions.php");
 require_once (dirname(__FILE__) . "/default_config.php");
 require_once (dirname(__FILE__) . "/includes/systemlog.php");
-require_once (dirname(__FILE__) . "/includes/htmlpage.php");
-require_once (dirname(__FILE__) . "/includes/systemlog.php");
 require_once (dirname(__FILE__) . "/includes/localization.php");
 
-// Form related
-require_once (dirname(__FILE__) . "/includes/html/checkbox.php");
-require_once (dirname(__FILE__) . "/includes/html/hidden.php");
-require_once (dirname(__FILE__) . "/includes/html/button.php");
-require_once (dirname(__FILE__) . "/includes/html/form.php");
-require_once (dirname(__FILE__) . "/includes/html/combobox.php");
-require_once (dirname(__FILE__) . "/includes/html/login_form.php");
-require_once (dirname(__FILE__) . "/includes/html/textbox.php");
-require_once (dirname(__FILE__) . "/includes/html/label.php");
+// HTML
+require_once (dirname(__FILE__) . "/includes/html_stack.php");
 
-// Html basics
-require_once (dirname(__FILE__) . "/includes/html/table.php");
-require_once (dirname(__FILE__) . "/includes/html/image.php");
-require_once (dirname(__FILE__) . "/includes/html/list.php");
-require_once (dirname(__FILE__) . "/includes/html/divcontainer.php");
-
-// Inline misc
-require_once (dirname(__FILE__) . "/includes/html/script.php");
+// API
+require_once (dirname(__FILE__) . "/includes/api/apibase_json.php");
 
 // JS stuff
 //require_once (dirname(__FILE__) . "/includes/js/jshandler.php");
 //require_once (dirname(__FILE__) . "/includes/js/tooltip.php");
-
-if ($psf_bootstrap_enabled)
-{
-    // Bootstrap
-    require_once (dirname(__FILE__) . "/includes/bootstrap.php");
-}
-
-// Advanced
-require_once (dirname(__FILE__) . "/includes/html/github.php");
-// This is not working
-//require_once (dirname(__FILE__) . "/includes/wmfoauth.php");
-require_once (dirname(__FILE__) . "/includes/googlefonts.php");
 
