@@ -65,9 +65,9 @@ class HtmlContainer extends HtmlElement
             $this->AppendHtmlLine($l, $indent);
     }
 
-    public function AppendParagraph($text)
+    public function AppendParagraph($text, $class = NULL)
     {
-        $this->AppendHtmlLine($this->html_p($this->ReplaceControl(htmlspecialchars($text))));
+        $this->AppendHtmlLine($this->html_p($this->ReplaceControl(htmlspecialchars($text)), $class));
     }
 
     public function AppendPreformatted($text)
@@ -123,7 +123,13 @@ class HtmlContainer extends HtmlElement
     public function html_b($text)                   { return $this->_gen_html_tag("b",   $text); }
     public function html_div($text)                 { return $this->_gen_html_tag("div", $text); }
     public function html_font($text, $param = "")   { return $this->_gen_html_tag("font", $text, $param); }
-    public function html_p($text)                   { return $this->_gen_html_tag("p",   $text); }
+    public function html_p($text, $class = NULL)
+    {
+        if ($class === NULL)
+            return $this->_gen_html_tag("p",   $text);
+        else
+            return $this->_gen_html_tag("p",   $text, 'class="' . $class . '"');
+    }
 
     public function InsertFileToBody($f)
     {

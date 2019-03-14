@@ -22,6 +22,9 @@ require_once (dirname(__FILE__) . "/default_config.php");
 require_once (dirname(__FILE__) . "/includes/systemlog.php");
 require_once (dirname(__FILE__) . "/includes/localization.php");
 
+// Authentication stack
+require_once (dirname(__FILE__) . "/includes/auth_stack.php");
+
 // HTML
 require_once (dirname(__FILE__) . "/includes/html_stack.php");
 
