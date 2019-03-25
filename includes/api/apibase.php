@@ -20,13 +20,39 @@ if (!defined("PSF_ENTRY_POINT"))
 require_once (dirname(__FILE__) . "/../object.php");
 require_once (dirname(__FILE__) . "/../html_stack.php");
 
+//! Data types supported by API parameters
+abstract class PsfApiParameterType
+{
+    const NULL = 0;
+    const Variant = 1;
+    const Number = 2;
+    const String = 3;
+    const Boolean = 4;
+
+    public static function ToString($type)
+    {
+        if ($type === PsfApiParameterType::NULL)
+            return "NULL";
+        if ($type === PsfApiParameterType::Variant)
+            return "Variant";
+        if ($type === PsfApiParameterType::Number)
+            return "Number";
+        if ($type === PsfApiParameterType::String)
+            return "String";
+        if ($type === PsfApiParameterType::Boolean)
+            return "Boolean";
+        return "invalid type";
+    }
+}
+
 class PsfApiParameter extends PsfObject
 {
     public $Name;
+    //! Type of 
     public $Type;
     public $Description;
 
-    public function __construct($_name, $_type = NULL, $_description = NULL)
+    public function __construct($_name, $_type = PsfApiParameterType::Variant, $_description = NULL)
     {
         $this->Name = $_name;
         $this->Type = $_type;
@@ -54,8 +80,10 @@ class PsfApi extends PsfObject
         $this->LongDescription = $long_description;
         $this->ShortDescription = $short_description;
         $this->Callback = $_callback;
-        $this->ParametersRequired = $params_req;
-        $this->ParametersOptional = $params_opt;
+        if ($params_req !== NULL)
+            $this->ParametersRequired = $params_req;
+        if ($params_opt !== NULL)
+            $this->ParametersOptional = $params_opt;
     }
 
     public function Process()
@@ -82,7 +110,7 @@ class PsfApiBase extends PsfObject
     public $ApiList_Action = [];
     public $ShowHelpOnNoAction = true;
     public $ApiBaseName = "API";
-    public $ApiBaseIntro = "Welcome to web API. These API's can be used to perform various actions on the website.";
+    public $ApiBaseIntro = "Welcome to web API. These APIs can be used to perform various actions on the website.";
     public $TreatDocsAsHTML = false;
     //! This must be an instance of PsfAuth object, see derivatives of PsfAuthBase for more details
     public $AuthenticationBackend = NULL;
@@ -122,10 +150,16 @@ class PsfApiBase extends PsfObject
 
     public function ProcessAction()
     {
-        if (!isset($_GET['action']))
+        if (isset($_GET['action']))
+        {
+            $action = strtolower($_GET['action']);
+        } else if (isset($_POST['action']))
+        {
+            $action = strtolower($_POST['action']);
+        } else
+        {
             return false;
-
-        $action = strtolower($_GET['action']);
+        }
 
         if (!array_key_exists($action, $this->ApiList_Action))
             return false;
@@ -192,19 +226,21 @@ class PsfApiBase extends PsfObject
         $psf_containers_auto_insert_child = true;
         $help = new HtmlPage($this->ApiBaseName . ": help");
         bootstrap_init($help);
+        $help->Style->items["blockquote"]["font-size"] = "14px";
         $c = new BS_FluidContainer($help);
         $c->AppendHeader($this->ApiBaseName . " documentation");
         $this->appendDocs($c, $this->ApiBaseIntro);
 
         if (!empty($this->ApiList_Action))
         {
-            $c->AppendHeader("Action API", 2);
-            $c->AppendHtmlLine('<p>These API can be called using standard GET web request with parameter <code>action</code> (for example: <code>?action=test</code>) where action is one of these:</p>');
+            $c->AppendHeader("Action APIs", 2);
+            $c->AppendHtmlLine('<p>These APIs can be called using standard GET or POST web request with parameter <code>action</code> (for example: <code>?action=test</code>) where action is one of these:</p>');
             foreach ($this->ApiList_Action as $key => $value)
             {
                 $c->AppendHeader($key, 3);
                 if ($value->ShortDescription !== NULL)
                     $this->appendDocs($c, $value->ShortDescription);
+                $c->AppendHtmlLine('<blockquote>');
                 if ($value->RequiresAuthentication)
                     $c->AppendHtmlLine('<p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> This action requires authentication</p>');
                 if ($value->GetParameterCount() === 0)
@@ -212,12 +248,28 @@ class PsfApiBase extends PsfObject
                     $c->AppendParagraph("This action has no parameters", "text-info");
                 } else
                 {
-                    $c->AppendHeader("Parameters", 4);
+                    if (count($value->ParametersRequired) > 0)
+                    {
+                        $c->AppendHeader("Parameters (required)", 4);
+                        foreach ($value->ParametersRequired as $reqp)
+                        {
+                            $c->AppendHtmlLine('<p><b>' . $reqp->Name . '</b> (<code>' . PsfApiParameterType::ToString($reqp->Type) . '</code>): ' . $reqp->Description . '</p>');
+                        }
+                    }
+                    if (count($value->ParametersOptional) > 0)
+                    {
+                        $c->AppendHeader("Parameters (optional)", 4);
+                        foreach ($value->ParametersOptional as $optp)
+                        {
+                            $c->AppendHtmlLine('<p><b>' . $optp->Name . '</b> (<code>' . PsfApiParameterType::ToString($optp->Type) . '</code>): ' . $optp->Description . '</p>');
+                        }
+                    }
                 }
                 if ($value->LongDescription !== NULL)
                     $this->appendDocs($c, $value->LongDescription);
                 if ($value->Example !== NULL)
                     $c->AppendHtmlLine('<p><b>Example:</b> <code>' . htmlspecialchars($value->Example) . '</code></p>');
+                $c->AppendHtmlLine('</blockquote>');
             }
         }
 

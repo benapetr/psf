@@ -19,22 +19,28 @@ if (!defined("PSF_ENTRY_POINT"))
 
 require_once (dirname(__FILE__) . "/authbase.php");
 
-class PsfTokenAuth extends PsfAuthBase
+//! This class allow for very simple implementation of authentication mechanism via callback methods
+
+//! Both standard functions are calling user defined callbacks, so the PHP implementation of authentication mechanism
+//! is completely left up to user
+class PsfCallbackAuth extends PsfAuthBase
 {
     public $Tokens = array();
+    public $callback_IsAuthenticated = NULL;
+    public $callback_IsPrivileged = NULL;
 
     public function GetID()
     {
-        return "TokenAuth";
+        return "CallbackAuth";
     }
 
     public function IsPrivileged($privilege)
     {
-        return false;
+        return call_user_func($this->callback_IsPrivileged, $this, $privilege);
     }
 
     public function IsAuthenticated()
     {
-        return false;
+        return call_user_func($this->callback_IsAuthenticated, $this);
     }
 }
