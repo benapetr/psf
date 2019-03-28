@@ -112,6 +112,8 @@ class PsfApiBase extends PsfObject
     public $ApiBaseName = "API";
     public $ApiBaseIntro = "Welcome to web API. These APIs can be used to perform various actions on the website.";
     public $TreatDocsAsHTML = false;
+    //! Used typically to put URL or part of it, for example api.php, this string is prefixed to every example string
+    public $ExamplePrefix = "";
     //! This must be an instance of PsfAuth object, see derivatives of PsfAuthBase for more details
     public $AuthenticationBackend = NULL;
 
@@ -234,7 +236,7 @@ class PsfApiBase extends PsfObject
         if (!empty($this->ApiList_Action))
         {
             $c->AppendHeader("Action APIs", 2);
-            $c->AppendHtmlLine('<p>These APIs can be called using standard GET or POST web request with parameter <code>action</code> (for example: <code>?action=test</code>) where action is one of these:</p>');
+            $c->AppendHtmlLine('<p>These APIs can be called using standard GET or POST web request with parameter <code>action</code> (for example: <code>' . $this->ExamplePrefix . '?action=test</code>) where action is one of these:</p>');
             foreach ($this->ApiList_Action as $key => $value)
             {
                 $c->AppendHeader($key, 3);
@@ -268,7 +270,7 @@ class PsfApiBase extends PsfObject
                 if ($value->LongDescription !== NULL)
                     $this->appendDocs($c, $value->LongDescription);
                 if ($value->Example !== NULL)
-                    $c->AppendHtmlLine('<p><b>Example:</b> <code>' . htmlspecialchars($value->Example) . '</code></p>');
+                    $c->AppendHtmlLine('<p><b>Example:</b> <code>' . htmlspecialchars($this->ExamplePrefix . $value->Example) . '</code></p>');
                 $c->AppendHtmlLine('</blockquote>');
             }
         }
