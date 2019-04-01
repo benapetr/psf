@@ -21,5 +21,22 @@ require_once (dirname(__FILE__) . "/apibase.php");
 
 class PsfApiBase_JSON extends PsfApiBase
 {
+    public function PrintObj($object)
+    {
+        header('Content-Type: application/json');
+        echo (json_encode($object, JSON_PRETTY_PRINT));
+        echo ("\n");
+    }
 
+    public function ThrowError($error, $message = NULL, $code = -1)
+    {
+        $error = [
+            'error' => $error,
+            'message' => $message,
+            'code' => $code
+        ];
+        http_response_code(400);
+        $this->PrintObj($error);
+        die($code);
+    }
 }
