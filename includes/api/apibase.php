@@ -73,6 +73,9 @@ class PsfApi extends PsfObject
     public $Example = NULL;
     public $Callback = NULL;
     public $RequiresAuthentication = false;
+    //! This is a security measure for action API's only. If this API is registered as action API, it will be only working when
+    //! submitted via POST method. This is to prevent users from exposing their passwords in URL.
+    public $POSTOnly = false;
 
     public function __construct($_name, $_callback = NULL, $short_description = NULL, $long_description = NULL, $params_req = NULL, $params_opt = NULL)
     {
@@ -152,11 +155,14 @@ class PsfApiBase extends PsfObject
 
     public function ProcessAction()
     {
+        $method = NULL;
         if (isset($_GET['action']))
         {
+            $method = 'GET';
             $action = strtolower($_GET['action']);
         } else if (isset($_POST['action']))
         {
+            $method = 'POST';
             $action = strtolower($_POST['action']);
         } else
         {
@@ -165,6 +171,12 @@ class PsfApiBase extends PsfObject
 
         if (!array_key_exists($action, $this->ApiList_Action))
             return false;
+
+        if ($method !== 'POST' && $this->ApiList_Action[$action]->POSTOnly)
+            $this->ThrowError("POST only", "This call must be submitted via POST method", 403);
+
+        if ($this->ApiList_Action[$action]->RequiresAuthentication && !$this->AuthenticationBackend->IsAuthenticated())
+            $this->ThrowError("Not authenticated", "This call requires authentication, but you are not logged in", 403);
 
         return $this->ApiList_Action[$action]->Process();
     }
@@ -245,6 +257,8 @@ class PsfApiBase extends PsfObject
                 $c->AppendHtmlLine('<blockquote>');
                 if ($value->RequiresAuthentication)
                     $c->AppendHtmlLine('<p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> This action requires authentication</p>');
+                if ($value->POSTOnly)
+                    $c->AppendHtmlLine('<p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> This action must be called via POST method</p>');
                 if ($value->GetParameterCount() === 0)
                 {
                     $c->AppendParagraph("This action has no parameters", "text-info");
