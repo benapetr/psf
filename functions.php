@@ -34,6 +34,14 @@ function psf_php_enable_debug()
 
 // String tools
 
+//! Trim string is it's longer than $max
+function psf_string_auto_trim($string, $max, $suffix = "")
+{
+    if (strlen($string) <= $max)
+        return $string;
+    return substr($string, 0, $max) . $suffix;
+}
+
 //! Check if string starts with text
 function psf_string_startsWith($string, $text)
 {
