@@ -21,6 +21,17 @@ require_once(dirname(__FILE__) . "/default_config.php");
 require_once(dirname(__FILE__) . "/definitions.php");
 require_once(dirname(__FILE__) . "/variables.php");
 
+
+// PHP
+
+//! Enable PHP debug
+function psf_php_enable_debug()
+{
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
+
 // String tools
 
 //! Check if string starts with text
