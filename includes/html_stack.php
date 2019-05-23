@@ -1,6 +1,6 @@
 <?php
 
-// Entry point to psf
+// Part of php simple framework (psf)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

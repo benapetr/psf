@@ -23,9 +23,9 @@ class BS_TextBox extends TextBox
 {
     public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
     {
-        $this->ClassName = "form-control";
+        $this->ClassName = 'form-control';
         if ($bs_class !== NULL)
-            $this->ClassName .= " " . $bs_class;
+            $this->ClassName .= ' ' . $bs_class;
         parent::__construct($_name, $_value, $_parent);
     }
 }

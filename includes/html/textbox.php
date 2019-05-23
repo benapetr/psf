@@ -52,13 +52,13 @@ class TextBox extends HtmlElement
         else if (!$this->Multiline)
             $_e = "<input type=\"text\"";
         else
-            $_e = "<textarea";
+            $_e = '<textarea';
         if ($this->Name !== NULL)
             $_e .= " name=\"$this->Name\"";
         if ($this->Rows !== NULL)
             $_e .= " rows=\"$this->Rows\"";
         if (!$this->Multiline && $this->Value !== NULL)
-            $_e .= " value=\"$this->Value\"";
+            $_e .= " value=\"" . htmlspecialchars($this->Value) . "\"";
         if ($this->Style !== NULL)
             $_e .= " style=\"" . $this->Style->ToCss() . "\"";
         if ($this->ClassName !== NULL)
@@ -74,7 +74,7 @@ class TextBox extends HtmlElement
             {
                 $_e .= htmlspecialchars($this->Value);
             }
-            $_e .= "</textarea>";
+            $_e .= '</textarea>';
         }
         return $_e;
     }

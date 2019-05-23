@@ -12,7 +12,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
-// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2018
+// Copyright (c) Petr Bena <petr@bena.rocks> 2015 - 2019
 
 if (!defined("PSF_ENTRY_POINT"))
         die("Not a valid psf entry point");
