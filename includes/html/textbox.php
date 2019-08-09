@@ -30,6 +30,7 @@ class TextBox extends HtmlElement
     //! If true, this text box will be acting as password input
     public $Password = false;
     public $Placeholder = NULL;
+    public $Size = NULL;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -53,10 +54,13 @@ class TextBox extends HtmlElement
             $_e = "<input type=\"text\"";
         else
             $_e = '<textarea';
+
         if ($this->Name !== NULL)
             $_e .= " name=\"$this->Name\"";
         if ($this->Rows !== NULL)
             $_e .= " rows=\"$this->Rows\"";
+        if ($this->Size !== NULL)
+            $_e .= " size=\"$this->Size\"";
         if (!$this->Multiline && $this->Value !== NULL)
             $_e .= " value=\"" . htmlspecialchars($this->Value) . "\"";
         if ($this->Style !== NULL)
