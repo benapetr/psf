@@ -22,6 +22,9 @@ require_once (dirname(__FILE__) . "/container.php");
 //! Represents a simple div container that can contain html elements
 class DivContainer extends HtmlContainer
 {
+    //! If true container will produce some HTML code even if it's completely empty
+    public $AllowEmpty = false;
+
     function __construct($_parent = NULL)
     {
         parent::__construct($_parent);
@@ -29,15 +32,19 @@ class DivContainer extends HtmlContainer
 
     public function ToHtml()
     {
-       $_b = "<div";
-       if ($this->Style !== NULL)
-           $_b .= " style=\"" . $this->Style->ToCss() . "\"";
-       if ($this->ClassName !== NULL)
-           $_b .= " class=\"" . $this->ClassName . "\"";
-       $_b .= ">\n";
-       $_b .= parent::ToHtml();
-       $_b .= "</div>";
-       return $_b;
+        // If container is empty, don't produce unnecessary HTML
+        if ($this->AllowEmpty === false && empty($this->Items))
+            return '';
+             
+        $_b = "<div";
+        if ($this->Style !== NULL)
+            $_b .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->ClassName !== NULL)
+            $_b .= " class=\"" . $this->ClassName . "\"";
+        $_b .= ">\n";
+        $_b .= parent::ToHtml();
+        $_b .= "</div>";
+        return $_b;
     }
 }
 
