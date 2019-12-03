@@ -27,6 +27,7 @@ class HtmlElement extends PsfObject
     public $Style = NULL;
     //! The class of html element, if HTML5, this will be added as <element class="text"> if not NULL
     public $ClassName = NULL;
+    public $IsVisible = true;
 
     function __clone()
     {

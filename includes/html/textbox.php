@@ -48,6 +48,8 @@ class TextBox extends HtmlElement
 
     public function ToHtml()
     {
+        if ($this->IsVisible === false)
+            return "";
         if ($this->Password)
             $_e = "<input type=\"password\"";
         else if (!$this->Multiline)

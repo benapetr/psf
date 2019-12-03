@@ -38,6 +38,8 @@ class CheckBox extends HtmlElement
 
     public function ToHtml()
     {
+        if ($this->IsVisible === false)
+            return "";
         $_e = "<input type=\"checkbox\"";
         if ($this->Name !== NULL)
             $_e .= " name=\"$this->Name\"";
