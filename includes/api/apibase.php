@@ -213,6 +213,8 @@ class PsfApiBase extends PsfObject
 
         if ($this->ShowHelpOnNoAction && !$result)
             $this->PrintHelpAsHtml();
+        
+        return $result;
     }
 
     private function appendDocs($c, $t)
