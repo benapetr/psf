@@ -17,5 +17,6 @@ if (!defined("PSF_ENTRY_POINT"))
 
 require_once (dirname(__FILE__) . "/auth/callbackauth.php");
 require_once (dirname(__FILE__) . "/auth/tokenauth.php");
+require_once (dirname(__FILE__) . "/auth/passwd.php");
 
 
