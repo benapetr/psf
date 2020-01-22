@@ -34,6 +34,18 @@ function psf_php_enable_debug()
 
 // String tools
 
+//! Check if string is NULL or empty, unlike php's empty() it really works
+function psf_string_is_null_or_empty($string)
+{
+    if ($string === NULL)
+        return true;
+    
+    if ($string === '')
+        return true;
+
+    return false;
+}
+
 //! Trim string is it's longer than $max
 function psf_string_auto_trim($string, $max, $suffix = "")
 {
