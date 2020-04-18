@@ -49,11 +49,11 @@ class UnitTest
         echo("=============================\n");
         echo("Successful tasks: $this->successCounter\n");
         echo("Failed tasks:     $this->failedCounter\n");
-        echo("Overal results: ");
+        echo("Overal results:   ");
         if ($this->failedCounter === 0)
             psf_print_colored_text(PSF_CLI_COLOR_RED, 'FAILED');
         else
-            psf_print_colored_text(PSF_CLI_COLOR_LIGHT_GREEN, 'OK');
+            psf_print_colored_text(PSF_CLI_COLOR_LIGHT_GREEN, 'PASSED');
         echo ("\n");
     }
 }
