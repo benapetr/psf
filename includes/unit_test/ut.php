@@ -29,3 +29,31 @@ function psf_ut($name, $results)
     echo("\n");
     return $results;
 }
+
+class UnitTest
+{
+    private $failedCounter = 0;
+    private $successCounter = 0;
+
+    public function Evaluate($name, $results)
+    {
+        if (psf_ut($name, $results))
+            $this->successCounter++;
+        else
+            $this->failedCounter++;
+    }
+
+    public function PrintResults()
+    {
+        echo("Results of unit test:\n");
+        echo("=============================\n");
+        echo("Successful tasks: $this->successCounter\n");
+        echo("Failed tasks:     $this->failedCounter\n");
+        echo("Overal results: ");
+        if ($this->failedCounter === 0)
+            psf_print_colored_text(PSF_CLI_COLOR_RED, 'FAILED');
+        else
+            psf_print_colored_text(PSF_CLI_COLOR_LIGHT_GREEN, 'OK');
+        echo ("\n");
+    }
+}
