@@ -30,11 +30,13 @@ function psf_ut($name, $results)
     return $results;
 }
 
+//! Used to process various unit tests, this class track their results and overall status of unit test suite
 class UnitTest
 {
     private $failedCounter = 0;
     private $successCounter = 0;
 
+    //! Log unit test with name and result (boolean)
     public function Evaluate($name, $results)
     {
         if (psf_ut($name, $results))
@@ -43,6 +45,7 @@ class UnitTest
             $this->failedCounter++;
     }
 
+    //! Print unit test results
     public function PrintResults()
     {
         echo("Results of unit test:\n");
@@ -65,5 +68,18 @@ class UnitTest
     public function IsFailed()
     {
         return $this->failedCounter !== 0;
+    }
+
+    public function Exit()
+    {
+        if ($this->IsPassed())
+            exit(0);
+        else
+            exit(1);
+    }
+
+    public function ExitWithErrorCount()
+    {
+        exit($this->failedCounter);
     }
 }

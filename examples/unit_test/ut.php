@@ -11,8 +11,4 @@ $ut->Evaluate("x2", true);
 echo ("\n\n");
 
 $ut->PrintResults();
-
-if ($ut->IsPassed())
-    exit(0);
-
-exit(1);
+$ut->ExitWithErrorCount();
