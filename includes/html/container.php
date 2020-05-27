@@ -98,7 +98,7 @@ class HtmlContainer extends HtmlElement
         if ($object === NULL)
             return;
         $object->Parent = $this;
-        if ($force || !in_array($object, $this->Items))
+        if ($force || !psf_is_part_of_array($object, $this->Items))
             array_push($this->Items, $object);
     }
     

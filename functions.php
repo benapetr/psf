@@ -76,6 +76,17 @@ function psf_string_contains($string, $text)
    return strpos($string, $text) !== false;
 }
 
+//! Returns true if this instance of object is part of array
+function psf_is_part_of_array($obj, $a)
+{
+    foreach ($a as $instance)
+    {
+        if ($instance === $obj)
+            return true;
+    }
+    return false;
+}
+
 function psf_version()
 {
     return PSF_VERSION;
