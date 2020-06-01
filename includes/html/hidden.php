@@ -33,11 +33,11 @@ class Hidden extends HtmlElement
 
     public function ToHtml()
     {
-        $_e = "<input type=\"hidden\" ";
+        $_e = "<input type=\"hidden\"";
         if ($this->Name !== NULL)
-            $_e .= "name=\"$this->Name\" ";
+            $_e .= " name=\"$this->Name\"";
         if ($this->Value !== NULL)
-            $_e .= "value=\"$this->Value\" ";
+            $_e .= " value=\"$this->Value\"";
         $_e .= ">";
         return $_e;
     }
