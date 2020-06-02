@@ -70,7 +70,7 @@ class UnitTest
         return $this->failedCounter !== 0;
     }
 
-    public function Exit()
+    public function ExitTest()
     {
         if ($this->IsPassed())
             exit(0);
