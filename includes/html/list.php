@@ -33,6 +33,8 @@ class BulletList extends HtmlElement
     public function ToHtml()
     {
         $bx = "<ul>\n";
+        if ($this->ClassName !== NULL)
+            $bx = '<ul class="' . $this->ClassName . "\">\n";
         foreach ($this->Items as $item)
         {
             $bx .= "    <li>" . $item . "</li>\n";
