@@ -36,7 +36,7 @@ class HtmlTable_Cell extends HtmlElement
             $this->Html = $_html_;
     }
 
-    public function ToHtml()
+    public function ToHtml($width = NULL)
     {
         $html = "";
         $prefix = "";
@@ -53,6 +53,9 @@ class HtmlTable_Cell extends HtmlElement
 
         if ($this->Class !== NULL)
             $prefix .= " class=\"" . $this->Class . "\"";
+        
+        if ($width != NULL)
+            $prefix .= " width=\"" . $width . "\"";
 
         $html = "<td" . $prefix . ">";
         if ($this->PsfObj === NULL)
@@ -225,7 +228,10 @@ class HtmlTable extends HtmlElement
             {
                 if ($this->NameAsClass)
                   $cell->Class = psf_generate_friendly_name($this->Headers[$header_n]);
-                $html .= "    " . $cell->ToHtml() . "\n";
+                if (array_key_exists($header_n, $this->ColWidth))
+                    $html .= "    " . $cell->ToHtml($this->ColWidth[$header_n]) . "\n";
+                else
+                    $html .= "    " . $cell->ToHtml() . "\n";
                 $header_n++;
             }
             $html .= "  </tr>\n";
