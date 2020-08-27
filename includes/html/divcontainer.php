@@ -24,6 +24,8 @@ class DivContainer extends HtmlContainer
 {
     //! If true container will produce some HTML code even if it's completely empty
     public $AllowEmpty = false;
+    //! ID of HTML element, this will be added as <element id='text'> if not null, not all elements support this
+    public $ID = NULL;
 
     function __construct($_parent = NULL)
     {
@@ -41,6 +43,8 @@ class DivContainer extends HtmlContainer
             $_b .= " style=\"" . $this->Style->ToCss() . "\"";
         if ($this->ClassName !== NULL)
             $_b .= " class=\"" . $this->ClassName . "\"";
+        if ($this->ID !== NULL)
+            $_b .= " id=\"" . $this->ID . "\"";
         $_b .= ">\n";
         $_b .= parent::ToHtml();
         $_b .= "</div>";
