@@ -42,6 +42,7 @@ class LoginForm extends Form
         $this->Method = FormMethod::Post;
         $this->UserInput = new TextBox("loginUsername", "", $this);
         $this->UserInput->Placeholder = "Username";
+        $this->UserInput->Required = true;
         $this->AppendLineBreak();
         $this->PassInput = new TextBox("loginPassword", "", $this);
         $this->PassInput->Placeholder = "Password";

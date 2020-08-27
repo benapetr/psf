@@ -27,6 +27,7 @@ class TextBox extends HtmlElement
     private $Multiline = false;
     public $Rows = NULL;
     public $ReadOnly = false;
+    public $Required = false;
     //! If true, this text box will be acting as password input
     public $Password = false;
     public $Placeholder = NULL;
@@ -73,6 +74,8 @@ class TextBox extends HtmlElement
             $_e .= " readonly";
         if ($this->Placeholder !== NULL)
             $_e .= " placeholder=\"" . $this->Placeholder . "\"";
+        if ($this->Required === true)
+            $_e .= " required";
         $_e .= ">";
         if ($this->Multiline)
         {
