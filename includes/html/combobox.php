@@ -30,6 +30,7 @@ class ComboBoxItem extends HtmlElement
     {
         $this->Value = $_value;
         $this->Text = $_text;
+        parent::__construct($_parent);
     }
 
     public function ToHtml()
@@ -84,6 +85,8 @@ class ComboBox extends HtmlElement
             $_e .= " name=\"$this->Name\"";
         if ($this->Style !== NULL)
             $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->ClassName !== NULL)
+            $_e .= " class=\"" . $this->ClassName . "\"";
         if ($this->OnChangeCallback !== NULL)
             $_e .= ' onchange="' . $this->OnChangeCallback . '"';
         $_e .= ">\n";
