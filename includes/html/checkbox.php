@@ -24,6 +24,7 @@ class CheckBox extends HtmlElement
     public $Enabled = true;
     public $Name;
     public $Value;
+    public $Title;
     public $Text = NULL;
     public $Checked;
     //! Change to name of JS function to call when checkbox is clicked
@@ -49,6 +50,8 @@ class CheckBox extends HtmlElement
             $_e .= " value=\"$this->Value\"";
         if ($this->ClassName !== NULL)
             $_e .= " class=\"" . $this->ClassName . "\"";
+        if ($this->Title !== NULL)
+            $_e .= " title=\"$this->Title\"";
         if ($this->OnClickCallback !== NULL)
             $_e .= ' onclick="' . $this->OnClickCallback . '"';
         if ($this->Checked)
