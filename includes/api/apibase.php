@@ -73,6 +73,7 @@ class PsfApi extends PsfObject
     public $Example = NULL;
     public $Callback = NULL;
     public $RequiresAuthentication = false;
+    public $RequiresPrivilege = NULL;
     //! This is a security measure for action API's only. If this API is registered as action API, it will be only working when
     //! submitted via POST method. This is to prevent users from exposing their passwords in URL.
     public $POSTOnly = false;
@@ -177,6 +178,9 @@ class PsfApiBase extends PsfObject
 
         if ($this->ApiList_Action[$action]->RequiresAuthentication && !$this->AuthenticationBackend->IsAuthenticated())
             $this->ThrowError("Not authenticated", "This call requires authentication, but you are not logged in", 403);
+        
+        if ($this->ApiList_Action[$action]->RequiresPrivilege !== NULL && !$this->AuthenticationBackend->IsPrivileged($this->ApiList_Action[$action]->RequiresPrivilege))
+            $this->ThrowError("Not privileged", "This call requires privileges you do not currently have", 403);
 
         return $this->ApiList_Action[$action]->Process();
     }
