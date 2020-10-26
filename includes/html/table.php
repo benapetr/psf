@@ -85,6 +85,8 @@ class HtmlTable extends HtmlElement
     public $RepeatHeader = 0;
     //! Array of column widths, for example 0 => '10px', 1 => '20px', columns start from zero, if ommited, no width is specified
     public $ColWidth = array();
+    //! Array of CSS classes for individual headers, columns start from zero, if ommited, no CSS class is specified
+    public $HeaderClasses = array();
 
     public function GetFormat()
     {
@@ -155,7 +157,10 @@ class HtmlTable extends HtmlElement
                 $custom_style = '';
                 if (array_key_exists($header_id, $this->ColWidth))
                     $custom_style = ' style="width:' . $this->ColWidth[$header_id] . '"';
-                if ($this->NameAsClass)
+                
+                if (array_key_exists($header_id, $this->HeaderClasses))
+                    $html .= '    <th' . $custom_style . ' class="' . $this->HeaderClasses[$header_id] . '">' . $x . "</th>\n";
+                else if ($this->NameAsClass)
                     $html .= '    <th' . $custom_style . ' class="' . psf_generate_friendly_name($x) . '">' . $x . "</th>\n";
                 else
                     $html .= '    <th' . $custom_style . '>' . $x . "</th>\n";
