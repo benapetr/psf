@@ -89,6 +89,8 @@ class ComboBox extends HtmlElement
             $_e .= " class=\"" . $this->ClassName . "\"";
         if ($this->OnChangeCallback !== NULL)
             $_e .= ' onchange="' . $this->OnChangeCallback . '"';
+        if (!$this->Enabled)
+            $_e .= " disabled";
         $_e .= ">\n";
         foreach ($this->Items as $item)
             $_e .= "  " . $item->ToHtml() . "\n";
