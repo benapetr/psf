@@ -32,6 +32,8 @@ class TextBox extends HtmlElement
     public $Password = false;
     public $Placeholder = NULL;
     public $Size = NULL;
+    //! Change to name of JS function to call when textbox content is modified
+    public $OnChangeCallback = NULL;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -74,6 +76,8 @@ class TextBox extends HtmlElement
             $_e .= " readonly";
         if ($this->Placeholder !== NULL)
             $_e .= " placeholder=\"" . $this->Placeholder . "\"";
+        if ($this->OnChangeCallback !== NULL)
+            $_e .= " onChange=\"" . $this->OnChangeCallback . "\"";
         if ($this->Required === true)
             $_e .= " required";
         $_e .= ">";
