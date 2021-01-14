@@ -120,6 +120,10 @@ class PsfApiBase extends PsfObject
     public $ExamplePrefix = "";
     //! This must be an instance of PsfAuth object, see derivatives of PsfAuthBase for more details
     public $AuthenticationBackend = NULL;
+    //! List of error strings to print in output
+    public $Errors = [];
+    //! List of warning strings to print in output
+    public $Warnings = [];
 
     public function RegisterAPI_Action($api, $name = NULL)
     {
@@ -239,6 +243,12 @@ class PsfApiBase extends PsfObject
         die($code);
     }
 
+    //! Issue warning
+    public function Warning($text)
+    {
+        $this->Warnings[] = $text;
+    }
+
     public function PrintHelpAsHtml()
     {
         global $psf_containers_auto_insert_child;
@@ -297,5 +307,36 @@ class PsfApiBase extends PsfObject
 
         $psf_containers_auto_insert_child = $def_psf_containers_auto_insert_child;
         $help->PrintHtml();
+    }
+
+    //! Returns value of required parameter, that can be provided either via POST data or GET parameter
+    //! if there is no such parameter provided, terminate with error
+    public function GetRequiredPostGetParameter($name)
+    {
+        $result = NULL;
+        if (isset($_GET[$name]))
+            $result = $_GET[$name];
+        else if (isset($_POST[$name]))
+            $result = $_POST[$name];
+        else
+            $this->ThrowError('Missing parameter: ' . $name, 'This parameter is required' );
+    
+        if ($result === NULL || strlen($result) == 0)
+            $this->ThrowError('Missing parameter: ' . $name, 'This parameter is required' );
+    
+        return $result;
+    }
+
+    //! Returns value of optional parameter, that can be provided either via POST data or GET parameter
+    //! if there is no such parameter provided, returns value provided as $default var
+    public function GetOptionalPostGetParameter($name, $default = NULL)
+    {
+        $result = $default;
+        if (isset($_GET[$name]))
+            $result = $_GET[$name];
+        else if (isset($_POST[$name]))
+            $result = $_POST[$name];
+    
+        return $result;
     }
 }

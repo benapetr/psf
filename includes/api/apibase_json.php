@@ -39,4 +39,19 @@ class PsfApiBase_JSON extends PsfApiBase
         $this->PrintObj($error);
         die($code);
     }
+
+    public function PrintResult($result)
+    {
+        $json = [ 'result' => $result ];
+        if (!empty($this->Warnings))
+            $json['warnings'] = $g_api_warnings;
+        if (!empty($this->Errors))
+            $json['errors'] = $g_api_errors;
+        $this->PrintObj($json);
+    }
+
+    public function PrintSuccess()
+    {
+        $this->PrintResult('success');
+    }
 }
