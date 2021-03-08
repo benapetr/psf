@@ -72,7 +72,7 @@ class TextBox extends HtmlElement
             $_e .= " style=\"" . $this->Style->ToCss() . "\"";
         if ($this->ClassName !== NULL)
             $_e .= " class=\"" . $this->ClassName . "\"";
-        if ($this->ReadOnly === true)
+        if ($this->ReadOnly === true || $this->Enabled === false)
             $_e .= " readonly";
         if ($this->Placeholder !== NULL)
             $_e .= " placeholder=\"" . $this->Placeholder . "\"";
