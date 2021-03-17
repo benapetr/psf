@@ -28,11 +28,12 @@ class BS_Tabs extends BulletList
         parent::__construct($_parent);
         if ($list !== NULL)
             $this->Items = $list;
+        $this->ClassName = 'nav nav-tabs';
     }
 
     public function ToHtml()
     {
-        $bx = "<ul class='nav nav-tabs'>\n";
+        $bx = "<ul class='" . $this->ClassName . "'>\n";
         $i = 0;
         foreach ($this->Items as $item)
         {
