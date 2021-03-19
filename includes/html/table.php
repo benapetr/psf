@@ -87,6 +87,10 @@ class HtmlTable extends HtmlElement
     public $ColWidth = array();
     //! Array of CSS classes for individual headers, columns start from zero, if ommited, no CSS class is specified
     public $HeaderClasses = array();
+    //! Wrap headers in <thead>
+    public $THead = false;
+    //! Wrap data in <tbody> tags (use in combination with $THead)
+    public $TBody = false;
 
     public function GetFormat()
     {
@@ -190,8 +194,8 @@ class HtmlTable extends HtmlElement
             }
             $txt .= "\n";
         }
-	foreach ($this->Rows as $row)
-	{
+        foreach ($this->Rows as $row)
+        {
             foreach ($row as $cell)
             {
                 $str = $cell->Html;
@@ -212,7 +216,13 @@ class HtmlTable extends HtmlElement
         $prefix = "";
         $html = "<table $prefix" . $this->GetFormat() .">\n";
         $header = $this->getHeader();
+        if ($this->THead)
+            $html .= "<thead>\n";
         $html .= $header;
+        if ($this->THead)
+            $html .= "</thead>\n";
+        if ($this->TBody)
+            $html .= "<tbody>\n";
         $current_header = 0;
         foreach ($this->Rows as $row)
         {
@@ -241,6 +251,8 @@ class HtmlTable extends HtmlElement
             }
             $html .= "  </tr>\n";
         }
+        if ($this->TBody)
+            $html .= "</tbody>\n";
         $html .= "</table>";
         return $html;
     }
