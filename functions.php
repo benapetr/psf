@@ -178,4 +178,38 @@ function psf_get_execution_time()
     return (microtime(true) - $psf_global_startup_time);
 }
 
+//! Return output of php backtrace as string
+function psf_backtrace_as_string()
+{
+    $backtrace = debug_backtrace();
+    $result = '';
+    foreach ($backtrace as $item)
+    {
+        $args = '';
+        foreach ($item['args'] as $vt)
+            $args .= gettype($vt) . ', ';
+        if (psf_string_endsWith($args, ', '))
+            $args = substr($args, 0, strlen($args) - 2);
+        $result .= $item['function'] . "($args)@" . $item['file'] . ':' . $item['line'] . "\n";
+    }
+    return $result;
+}
+
+//! Return output of php backtrace as html string
+function psf_backtrace_as_html()
+{
+    $backtrace = debug_backtrace();
+    $result = '';
+    foreach ($backtrace as $item)
+    {
+        $args = '';
+        foreach ($item['args'] as $vt)
+            $args .= gettype($vt) . ', ';
+        if (psf_string_endsWith($args, ', '))
+            $args = substr($args, 0, strlen($args) - 2);
+        $result .= htmlspecialchars($item['function'] . "($args)@" . $item['file'] . ':' . $item['line']) . "<br>\n";
+    }
+    return $result;
+}
+
 
