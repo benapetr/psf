@@ -41,7 +41,7 @@ class Form extends HtmlContainer
     {
         if ($this->Action === NULL)
         {
-            $bx = "<form>\n";
+            $bx = '<form method="' . $this->Method . "\">\n";
         } else
         {
             $bx = '<form action="' . $this->Action . '" method="' . $this->Method . '">' . "\n";
