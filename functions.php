@@ -190,7 +190,9 @@ function psf_backtrace_as_string()
             $args .= gettype($vt) . ', ';
         if (psf_string_endsWith($args, ', '))
             $args = substr($args, 0, strlen($args) - 2);
-        $result .= $item['function'] . "($args)@" . $item['file'] . ':' . $item['line'] . "\n";
+        if (isset($item['class']))
+            $class = $item['class'] . '::';
+        $result .= $class . $item['function'] . "($args)@" . $item['file'] . ':' . $item['line'] . "\n";
     }
     return $result;
 }
@@ -207,7 +209,10 @@ function psf_backtrace_as_html()
             $args .= gettype($vt) . ', ';
         if (psf_string_endsWith($args, ', '))
             $args = substr($args, 0, strlen($args) - 2);
-        $result .= htmlspecialchars($item['function'] . "($args)@" . $item['file'] . ':' . $item['line']) . "<br>\n";
+        $class = '';
+        if (isset($item['class']))
+            $class = $item['class'] . '::';
+        $result .= '<code>' . htmlspecialchars($class. $item['function'] . "($args)@" . $item['file'] . ':' . $item['line']) . "</code><br>\n";
     }
     return $result;
 }
