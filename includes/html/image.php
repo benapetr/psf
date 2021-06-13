@@ -28,6 +28,8 @@ class Image extends HtmlElement
     public $URL = NULL;
     public $AlternateText = "";
     public $Title = NULL;
+    //! Change to name of JS function to call when checkbox is clicked
+    public $OnClickCallback = NULL;
 
     public function __construct($image, $alt = "", $w = NULL, $h = NULL, $_parent = NULL)
     {
@@ -61,6 +63,8 @@ class Image extends HtmlElement
             $html .= " title=\"" . $this->Title . "\"";
         if ($this->ClassName !== NULL)
             $html .= " class=\"" . $this->ClassName . "\"";
+        if ($this->OnClickCallback !== NULL)
+            $html .= ' onclick="' . $this->OnClickCallback . '"';
         $html .= ">";
         if ($this->Style !== NULL)
         {
