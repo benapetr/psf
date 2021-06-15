@@ -30,6 +30,8 @@ class Image extends HtmlElement
     public $Title = NULL;
     //! Change to name of JS function to call when checkbox is clicked
     public $OnClickCallback = NULL;
+    public $OnMouseOverCallback = NULL;
+    public $OnMouseOutCallback = NULL;
 
     public function __construct($image, $alt = "", $w = NULL, $h = NULL, $_parent = NULL)
     {
@@ -65,6 +67,10 @@ class Image extends HtmlElement
             $html .= " class=\"" . $this->ClassName . "\"";
         if ($this->OnClickCallback !== NULL)
             $html .= ' onclick="' . $this->OnClickCallback . '"';
+        if ($this->OnMouseOverCallback !== NULL)
+            $html .= ' onmouseover="' . $this->OnMouseOverCallback . '"';
+        if ($this->OnMouseOutCallback !== NULL)
+            $html .= ' onmouseout="' . $this->OnMouseOutCallback . '"';
         $html .= ">";
         if ($this->Style !== NULL)
         {
