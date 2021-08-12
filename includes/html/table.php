@@ -91,6 +91,10 @@ class HtmlTable extends HtmlElement
     public $THead = false;
     //! Wrap data in <tbody> tags (use in combination with $THead)
     public $TBody = false;
+    //! Set a class for a given row
+    public $RowClass = array();
+    //! Set an id (for Css) for a given row
+    public $RowID = array();
 
     public function GetFormat()
     {
@@ -224,6 +228,7 @@ class HtmlTable extends HtmlElement
         if ($this->TBody)
             $html .= "<tbody>\n";
         $current_header = 0;
+        $row_id = 0;
         foreach ($this->Rows as $row)
         {
             if ($this->RepeatHeader)
@@ -237,7 +242,13 @@ class HtmlTable extends HtmlElement
                     $current_header++;
                 }
             }
-            $html .= "  <tr>\n";
+            $row_class = "";
+            $row_css_id = "";
+            if (array_key_exists($row_id, $this->RowClass))
+                $row_class = ' class="' . $this->RowClass[$row_id] . '"';
+            if (array_key_exists($row_id, $this->RowClass))
+                $row_css_id = ' id="' . $this->RowID[$row_id] . '"';
+            $html .= "  <tr" . $row_class . $row_css_id . ">\n";
             $header_n = 0;
             foreach ($row as $cell)
             {
@@ -250,6 +261,7 @@ class HtmlTable extends HtmlElement
                 $header_n++;
             }
             $html .= "  </tr>\n";
+            $row_id++;
         }
         if ($this->TBody)
             $html .= "</tbody>\n";
