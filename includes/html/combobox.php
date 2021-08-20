@@ -37,9 +37,13 @@ class ComboBoxItem extends HtmlElement
     {
         $_e = "<option";
         if ($this->Selected)
-          $_e .= ' selected="selected"';
+            $_e .= ' selected="selected"';
+        if ($this->Style !== NULL)
+            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->ClassName !== NULL)
+            $_e .= " class=\"" . $this->ClassName . "\"";
         if ($this->Value !== NULL)
-          $_e .= ' value="' . $this->Value . '"';
+            $_e .= ' value="' . $this->Value . '"';
         $_e .= ">";
         $_e .= $this->Text . "</option>";
         return $_e;
