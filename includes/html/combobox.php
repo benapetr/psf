@@ -82,6 +82,17 @@ class ComboBox extends HtmlElement
         $this->Items[] = $item;
     }
 
+    public function AddDefaultItem(ComboBoxItem $item)
+    {
+        $item->Selected = true;
+        $this->Items[] = $item;
+    }
+
+    public function AddItem(ComboBoxItem $item)
+    {
+        $this->Items[] = $item;
+    }
+
     public function ToHtml()
     {
         $_e = "<select";
