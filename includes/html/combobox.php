@@ -72,6 +72,7 @@ class ComboBox extends HtmlElement
         $item = new ComboBoxItem($value, $text, $this);
 		$item->Selected = true;
         $this->Items[] = $item;
+        return $item;
     }
 
     public function AddValue($value, $text = NULL)
@@ -80,6 +81,7 @@ class ComboBox extends HtmlElement
             $text = $value;
         $item = new ComboBoxItem($value, $text, $this);
         $this->Items[] = $item;
+        return $item;
     }
 
     public function AddDefaultItem(ComboBoxItem $item)
