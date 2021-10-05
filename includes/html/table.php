@@ -181,7 +181,8 @@ class HtmlTable extends HtmlElement
     }
 
     //! Converts the table to CSV format and return as a string
-    public function ToCSV($separator = ";", $replace_quotas = false)
+    //! $replace_quotes - if set to true, all quote symbols (" or ') will be removed
+    public function ToCSV($separator = ";", $remove_quotes = false, $enclose_in_quotes = false)
     {
         $txt = "";
         if (count($this->Headers) > 0)
@@ -189,12 +190,15 @@ class HtmlTable extends HtmlElement
             foreach ($this->Headers as $x)
             {
                 $str = str_replace($separator, "", $x);
-                if ($replace_quotas)
+                if ($remove_quotes)
                 {
                     $str = str_replace('"', "", $str);
                     $str = str_replace("'", "", $str);
                 }
-                $txt .= $str . $separator;
+                if ($enclose_in_quotes)
+                    $txt .= '"' . $str . '"' . $separator;
+                else
+                    $txt .= $str . $separator;
             }
             $txt .= "\n";
         }
@@ -203,12 +207,15 @@ class HtmlTable extends HtmlElement
             foreach ($row as $cell)
             {
                 $str = $cell->Html;
-                if ($replace_quotas)
+                if ($remove_quotes)
                 {
                     $str = str_replace('"', "", $str);
                     $str = str_replace("'", "", $str);
                 }
-                $txt .= $str . $separator;
+                if ($enclose_in_quotes)
+                    $txt .= '"' . $str . '"' . $separator;
+                else
+                    $txt .= $str . $separator;
             }
             $txt .= "\n";
         }
