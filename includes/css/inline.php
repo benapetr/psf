@@ -31,6 +31,8 @@ class InlineCSS extends CSS
     {
         if ($this->BackgroundColor !== NULL)
             $this->items['_inline_']['background-color'] = $this->BackgroundColor;
+        if ($this->FontSize !== NULL)
+            $this->items['_inline_']['font-size'] = $this->FontSize;
     }
 
     public function SetProperty($name, $value)

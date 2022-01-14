@@ -23,6 +23,7 @@ class CSS extends PsfObject
 {
     public $items = array();
     public $BackgroundColor = NULL;
+    public $FontSize = NULL;
 
     /*function __construct()
     {
@@ -33,6 +34,8 @@ class CSS extends PsfObject
     {
         if ($this->BackgroundColor !== NULL)
             $this->items['body']['background-color'] = $this->BackgroundColor;
+        if ($this->FontSize !== NULL)
+            $this->items['body']['font-size'] = $this->FontSize;
     }
 
     //! This is just a skeleton function that can be overriden in order to auto-initialize style for certain elements
