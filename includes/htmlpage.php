@@ -49,6 +49,8 @@ class HtmlPage extends HtmlContainer
     public $InternalJs = array();
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
+    //! <body onload=this>
+    public $Onload = NULL;
     public $AutoRefresh = 0;
     public $Header_Meta = array();
 
@@ -111,7 +113,11 @@ class HtmlPage extends HtmlContainer
     private function getBody()
     {
        $indent = 4;
-       $_b = "  <body>\n";
+       $_b = NULL;
+       if ($this->Onload !== NULL)
+         $_b = '  <body onload="' . $this->Onload . "\">\n";
+       else
+         $_b = "  <body>\n";
        $_b .= $this->Body;
        foreach ($this->Items as $html)
        {
