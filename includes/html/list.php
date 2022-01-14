@@ -21,6 +21,8 @@ require_once (dirname(__FILE__) . "/../css/inline.php");
 
 class BulletList extends HtmlElement
 {
+    //! You can override class name of each <li> element using this
+    public $ClassName_LI = NULL;
     public $Items = array();
 
     public function __construct($list = NULL, $_parent = NULL)
@@ -37,7 +39,10 @@ class BulletList extends HtmlElement
             $bx = '<ul class="' . $this->ClassName . "\">\n";
         foreach ($this->Items as $item)
         {
-            $bx .= "    <li>" . $item . "</li>\n";
+            $class_li = '';
+            if ($this->ClassName_LI !== NULL)
+                $class_li = ' class="' . $this->ClassName_LI . '"';
+            $bx .= "    <li${class_li}>" . $item . "</li>\n";
         }
         $bx .= "</ul>";
         return $bx;
