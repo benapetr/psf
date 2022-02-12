@@ -16,5 +16,5 @@
 
 define ('PSF_VERSION_MAJOR', '1');
 define ('PSF_VERSION_MINOR', '0');
-define ('PSF_VERSION_REVISION', '0');
+define ('PSF_VERSION_REVISION', '1');
 define ('PSF_VERSION', PSF_VERSION_MAJOR . "." . PSF_VERSION_MINOR . "." . PSF_VERSION_REVISION);

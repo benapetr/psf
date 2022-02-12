@@ -95,6 +95,12 @@ class ComboBox extends HtmlElement
         $this->Items[] = $item;
     }
 
+    public function SetDefault($key)
+    {
+        foreach ($this->Items as $item)
+            $item->Selected = ($key == $item->Value);
+    }
+
     public function ToHtml()
     {
         $_e = "<select";
