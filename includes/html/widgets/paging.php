@@ -29,7 +29,7 @@ class PagingWidget extends \HtmlContainer
     //! If there is more pages than this, widget will trim the list for easier navigation
     public $MaxPages = 20;
     //! In case pages are trimmed because there is too many, there will be N pages surrounding the current page, as well as first and last page
-    public $PageGap = 3;
+    public $PageGap = 4;
     public $PagingURLLink = "?page=";
     public $Prefix = "Page: ";
     
