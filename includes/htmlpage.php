@@ -44,8 +44,8 @@ class HtmlPage extends HtmlContainer
     public $ExternalCss = array();
     public $Style = NULL;
     public $ExternalJs = array();
-    public $Prefix_Head = '';
-    public $Suffix_Head = '';
+    public $Prefix_Head = NULL;
+    public $Suffix_Head = NULL;
     public $InternalJs = array();
     public $HtmlVersion = 5;
     public $Encoding = "UTF-8";
@@ -69,7 +69,8 @@ class HtmlPage extends HtmlContainer
         $_header = "<!DOCTYPE html>\n";
         $_header .= "<html lang=\"$this->Language\">\n";
         $_header .= "  <head>\n";
-        $_header .= $this->Prefix_Head;
+        if ($this->Prefix_Head !== NULL)
+            $_header .= "    " . $this->Prefix_Head . "\n";
         if ($this->HtmlVersion == 4)
             $_header .= "    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=$this->Encoding\">\n";
         else if ($this->HtmlVersion > 4)
@@ -105,7 +106,8 @@ class HtmlPage extends HtmlContainer
             $_header .= $this->Style->FetchCss(8);
             $_header .= "    </style>\n";
         }
-        $_header .= $this->Suffix_Head;
+        if ($this->Suffix_Head !== NULL)
+            $_header .= "    " . $this->Suffix_Head . "\n";
         $_header .= "  </head>\n";
         return $_header;
     }
