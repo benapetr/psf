@@ -38,6 +38,9 @@ require_once (dirname(__FILE__) . "/html/divcontainer.php");
 // Inline misc
 require_once (dirname(__FILE__) . "/html/script.php");
 
+// Widgets
+require_once (dirname(__FILE__) . "/html/widgets/paging.php");
+
 // Advanced
 require_once (dirname(__FILE__) . "/html/github.php");
 // This is not working
