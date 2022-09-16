@@ -32,6 +32,13 @@ function psf_php_enable_debug()
     error_reporting(E_ALL);
 }
 
+function psf_php_disable_debug()
+{
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    error_reporting(0);
+}
+
 // String tools
 
 //! Check if string is NULL or empty, unlike php's empty() it really works
