@@ -32,7 +32,7 @@ class LoginForm extends Form
     private $PassInput = NULL;
     private $bSubmit = NULL;
 
-    public function __construct($_parent = NULL)
+    public function __construct($_parent = NULL, $using_tfa = false)
     {
         parent::__construct($_parent = NULL);
         // Remember if we want to auto insert childs
@@ -47,6 +47,12 @@ class LoginForm extends Form
         $this->PassInput = new TextBox("loginPassword", "", $this);
         $this->PassInput->Placeholder = "Password";
         $this->PassInput->Password = true;
+        if ($using_tfa)
+        {
+            $this->AppendLineBreak();
+            $this->PassInput = new TextBox("loginTFAC", "", $this);
+            $this->PassInput->Placeholder = "2FA code";
+        }
         $this->AppendLineBreak();
         $this->bSubmit = new Button("login", "Login", $this);
         // Restore back original
