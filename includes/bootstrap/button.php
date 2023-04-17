@@ -23,7 +23,10 @@ class BS_Button extends Button
 {
     public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
     {
+        global $psf_bootstrap_target_version;
         $this->ClassName = "btn";
+        if ($psf_bootstrap_target_version == 5)
+            $this->ClassName .= " btn-primary";
         if ($bs_class !== NULL)
             $this->ClassName .= " " . $bs_class;
         parent::__construct($_name, $_value, $_parent);

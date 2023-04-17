@@ -21,6 +21,7 @@ $psf_language = "en";
 //! If set to true, all containers will automatically insert child objects
 $psf_containers_auto_insert_child = false;
 $psf_bootstrap_enabled = True;
+$psf_bootstrap_target_version = 3;
 $psf_encoding = "UTF-8";
 $psf_indent = 4;
 // Set to false to improve performance on huge pages

@@ -28,9 +28,10 @@ require_once (dirname(__FILE__) . "/bootstrap/tabs.php");
 require_once (dirname(__FILE__) . "/bootstrap/textbox.php");
 require_once (dirname(__FILE__) . "/bootstrap/well.php");
 
-function bootstrap_init($page)
+function bootstrap_init($page, $version = 3)
 {
-    global $psf_bootstrap_css_url, $psf_bootstrap_js_url;
+    global $psf_bootstrap_css_url, $psf_bootstrap_js_url, $psf_bootstrap_target_version;
+    $psf_bootstrap_target_version = $version;
     $bs = $psf_bootstrap_css_url;
     if (!in_array($bs, $page->ExternalCss))
         $page->ExternalCss[] = $bs;
