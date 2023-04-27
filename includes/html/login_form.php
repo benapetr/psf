@@ -30,6 +30,7 @@ class LoginForm extends Form
     public $DefaultUser = "";
     private $UserInput = NULL;
     private $PassInput = NULL;
+    private $TFACInput = NULL;
     private $bSubmit = NULL;
 
     public function __construct($_parent = NULL, $using_tfa = false)
@@ -50,8 +51,9 @@ class LoginForm extends Form
         if ($using_tfa)
         {
             $this->AppendLineBreak();
-            $this->PassInput = new TextBox("loginTFAC", "", $this);
-            $this->PassInput->Placeholder = "2FA code";
+            $this->TFACInput = new TextBox("loginTFAC", "", $this);
+            $this->TFACInput->Autocomplete = false;
+            $this->TFACInput->Placeholder = "2FA code";
         }
         $this->AppendLineBreak();
         $this->bSubmit = new Button("login", "Login", $this);

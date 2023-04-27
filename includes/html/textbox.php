@@ -23,6 +23,8 @@ class TextBox extends HtmlElement
 {
     public $Enabled = true;
     public $Name;
+    //! If input should remember history
+    public $Autocomplete = true;
     public $Value;
     private $Multiline = false;
     public $Rows = NULL;
@@ -80,6 +82,8 @@ class TextBox extends HtmlElement
             $_e .= " onChange=\"" . $this->OnChangeCallback . "\"";
         if ($this->Required === true)
             $_e .= " required";
+        if ($this->Autocomplete === false)
+            $_e .= " autocomplete=\"off\"";
         $_e .= ">";
         if ($this->Multiline)
         {
