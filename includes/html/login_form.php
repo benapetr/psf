@@ -53,6 +53,8 @@ class LoginForm extends Form
             $this->AppendLineBreak();
             $this->TFACInput = new TextBox("loginTFAC", "", $this);
             $this->TFACInput->Autocomplete = false;
+            $this->TFACInput->NumbersOnly = true;
+            $this->TFACInput->Title = "2FA code (numbers only)";
             $this->TFACInput->Placeholder = "2FA code";
         }
         $this->AppendLineBreak();

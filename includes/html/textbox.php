@@ -36,6 +36,8 @@ class TextBox extends HtmlElement
     public $Size = NULL;
     //! Change to name of JS function to call when textbox content is modified
     public $OnChangeCallback = NULL;
+    public $NumbersOnly = false;
+    public $Title = NULL;
 
     public function __construct($_name = NULL, $_value = NULL, $_parent = NULL)
     {
@@ -84,6 +86,10 @@ class TextBox extends HtmlElement
             $_e .= " required";
         if ($this->Autocomplete === false)
             $_e .= " autocomplete=\"off\"";
+        if ($this->NumbersOnly === true)
+            $_e .= " pattern=\"[0-9]+\"";
+        if ($this->Title !== NULL)
+            $_e .= " title=\"" . $this->Title . "\"";
         $_e .= ">";
         if ($this->Multiline)
         {
