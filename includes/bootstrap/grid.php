@@ -33,7 +33,7 @@ class BS_GridItem extends HtmlElement
         if ($this->item === NULL)
             return "";
 
-        $html = '<div class="col-sm-4 col-md-3 col-lg-2">';
+        $html = "<div class=\"col\">";
         $html .= $this->item->ToHtml();
         $html .= '</div>';
         return $html;
@@ -46,6 +46,7 @@ class BS_GridRow extends DivContainer
 
     public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
     {
+        //$this->ClassName = "row row-cols-{$this->ColsMax} row-cols-sm-{$this->ColsSm} row-cols-md-{$this->ColsMd} row-cols-lg-{$this->ColsLg}";
         $this->ClassName = "row";
         parent::__construct($_name, $_value, $_parent);
     }
@@ -60,18 +61,21 @@ class BS_GridRow extends DivContainer
 class BS_Grid extends DivContainer
 {
     //! Maximum columns per row
-    public $ColsMax = 6;
+    public $ColsMax = 0;
+    /*public $ColsSm = 6;
+    public $ColsMd = 8;
+    public $ColsLg = 10;*/
     private $currentRow = NULL;
 
     public function __construct($_name = NULL, $_value = NULL, $bs_class = NULL, $_parent = NULL)
     {
-        $this->ClassName = "container";
+        $this->ClassName = "container-fluid";
         parent::__construct($_name, $_value, $_parent);
     }
 
     public function AppendObject($object)
     {
-        if ($this->currentRow === NULL || $this->currentRow->Size >= $this->ColsMax)
+        if ($this->currentRow === NULL || ($this->ColsMax > 0 && $this->currentRow->Size >= $this->ColsMax))
         {
             $this->currentRow = new BS_GridRow();
             parent::AppendObject($this->currentRow);
