@@ -51,10 +51,10 @@ class BS_GridRow extends DivContainer
         parent::__construct($_name, $_value, $_parent);
     }
 
-    public function AppendObject($object)
+    public function AppendObject($object, $indent = -1, $force = false)
     {
         $this->Size++;
-        parent::AppendObject(new BS_GridItem($object));
+        parent::AppendObject(new BS_GridItem($object), $indent, $force);
     }
 }
 
@@ -73,13 +73,13 @@ class BS_Grid extends DivContainer
         parent::__construct($_name, $_value, $_parent);
     }
 
-    public function AppendObject($object)
+    public function AppendObject($object, $indent = -1, $force = false)
     {
         if ($this->currentRow === NULL || ($this->ColsMax > 0 && $this->currentRow->Size >= $this->ColsMax))
         {
             $this->currentRow = new BS_GridRow();
-            parent::AppendObject($this->currentRow);
+            parent::AppendObject($this->currentRow, $indent, $force);
         }
-        $this->currentRow->AppendObject($object);
+        $this->currentRow->AppendObject($object, $indent, $force);
     }
 }
