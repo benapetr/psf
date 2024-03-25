@@ -28,6 +28,7 @@ require_once (dirname(__FILE__) . "/bootstrap/table.php");
 require_once (dirname(__FILE__) . "/bootstrap/tabs.php");
 require_once (dirname(__FILE__) . "/bootstrap/textbox.php");
 require_once (dirname(__FILE__) . "/bootstrap/well.php");
+require_once (dirname(__FILE__) . "/bootstrap/progressbar.php");
 
 function bootstrap_init($page, $version = 3)
 {
