@@ -17,5 +17,5 @@
 if (!defined("PSF_ENTRY_POINT"))
     die("Not a valid psf entry point");
 
-$psf_bootstrap_css_url = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
-$psf_bootstrap_js_url = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
+$psf_bootstrap_css_url = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css";
+$psf_bootstrap_js_url = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js";
