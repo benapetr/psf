@@ -1,8 +1,8 @@
-This simple php framework makes it super easy to create full featured HTML
-pages with basically zero knowledge of HTML, CSS or JS. You create web pages
-just using the object oriented PHP code and nothing else.
+# PSF (PHP Simple Framework) Documentation
 
-See wiki for a complete documentation.
+PSF is a lightweight PHP framework that allows you to create full-featured HTML pages using purely object-oriented PHP code, without writing any HTML, CSS, or JavaScript directly. It's designed to make web development simpler and more maintainable by providing a clean, object-oriented interface to web page elements.
+
+See wiki or docs for a complete documentation.
 
 Please note that PSF is a work in progress and many features are missing now.
 
