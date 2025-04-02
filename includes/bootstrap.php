@@ -24,6 +24,7 @@ require_once (dirname(__FILE__) . "/bootstrap/checkbox.php");
 require_once (dirname(__FILE__) . "/bootstrap/combobox.php");
 require_once (dirname(__FILE__) . "/bootstrap/form.php");
 require_once (dirname(__FILE__) . "/bootstrap/grid.php");
+require_once (dirname(__FILE__) . "/bootstrap/navbar.php");
 require_once (dirname(__FILE__) . "/bootstrap/table.php");
 require_once (dirname(__FILE__) . "/bootstrap/tabs.php");
 require_once (dirname(__FILE__) . "/bootstrap/textbox.php");
