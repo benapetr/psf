@@ -43,6 +43,7 @@ require_once (dirname(__FILE__) . "/html/widgets/paging.php");
 
 // Advanced
 require_once (dirname(__FILE__) . "/html/github.php");
+require_once (dirname(__FILE__) . "/html/markdown.php");
 // This is not working
 //require_once (dirname(__FILE__) . "/wmfoauth.php");
 require_once (dirname(__FILE__) . "/googlefonts.php");
