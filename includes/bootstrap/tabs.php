@@ -25,32 +25,50 @@ class BS_Tabs extends BulletList
 
     public function __construct($list = NULL, $_parent = NULL)
     {
+        global $psf_bootstrap_target_version;
         parent::__construct($_parent);
         if ($list !== NULL)
             $this->Items = $list;
         $this->ClassName = 'nav nav-tabs';
+        if ($psf_bootstrap_target_version == 5)
+            $this->ClassName .= ' mb-3';
     }
 
     public function ToHtml()
     {
-        $bx = "<ul class='" . $this->ClassName . "'>\n";
+        global $psf_bootstrap_target_version;
+        $bx = "<ul class='" . $this->ClassName . "' role='tablist'>\n";
         $i = 0;
-        foreach ($this->Items as $item)
+
+        if ($psf_bootstrap_target_version == 5)
         {
-            if ($i == $this->SelectedTab)
+            foreach ($this->Items as $item)
             {
-                $class_li = 'class="active"';
-                if ($this->ClassName_LI !== NULL)
-                    $class_li = 'class="active ' . $this->ClassName_LI . '"';
-                $bx .= "    <li ${class_li}>" . $item . "</li>\n";
-            } else
-            {
-                $class_li = '';
-                if ($this->ClassName_LI !== NULL)
-                    $class_li = ' class="' . $this->ClassName_LI . '"';
-                $bx .= "    <li${class_li}>" . $item . "</li>\n";
+                $li = '    <li class="nav-item" role="presentation">';
+                $li .= $item;
+                $li .= "</li>\n";
+                $bx .= $li;
+                $i++;
             }
-            $i++;
+        } else
+        {
+            foreach ($this->Items as $item)
+            {
+                if ($i == $this->SelectedTab)
+                {
+                    $class_li = 'class="active"';
+                    if ($this->ClassName_LI !== NULL)
+                        $class_li = 'class="active ' . $this->ClassName_LI . '"';
+                    $bx .= "    <li ${class_li}>" . $item . "</li>\n";
+                } else
+                {
+                    $class_li = '';
+                    if ($this->ClassName_LI !== NULL)
+                        $class_li = ' class="' . $this->ClassName_LI . '"';
+                    $bx .= "    <li${class_li}>" . $item . "</li>\n";
+                }
+                $i++;
+            }
         }
         $bx .= "</ul>";
         return $bx;
