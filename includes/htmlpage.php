@@ -53,6 +53,7 @@ class HtmlPage extends HtmlContainer
     public $Onload = NULL;
     public $AutoRefresh = 0;
     public $Header_Meta = array();
+    public $HtmlTagExtras = '';
 
     function __construct($_title, $_parent = NULL)
     {
@@ -67,7 +68,7 @@ class HtmlPage extends HtmlContainer
     private function getHeader()
     {
         $_header = "<!DOCTYPE html>\n";
-        $_header .= "<html lang=\"$this->Language\">\n";
+        $_header .= "<html lang=\"$this->Language\"$this->HtmlTagExtras>\n";
         $_header .= "  <head>\n";
         if ($this->Prefix_Head !== NULL)
             $_header .= "    " . $this->Prefix_Head . "\n";
