@@ -23,7 +23,11 @@ class BS_ComboBox extends ComboBox
 {
     public function __construct($_name = NULL, $_parent = NULL)
     {
-        $this->ClassName = "form-control";
+        global $psf_bootstrap_target_version;
+        if ($psf_bootstrap_target_version == 5)
+            $this->ClassName = "form-select";
+        else
+            $this->ClassName = "form-control";
         parent::__construct($_name, $_parent);
     }
 }
