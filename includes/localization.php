@@ -30,6 +30,11 @@ class Language
         return $this->data[$key];
     }
 
+    function GetData()
+    {
+        return $this->data;
+    }
+
     function __construct($datafile)
     {
         $handle = fopen("$datafile", "r");
@@ -45,7 +50,7 @@ class Language
                 continue;
             $key = substr($line, 0, strpos($line, ':'));
             $value = substr($line, strpos($line, ':') + 1);
-            $this->data[$key] = $value;
+            $this->data[$key] = trim($value);
         }
     }
 }
@@ -74,6 +79,12 @@ class Localization
         if (!$x)
             return "[$key]";
         return $x;
+    }
+
+    public static function GetData()
+    {
+        self::Initialize();
+        return self::$dl->GetData();
     }
 
     public static function SetLanguage($id)

@@ -81,6 +81,7 @@ class BS_Navbar extends HtmlElement
     public $DarkMode = false;
     public $LogoText = '';
     public $Tabs = NULL;
+    public $FixedTop = false;
 
     public function __construct($_parent = NULL)
     {
@@ -96,10 +97,13 @@ class BS_Navbar extends HtmlElement
     public function ToHtml()
     {
         $_e = '';
+        $flags = '';
+        if ($this->FixedTop)
+            $flags .= ' fixed-top';
         if ($this->DarkMode)
-            $_e = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">';
+            $_e = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark' . $flags . '">';
         else
-            $_e = '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
+            $_e = '<nav class="navbar navbar-expand-lg navbar-light bg-light' . $flags . '">';
 
         $_e .= '<div class="container">';
         $_e .= '<a class="navbar-brand" href="#">' . $this->LogoText . '</a>';
