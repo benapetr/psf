@@ -35,9 +35,10 @@ class BS_Alert extends DivContainer
 
     private function getClass()
     {
+        global $psf_bootstrap_target_version;
         $class = "alert alert-" . $this->Type;
         if ($this->IsDismissable)
-            $class .= " alert-dismissable";
+            $class .= ($psf_bootstrap_target_version == 5) ? " alert-dismissible" : " alert-dismissable";
         return $class;
     }
 

@@ -32,8 +32,9 @@ class BS_Table extends HtmlTable
 
     public function ToHtml()
     {
+        global $psf_bootstrap_target_version;
         if ($this->Condensed)
-            $this->ClassName .= " table-condensed";
+            $this->ClassName .= ($psf_bootstrap_target_version == 5) ? " table-sm" : " table-condensed";
         if ($this->BorderSize !== NULL)
             $this->ClassName .= " table-bordered";
         if ($this->Hover)

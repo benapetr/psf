@@ -28,12 +28,14 @@ class BS_Well extends DivContainer
 
     public function ToHtml()
     {
+        global $psf_bootstrap_target_version;
+        $base = ($psf_bootstrap_target_version == 5) ? "card p-3" : "well";
         if ($this->ClassName === NULL)
         {
-            $this->ClassName = "well";
+            $this->ClassName = $base;
         } else
         {
-            $this->ClassName = "well " . $this->ClassName;
+            $this->ClassName = $base . " " . $this->ClassName;
         }
         return parent::ToHtml();
     }
