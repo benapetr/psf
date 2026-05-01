@@ -97,6 +97,16 @@ class ComboBox extends HtmlElement
         $this->Items[] = $item;
     }
 
+    public function ContainsValue($value)
+    {
+        foreach ($this->Items as $item)
+        {
+            if ($item->Value == $value)
+                return true;
+        }
+        return false;
+    }
+
     public function SetDefault($key)
     {
         foreach ($this->Items as $item)
