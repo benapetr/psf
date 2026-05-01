@@ -30,4 +30,14 @@ class BS_ComboBox extends ComboBox
             $this->ClassName = "form-control";
         parent::__construct($_name, $_parent);
     }
+
+    public function ToHtml()
+    {
+        $class_name = $this->ClassName;
+        if ($this->Editable && !$this->Multiple && $this->ClassName !== NULL)
+            $this->ClassName = str_replace("form-select", "form-control", $this->ClassName);
+        $html = parent::ToHtml();
+        $this->ClassName = $class_name;
+        return $html;
+    }
 }

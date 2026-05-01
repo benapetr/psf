@@ -52,12 +52,14 @@ class ComboBoxItem extends HtmlElement
 
 class ComboBox extends HtmlElement
 {
+    public $Editable = false;
     public $Multiple = false;
     public $Enabled = true;
     public $Name;
     public $Autofocus = false;
     public $OnChangeCallback = NULL;
     public $Items = [];
+    public $EditableListId = NULL;
 
     public function __construct($_name = NULL, $_parent = NULL)
     {
@@ -103,6 +105,9 @@ class ComboBox extends HtmlElement
 
     public function ToHtml()
     {
+        if ($this->Editable && !$this->Multiple)
+            return $this->ToEditableHtml();
+
         $_e = "<select";
         if ($this->Name !== NULL)
             $_e .= " name=\"$this->Name\"";
@@ -120,6 +125,64 @@ class ComboBox extends HtmlElement
         foreach ($this->Items as $item)
             $_e .= "  " . $item->ToHtml() . "\n";
         $_e .= "</select>";
+        return $_e;
+    }
+
+    protected function GetSelectedValue()
+    {
+        foreach ($this->Items as $item)
+        {
+            if ($item->Selected)
+                return ($item->Value !== NULL) ? $item->Value : $item->Text;
+        }
+        return NULL;
+    }
+
+    protected function GetEditableListId()
+    {
+        if ($this->EditableListId !== NULL)
+            return $this->EditableListId;
+        if ($this->Name !== NULL)
+            return "datalist_" . preg_replace('/[^A-Za-z0-9_-]/', '_', $this->Name);
+        return "datalist_" . spl_object_hash($this);
+    }
+
+    protected function ToEditableHtml()
+    {
+        $list_id = $this->GetEditableListId();
+        $_e = "<input type=\"text\"";
+        if ($this->Name !== NULL)
+            $_e .= " name=\"$this->Name\"";
+        $_e .= " list=\"" . htmlspecialchars($list_id) . "\"";
+        $selected_value = $this->GetSelectedValue();
+        if ($selected_value !== NULL)
+            $_e .= " value=\"" . htmlspecialchars($selected_value) . "\"";
+        if ($this->Style !== NULL)
+            $_e .= " style=\"" . $this->Style->ToCss() . "\"";
+        if ($this->ClassName !== NULL)
+            $_e .= " class=\"" . $this->ClassName . "\"";
+        if ($this->OnChangeCallback !== NULL)
+            $_e .= ' onchange="' . $this->OnChangeCallback . '"';
+        if (!$this->Enabled)
+            $_e .= " disabled";
+        $_e .= ">\n";
+        $_e .= "<datalist id=\"" . htmlspecialchars($list_id) . "\">\n";
+        foreach ($this->Items as $item)
+        {
+            $value = ($item->Value !== NULL) ? $item->Value : $item->Text;
+            $_e .= "  <option";
+            if ($value !== NULL)
+                $_e .= " value=\"" . htmlspecialchars($value) . "\"";
+            if ($item->Style !== NULL)
+                $_e .= " style=\"" . $item->Style->ToCss() . "\"";
+            if ($item->ClassName !== NULL)
+                $_e .= " class=\"" . $item->ClassName . "\"";
+            $_e .= ">";
+            if ($item->Text !== NULL && $item->Text != $value)
+                $_e .= htmlspecialchars($item->Text);
+            $_e .= "</option>\n";
+        }
+        $_e .= "</datalist>";
         return $_e;
     }
 }
