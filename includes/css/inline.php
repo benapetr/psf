@@ -42,6 +42,10 @@ class InlineCSS extends CSS
 
     public function GetProperty($name)
     {
+        if (!array_key_exists('_inline_', $this->items))
+            return NULL;
+        if (!array_key_exists($name, $this->items['_inline_']))
+            return NULL;
         return $this->items['_inline_'][$name];
     }
 
@@ -58,4 +62,3 @@ class InlineCSS extends CSS
         return $buff;
     }
 }
-
