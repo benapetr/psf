@@ -24,8 +24,11 @@ class HtmlTable_Cell extends HtmlElement
 {
     public $Format = NULL;
     public $Class = NULL;
+    public $ColSpan = NULL;
     public $Html;
+    public $IsHeader = false;
     public $PsfObj = NULL;
+    public $RowSpan = NULL;
 
     public function __construct($_html_ = "", $_parent = NULL)
     {
@@ -54,15 +57,22 @@ class HtmlTable_Cell extends HtmlElement
         if ($this->Class !== NULL)
             $prefix .= " class=\"" . $this->Class . "\"";
         
+        if ($this->ColSpan !== NULL && $this->ColSpan > 1)
+            $prefix .= " colspan=\"" . $this->ColSpan . "\"";
+
+        if ($this->RowSpan !== NULL && $this->RowSpan > 1)
+            $prefix .= " rowspan=\"" . $this->RowSpan . "\"";
+
         if ($width != NULL)
             $prefix .= " width=\"" . $width . "\"";
 
-        $html = "<td" . $prefix . ">";
+        $tag = $this->IsHeader ? "th" : "td";
+        $html = "<$tag" . $prefix . ">";
         if ($this->PsfObj === NULL)
             $html .= $this->Html;
         else
             $html .= $this->PsfObj->ToHtml();
-        $html .= "</td>";
+        $html .= "</$tag>";
         return $html;
     }
 }
