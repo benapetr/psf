@@ -53,7 +53,7 @@ class InlineCSS extends CSS
     {
         $this->Load();
         if (!array_key_exists("_inline_", $this->items))
-           return;
+           return '';
         $buff = '';
         foreach ($this->items['_inline_'] as $name => $values)
         {
