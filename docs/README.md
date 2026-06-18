@@ -50,7 +50,7 @@ $wp->PrintHtml();
 
 - **Pure PHP Development**: Create complete web pages using only PHP code
 - **Object-Oriented Design**: Everything is an object, making code more organized and maintainable
-- **Bootstrap Integration**: Built-in support for Bootstrap 3
+- **Bootstrap Integration**: Built-in support for Bootstrap 3 and 5
 - **Component Library**: Rich set of pre-built components including:
   - Tables
   - Forms
