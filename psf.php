@@ -21,6 +21,7 @@ require_once (dirname(__FILE__) . "/definitions.php");
 require_once (dirname(__FILE__) . "/default_config.php");
 require_once (dirname(__FILE__) . "/includes/systemlog.php");
 require_once (dirname(__FILE__) . "/includes/localization.php");
+require_once (dirname(__FILE__) . "/includes/templates/template.php");
 
 // Authentication stack
 require_once (dirname(__FILE__) . "/includes/auth_stack.php");
@@ -34,4 +35,3 @@ require_once (dirname(__FILE__) . "/includes/api/apibase_json.php");
 // JS stuff
 //require_once (dirname(__FILE__) . "/includes/js/jshandler.php");
 //require_once (dirname(__FILE__) . "/includes/js/tooltip.php");
-
