@@ -160,24 +160,24 @@ class PsfApiBase extends PsfObject
 
     public function ProcessAction()
     {
-        $method = NULL;
+        // Locate the action selector (it may travel via query string or POST body).
         if (isset($_GET['action']))
-        {
-            $method = 'GET';
             $action = strtolower($_GET['action']);
-        } else if (isset($_POST['action']))
-        {
-            $method = 'POST';
+        else if (isset($_POST['action']))
             $action = strtolower($_POST['action']);
-        } else
-        {
+        else
             return false;
-        }
 
         if (!array_key_exists($action, $this->ApiList_Action))
             return false;
 
-        if ($method !== 'POST' && $this->ApiList_Action[$action]->POSTOnly)
+        // POSTOnly must be enforced against the ACTUAL HTTP request method, not
+        // against where the 'action' parameter happened to be found. Otherwise a
+        // legitimate POST request that carries ?action=... in the URL is wrongly
+        // rejected with "POST only".
+        $http_method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
+
+        if ($http_method !== 'POST' && $this->ApiList_Action[$action]->POSTOnly)
             $this->ThrowError("POST only", "This call must be submitted via POST method", 403);
 
         if ($this->ApiList_Action[$action]->RequiresAuthentication && !$this->AuthenticationBackend->IsAuthenticated())
