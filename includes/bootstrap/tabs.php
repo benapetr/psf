@@ -59,13 +59,13 @@ class BS_Tabs extends BulletList
                     $class_li = 'class="active"';
                     if ($this->ClassName_LI !== NULL)
                         $class_li = 'class="active ' . $this->ClassName_LI . '"';
-                    $bx .= "    <li ${class_li}>" . $item . "</li>\n";
+                    $bx .= "    <li {$class_li}>" . $item . "</li>\n";
                 } else
                 {
                     $class_li = '';
                     if ($this->ClassName_LI !== NULL)
                         $class_li = ' class="' . $this->ClassName_LI . '"';
-                    $bx .= "    <li${class_li}>" . $item . "</li>\n";
+                    $bx .= "    <li{$class_li}>" . $item . "</li>\n";
                 }
                 $i++;
             }

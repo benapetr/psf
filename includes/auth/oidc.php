@@ -123,6 +123,7 @@ class PsfOIDC extends PsfAuthBase
     protected $TokenEndpoint = null;
     protected $UserinfoEndpoint = null;
     protected $JwksUri = null;
+    protected $EndSessionEndpoint = null;
     
     // Session and state management
     protected $State = null;
@@ -630,7 +631,8 @@ class PsfOIDC extends PsfAuthBase
         
         $response = curl_exec($ch);
         $error = curl_error($ch);
-        curl_close($ch);
+        if (is_resource($ch))
+            curl_close($ch);
         
         if ($error) {
             error_log("OIDC request error: " . $error);

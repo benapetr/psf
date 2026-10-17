@@ -53,10 +53,10 @@ class PagingWidget extends \HtmlContainer
             {
                 if ($current_page == $this->SelectedPage)
                 {
-                    $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                    $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                 } else
                 {
-                    $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                    $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                 }
                 $current_page++;
             }
@@ -71,10 +71,10 @@ class PagingWidget extends \HtmlContainer
                 {
                     if ($current_page == $this->SelectedPage)
                     {
-                        $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                        $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                     } else
                     {
-                        $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                        $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                     }
                     $additional_pages--;
                     $current_page++;
@@ -89,10 +89,10 @@ class PagingWidget extends \HtmlContainer
                 {
                     if ($current_page == $this->SelectedPage)
                     {
-                        $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                        $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                     } else
                     {
-                        $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                        $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                     }
                     $current_page++;
                 }
@@ -104,10 +104,10 @@ class PagingWidget extends \HtmlContainer
                 {
                     if ($current_page == $this->SelectedPage)
                     {
-                        $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                        $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                     } else
                     {
-                        $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                        $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                     }
                     $current_page++;
                 }
@@ -121,10 +121,10 @@ class PagingWidget extends \HtmlContainer
                 {
                     if ($current_page == $this->SelectedPage)
                     {
-                        $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                        $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                     } else
                     {
-                        $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                        $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                     }
                     $current_page++;
                 }
@@ -137,10 +137,10 @@ class PagingWidget extends \HtmlContainer
                 {
                     if ($current_page == $this->SelectedPage)
                     {
-                        $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                        $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                     } else
                     {
-                        $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                        $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                     }
                     $current_page++;
                 }
@@ -152,10 +152,10 @@ class PagingWidget extends \HtmlContainer
             {
                 if ($current_page == $this->SelectedPage)
                 {
-                    $result .= "<b><a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a></b> ";
+                    $result .= "<b><a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a></b> ";
                 } else
                 {
-                    $result .= "<a href=\"" . $this->PagingURLLink . "${current_page}\">${current_page}</a> ";
+                    $result .= "<a href=\"" . $this->PagingURLLink . "{$current_page}\">{$current_page}</a> ";
                 }
                 $current_page++;
             }

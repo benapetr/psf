@@ -263,7 +263,7 @@ class HtmlTable extends HtmlElement
             $row_css_id = "";
             if (array_key_exists($row_id, $this->RowClass))
                 $row_class = ' class="' . $this->RowClass[$row_id] . '"';
-            if (array_key_exists($row_id, $this->RowClass))
+            if (array_key_exists($row_id, $this->RowID))
                 $row_css_id = ' id="' . $this->RowID[$row_id] . '"';
             $html .= "  <tr" . $row_class . $row_css_id . ">\n";
             $header_n = 0;

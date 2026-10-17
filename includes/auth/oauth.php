@@ -115,7 +115,8 @@ class PsfOAuth
 		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
 		exit(0);
 	}
-	curl_close( $ch );
+	if (is_resource($ch))
+	    curl_close($ch);
 	$token = json_decode( $data );
 	if ( is_object( $token ) && isset( $token->error ) ) {
 		header( "HTTP/1.1 500 Internal Server Error" );
@@ -165,7 +166,8 @@ class PsfOAuth
 		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
 		exit(0);
 	}
-	curl_close( $ch );
+	if (is_resource($ch))
+	    curl_close($ch);
         echo $data;
 	$token = json_decode( $data );
 	if ( is_object( $token ) && isset( $token->error ) ) {
@@ -228,7 +230,8 @@ class PsfOAuth
 		header( "HTTP/1.1 500 Internal Server Error" );
 		echo 'Curl error: ' . htmlspecialchars( curl_error( $ch ) );
 	}
-	curl_close( $ch );
+	if (is_resource($ch))
+	    curl_close($ch);
 	$token = json_decode( $data );
 	if (is_object( $token ) && isset( $token->error ))
         {
