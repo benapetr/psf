@@ -56,31 +56,34 @@ function psf_string_is_null_or_empty($string)
 //! Trim string is it's longer than $max
 function psf_string_auto_trim($string, $max, $suffix = "")
 {
-    if (strlen($string) <= $max)
+    if ($string === NULL || strlen($string) <= $max)
         return $string;
     return substr($string, 0, $max) . $suffix;
 }
 
-//! Check if string starts with text
+//! Check if string starts with text; NULL is treated as an empty string
 function psf_string_startsWith($string, $text)
 {
-    return (strpos($string, $text) === 0);
+    $text = (string)$text;
+    return ($text === '' || strpos((string)$string, $text) === 0);
 }
 
-//! Check string ends with the text
+//! Check string ends with the text; NULL is treated as an empty string
 function psf_string_endsWith($string, $text)
 {
+    $text = (string)$text;
     $length = strlen($text);
     if ($length == 0)
         return true;
 
-    return (substr($string, -$length) === $text);
+    return (substr((string)$string, -$length) === $text);
 }
 
-//! Returns true if $string contains $text
+//! Returns true if $string contains $text; NULL is treated as an empty string
 function psf_string_contains($string, $text)
 {
-   return strpos($string, $text) !== false;
+    $text = (string)$text;
+    return ($text === '' || strpos((string)$string, $text) !== false);
 }
 
 //! Returns true if this instance of object is part of array
@@ -144,7 +147,7 @@ function _l($key)
 
 function psf_string2bool($str)
 {
-    $str = strtolower($str);
+    $str = strtolower((string)$str);
     if ($str == "true")
         return true;
     if ($str == "t")
