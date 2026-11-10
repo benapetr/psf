@@ -236,6 +236,30 @@ class HtmlTable extends HtmlElement
     {
         $prefix = "";
         $html = "<table $prefix" . $this->GetFormat() .">\n";
+        // Fixed table layout uses column definitions or the first row to size columns.
+        // A first-row title spanning the table cannot define individual column widths,
+        // so emit a colgroup to make SetColumnWidth work regardless of that row.
+        if (count($this->ColWidth) > 0)
+        {
+            $column_count = max(count($this->Headers), max(array_keys($this->ColWidth)) + 1);
+            foreach ($this->Rows as $row)
+            {
+                $row_columns = 0;
+                foreach ($row as $cell)
+                    $row_columns += max(1, (int)$cell->ColSpan);
+                $column_count = max($column_count, $row_columns);
+            }
+
+            $html .= "  <colgroup>\n";
+            for ($column = 0; $column < $column_count; $column++)
+            {
+                $column_style = '';
+                if (array_key_exists($column, $this->ColWidth))
+                    $column_style = ' style="width:' . htmlspecialchars($this->ColWidth[$column], ENT_QUOTES, 'UTF-8') . '"';
+                $html .= "    <col" . $column_style . ">\n";
+            }
+            $html .= "  </colgroup>\n";
+        }
         $header = $this->getHeader();
         if ($this->THead)
             $html .= "<thead>\n";
@@ -271,11 +295,14 @@ class HtmlTable extends HtmlElement
             {
                 if ($this->NameAsClass)
                   $cell->Class = psf_generate_friendly_name($this->Headers[$header_n]);
-                if (array_key_exists($header_n, $this->ColWidth))
+                $colspan = max(1, (int)$cell->ColSpan);
+                // Keep cell widths for export compatibility, but do not apply one
+                // column's width to a cell spanning several columns.
+                if ($colspan == 1 && array_key_exists($header_n, $this->ColWidth))
                     $html .= "    " . $cell->ToHtml($this->ColWidth[$header_n]) . "\n";
                 else
                     $html .= "    " . $cell->ToHtml() . "\n";
-                $header_n++;
+                $header_n += $colspan;
             }
             $html .= "  </tr>\n";
             $row_id++;
