@@ -47,12 +47,14 @@ class HtmlTable_Cell extends HtmlElement
         if ($this->Format !== NULL)
             $prefix .= " " . $this->Format;
 
-        if ($this->Style !== NULL)
-        {
-            $style = $this->Style->ToCss();
-            if (strlen($style) > 0)
-                $prefix .= " style=\"" . $style . "\"";
-        }
+        $style = ($this->Style !== NULL) ? $this->Style->ToCss() : '';
+        // CSS supports units such as px and mm; legacy width attributes do not.
+        // Html2Pdf also appends "px" to legacy widths, corrupting those units.
+        // Keep existing cell styles last so their explicit width still takes precedence.
+        if ($width !== NULL && $width !== '')
+            $style = 'width:' . htmlspecialchars(HtmlTable::WidthToCss($width), ENT_QUOTES, 'UTF-8') . ';' . $style;
+        if (strlen($style) > 0)
+            $prefix .= " style=\"" . $style . "\"";
 
         if ($this->Class !== NULL)
             $prefix .= " class=\"" . $this->Class . "\"";
@@ -62,9 +64,6 @@ class HtmlTable_Cell extends HtmlElement
 
         if ($this->RowSpan !== NULL && $this->RowSpan > 1)
             $prefix .= " rowspan=\"" . $this->RowSpan . "\"";
-
-        if ($width != NULL)
-            $prefix .= " width=\"" . $width . "\"";
 
         $tag = $this->IsHeader ? "th" : "td";
         $html = "<$tag" . $prefix . ">";
@@ -136,6 +135,15 @@ class HtmlTable extends HtmlElement
         $this->ColWidth[$column_id] = $width;
     }
 
+    // Bare numbers in the table API mean pixels; CSS needs an explicit unit.
+    public static function WidthToCss($width)
+    {
+        $width = trim((string)$width);
+        if (preg_match('/^(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/D', $width))
+            return $width . 'px';
+        return $width;
+    }
+
     //! Insert a new row by array that consist of html blocks only
     //! if you want to directly append array of html cells, just append directly to $this->Rows instead
     public function InsertRow(array $cells, $default_style = NULL)
@@ -174,7 +182,7 @@ class HtmlTable extends HtmlElement
             {
                 $custom_style = '';
                 if (array_key_exists($header_id, $this->ColWidth))
-                    $custom_style = ' style="width:' . $this->ColWidth[$header_id] . '"';
+                    $custom_style = ' style="width:' . htmlspecialchars(self::WidthToCss($this->ColWidth[$header_id]), ENT_QUOTES, 'UTF-8') . '"';
                 
                 if (array_key_exists($header_id, $this->HeaderClasses))
                     $html .= '    <th' . $custom_style . ' class="' . $this->HeaderClasses[$header_id] . '">' . $x . "</th>\n";
@@ -255,7 +263,7 @@ class HtmlTable extends HtmlElement
             {
                 $column_style = '';
                 if (array_key_exists($column, $this->ColWidth))
-                    $column_style = ' style="width:' . htmlspecialchars($this->ColWidth[$column], ENT_QUOTES, 'UTF-8') . '"';
+                    $column_style = ' style="width:' . htmlspecialchars(self::WidthToCss($this->ColWidth[$column]), ENT_QUOTES, 'UTF-8') . '"';
                 $html .= "    <col" . $column_style . ">\n";
             }
             $html .= "  </colgroup>\n";
